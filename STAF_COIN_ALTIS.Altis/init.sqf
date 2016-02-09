@@ -27,12 +27,15 @@ zeusmodule5 setVariable ["showNotification", false];
 	false 
 } count allCurators;
 
+// Base Medic
+IP_BaseMedic addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\heal_ca.paa'/> 'Heal me.'", {[player] call IP_fnc_ACEHeal}, [], 1.5, false, true, "", "(_this distance _target < 3)"];
+
 //_________________________________________Scripts_________________________________________//
 
-//Interior Light
+// Interior Light
 nul = [] execVM "scripts\IntLight.sqf";
 
-//MHQ script
+// MHQ Script
 nul = [] execVM "MHQ\initMHQ.sqf";
 
 //_________________________________________Post Processing && Weather_________________________________________//

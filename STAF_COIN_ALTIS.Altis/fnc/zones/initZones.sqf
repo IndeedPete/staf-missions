@@ -14,7 +14,7 @@ _returnSide = {
 };
 
 if !(isNil "IP_ZoneInitDone") exitWith {
-	"Zone inti already processed!" call BIS_fnc_error;
+	"Zone init already processed!" call BIS_fnc_error;
 };
 
 IP_ZoneInitDone = false;
@@ -47,16 +47,16 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		};
 		
 		_commanderCfg = _cfg >> "Commander";
-		_classname = getText(_commanderCfg >> "classname");
+		_className = getText(_commanderCfg >> "className");
 		_groupInit = getText(_commanderCfg >> "groupInit");
 		_isMerc = [false, true] select getNumber(_commanderCfg >> "isMerc");
 		_mode = getText(_commanderCfg >> "mode");
 		_rank = getText(_commanderCfg >> "rank");
-		_side = [(getNumber(configFile >> "CfgVehicles" >> _classname >> "side"))] call BIS_fnc_sideType;
+		_side = [(getNumber(configFile >> "CfgVehicles" >> _className >> "side"))] call BIS_fnc_sideType;
 		_unitInit = getText(_commanderCfg >> "unitInit");
 		
 		_grp = createGroup _side;
-		_commander = _grp createUnit [_classname, _centre, [], 0, "NONE"];
+		_commander = _grp createUnit [_className, _centre, [], 0, "NONE"];
 		_commander setRank _rank;
 
 		if (_isMerc) then {
@@ -64,7 +64,6 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		};
 		
 		_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
-		//_grp setVariable ["MCC_GAIA_CACHE", true, true];
 		
 		if (_groupInit != "") then {
 			_grp call (compile _groupInit);
@@ -80,7 +79,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		};
 		
 		private ["_assetConfigs", "_assets"];
-		_assetConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile >> "CfgZones" >> _zone >> "Assets");
+		_assetConfigs = "getNumber(_x >> 'active') > 0" configClasses (missionConfigFile >> "CfgZones" >> _zone >> "Assets");
 		_assets = [];
 		
 		{
@@ -88,7 +87,9 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			_probability = getNumber(_groupCfg >> "probability");
 			
 			if ((random 1) <= _probability) then {
+				_active = getNumber(_groupCfg >> "active");
 				_configPath = getArray(_groupCfg >> "configPath");
+				_classNames = getArray(_groupCfg >> "classNames");
 				_config = ([configFile, "CfgGroups"] + _configPath) call BIS_fnc_getCfg;
 				_groupInit = getText(_groupCfg >> "groupInit");
 				_isMerc = [false, true] select getNumber(_groupCfg >> "isMerc");
@@ -99,10 +100,10 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 				// ToDo: handle motorised patrols.
 				
 				_pos = _marker call IP_fnc_SHKPos;
-				_grp = [_pos, _side, _config] call BIS_fnc_spawnGroup;
+				_toSpawn = if (_active > 1) then {_config} else {_classNames};
+				_grp = [_pos, _side, _toSpawn] call BIS_fnc_spawnGroup;
 				
 				_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
-				//_grp setVariable ["MCC_GAIA_CACHE", true, true];
 				
 				if (_groupInit != "") then {
 					_grp call (compile _groupInit);
@@ -128,6 +129,24 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		_GL setVariable ["IP_ZoneAssets", _assets];
 	};
 } forEach _zoneConfigs;
+
+{
+	_grp = _x;
+	_assignedZone = _grp getVariable ["IP_Zone", []];
+	if (count _assignedZone == 2) then {
+		_zone = _assignedZone select 0;
+		_GL = missionNamespace getVariable [("IP_" + _zone), ObjNull];		
+		
+		if !(isNull _GL) then {
+			_mode = _assignedZone select 1;
+			_marker = "m" + _zone;			
+			_assets = _GL getVariable ["IP_ZoneAssets", []];
+			_assets pushBackUnique _grp;
+			_GL setVariable ["IP_ZoneAssets", _assets];
+			_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
+		};
+	};
+} forEach allGroups;
 
 IP_ZoneInitDone = true;
 publicVariable "IP_ZoneInitDone";

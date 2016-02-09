@@ -8,6 +8,7 @@
 _respawnDelayMASH = getNumber(missionConfigFile >> "respawnDelayMASH");
 if (_respawnDelayMASH > 0) then {
 	private ["_stretcher", "_gear"];
+	_respawnMessageMASH = getText(missionConfigFile >> "respawnMessageMASH");
 	_stretcher = ObjNull;
 	
 	{
@@ -35,10 +36,10 @@ if (_respawnDelayMASH > 0) then {
 	
 	[0] call BIS_fnc_cinemaBorder;
 	
-	systemChat "You fucked up, you cunt. Better stay in the M.A.S.H. for a while to learn your lesson.";
+	systemChat _respawnMessageMASH;
 	_t = time + _respawnDelayMASH;
 	while {time < _t} do {
-		systemChat format ["%1 seconds to go.", (_t - time)];
+		systemChat format ["Release in %1 seconds.", round(_t - time)];
 		sleep 5;
 	};
 	
