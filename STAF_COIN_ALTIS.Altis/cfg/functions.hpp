@@ -647,6 +647,10 @@
 		
 		class staf
 		{
+			class ACEHeal
+			{
+				file = "fnc\staf\ACEHeal.sqf";
+			};
 			class insignia
 			{
 				file = "fnc\staf\insignia.sqf";
