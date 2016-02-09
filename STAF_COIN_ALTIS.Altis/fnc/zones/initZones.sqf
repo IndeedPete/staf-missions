@@ -1,8 +1,4 @@
-params [
-	"_returnSide",
-	"_zoneConfigs"
-];
-
+private ["_returnSide", "_zoneConfigs"];
 _returnSide = {
 	private "_res";	
 	_res = switch (toUpper(_this)) do {
@@ -68,6 +64,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		};
 		
 		_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
+		//_grp setVariable ["MCC_GAIA_CACHE", true, true];
 		
 		if (_groupInit != "") then {
 			_grp call (compile _groupInit);
@@ -105,6 +102,8 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 				_grp = [_pos, _side, _config] call BIS_fnc_spawnGroup;
 				
 				_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
+				//_grp setVariable ["MCC_GAIA_CACHE", true, true];
+				
 				if (_groupInit != "") then {
 					_grp call (compile _groupInit);
 				};	

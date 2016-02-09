@@ -1,8 +1,21 @@
-//Automated Country Flag
+// Vars
+IP_Stretchers = [];
+
+// Automated Country Flag
 [player] spawn IP_fnc_insignia;
 
-//Automated TFR Radio
+// Automated TFR Radio
 [player] execVM "radio.sqf";
+
+// Hide Markers
+"mMeasure" setMarkerAlpha 0;
+
+// Stretchers for MASH Respawn
+{
+	if (_x getVariable ["IP_Stretcher", false]) then {
+		IP_Stretchers pushBack _x;
+	};
+} forEach allMissionObjects "All";
 
 // Debug
 [] spawn {
@@ -22,7 +35,7 @@
 			[(leader _x)] call IP_fnc_track;
 		} forEach allGroups;
 	} else {
-		//Restrict 3rd Person
-		nul=[] execVM "scripts\3rdView Restrictions.sqf";
+		// Restrict 3rd Person
+		nul = [] execVM "scripts\3rdView Restrictions.sqf";
 	};
 };

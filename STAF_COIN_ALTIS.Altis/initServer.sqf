@@ -8,5 +8,4 @@ IP_TESTMODE = true;
 [true, true, [], [[],[],[]], true] call IP_fnc_shopInit;
 
 // Init Zones.
-"mMeasure" setMarkerAlpha 0;
 [] call IP_fnc_initZones; 

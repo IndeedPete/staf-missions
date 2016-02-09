@@ -1,5 +1,52 @@
-//Automated Country Flag
+// Automated Country Flag
 [player] spawn IP_fnc_insignia;
 
-//Automated TFR Radio
+// Automated TFR Radio
 [player] execVM "radio.sqf";
+
+// MASH
+_respawnDelayMASH = getNumber(missionConfigFile >> "respawnDelayMASH");
+if (_respawnDelayMASH > 0) then {
+	private ["_stretcher", "_gear"];
+	_stretcher = ObjNull;
+	
+	{
+		if !(_x getVariable ["IP_StretcherTaken", false]) exitWith {
+			_stretcher = _x;
+		};
+	} forEach IP_Stretchers;
+	
+	if !(isNull _stretcher) then {
+		_stretcher setVariable ["IP_StretcherTaken", true, true];
+		_gear = [player] call IP_fnc_getLoadout;
+		_anim = selectRandom ["Acts_LyingWounded_loop1", "Acts_LyingWounded_loop2", "Acts_LyingWounded_loop3"];
+		
+		removeAllWeapons player;
+		removeBackpack player;
+		removeAllAssignedItems player;
+		removeHeadgear player;
+		removeGoggles player;
+		removeVest player;
+		
+		player setDir (getDir _stretcher); 
+		player setPos (getPos _stretcher); 
+		player switchMove _anim;
+	};
+	
+	[0] call BIS_fnc_cinemaBorder;
+	
+	systemChat "You fucked up, you cunt. Better stay in the M.A.S.H. for a while to learn your lesson.";
+	_t = time + _respawnDelayMASH;
+	while {time < _t} do {
+		systemChat format ["%1 seconds to go.", (_t - time)];
+		sleep 5;
+	};
+	
+	[1] call BIS_fnc_cinemaBorder;
+	
+	if !(isNull _stretcher) then {
+		player switchMove "";
+		[player, _gear] call IP_fnc_setLoadout;
+		_stretcher setVariable ["IP_StretcherTaken", false, true];
+	}; 
+};
