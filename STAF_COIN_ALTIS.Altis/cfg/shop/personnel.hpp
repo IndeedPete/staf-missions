@@ -7,88 +7,7 @@ class ShopPersonnel
 	
 	class Independent 
 	{
-		displayName = "Black Star Paramilitary";
-		
-		class IP_I_Soldier_FGuer
-		{
-			costRate = 0;
-			//equipment = "Assault Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_FGuerShotgun
-		{
-			costRate = 0;
-			//equipment = "Shotgun or Carbine Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_GL_FGuer
-		{
-			costRate = 0;
-			//equipment = "Assault Rifle with Grenade Launcher, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_AR_FGuer
-		{
-			costRate = 0;
-			//equipment = "Light Machine Gun, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_HeavyGunner_FGuer
-		{
-			costRate = 0;
-			//equipment = "Machine Gun, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_A_FGuer
-		{
-			costRate = 0;
-			//equipment = "Carbine Rifle, Grenades, Protection Gear, NVGs, Additional Ammunition for Standard Weapons";
-		};
-		class IP_I_Soldier_LAT_FGuer
-		{
-			costRate = 0;
-			//equipment = "Assault Rifle, Unguided Rocket Launcher, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_M_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Sharpshooter_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_AT_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_AA_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_exp_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_engineer_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_repair_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_medic_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
-		class IP_I_Soldier_TL_FGuer
-		{
-			costRate = 0;
-			//equipment = "Marksman Rifle, Grenades, Protection Gear, NVGs";
-		};
+		show = 0;
 	};
 	
 	class East
@@ -219,26 +138,6 @@ class ShopPersonnel
 			primaryAttachments[] = {"", {"", "acc_flashlight", "acc_pointer_IR"}, {"", "optic_Aco_smg", "optic_ACO_grn_smg", "optic_Aco", "optic_ACO_grn", "optic_Holosight", "optic_MRCO", "optic_Arco", "optic_Hamr", "optic_NVS", "optic_Nightstalker", "optic_tws"}, ""}; // Muzzle, Rail, Optics, Under Barrel
 			primaryMagazines = 8;
 			primaryWeaponPools[] = {"SMG","Carbines"};
-		};
-		
-		class Freezoner
-		{
-			backpackProbability = 0.5;
-			backpackPools[] = {"Backpacks"};
-			baseClasses[] = {"B_Soldier_F","I_Soldier_F","O_Soldier_F"}; // West, Independent, East
-			costRate = 0;
-			faction = "Freezoners";
-			gogglesPools[] = {"Goggles"};
-			gogglesProbability = 0.5;
-			headgearPools[] = {"HeadgearSoft"};
-			headgearProbability = 0.45;
-			isMerc = 1;
-			items[] = {"FirstAidKit"};
-			linkedItems[] = {"ItemRadio", {"ItemMap","ItemCompass"}};
-			skill = 1;
-			uniformPools[] = {"Paramilitary"};
-			vestProbability = 0.5;
-			vestPools[] = {"VestsLight"};
 		};
 	};
 };

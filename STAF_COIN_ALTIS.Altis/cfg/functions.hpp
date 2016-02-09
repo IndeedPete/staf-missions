@@ -653,6 +653,14 @@
 			};			
 		};
 		
+		class zones
+		{
+			class initZones
+			{
+				file = "fnc\zones\initZones.sqf";
+			};			
+		};
+		
 		class thirdParty
 		{
 			class createFireEffect
