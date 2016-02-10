@@ -55,8 +55,9 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		_side = [(getNumber(configFile >> "CfgVehicles" >> _className >> "side"))] call BIS_fnc_sideType;
 		_unitInit = getText(_commanderCfg >> "unitInit");
 		
+		_pos = _marker call IP_fnc_SHKPos;
 		_grp = createGroup _side;
-		_commander = _grp createUnit [_className, _centre, [], 0, "NONE"];
+		_commander = _grp createUnit [_className, _pos, [], 0, "NONE"];
 		_commander setRank _rank;
 
 		if (_isMerc) then {
@@ -71,6 +72,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		
 		if (_unitInit != "") then {
 			_commander call (compile _unitInit);
+			_commander setVariable ["NOAI", true, false];
 		};
 		
 		_GL setVariable ["IP_ZoneCommander", _commander];
@@ -117,6 +119,8 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 					if (_isMerc) then {
 						[_x] call IP_fnc_createMerc;
 					};
+					
+					_x setVariable ["NOAI", true, false];
 				} forEach (units _grp);
 				
 				_assets pushBack _grp;
