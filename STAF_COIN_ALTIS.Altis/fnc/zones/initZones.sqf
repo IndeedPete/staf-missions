@@ -42,7 +42,13 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		_marker setMarkerColor "ColorPink";
 		_marker setMarkerBrush "Cross";
 		
-		if (!IP_TESTMODE) then {
+		if (IP_TESTMODE) then {
+			_centreMarker = createMarker [("mCentre" + _zone), [(_centre select 0), (_centre select 1)]];
+			_centreMarker setMarkerShape "ICON";
+			_centreMarker setMarkerColor "ColorPink";
+			_centreMarker setMarkerType "mil_flag";
+			_centreMarker setMarkerText _zone;
+		} else {
 			_marker setMarkerAlpha 0;
 		};
 		
@@ -89,21 +95,47 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			_probability = getNumber(_groupCfg >> "probability");
 			
 			if ((random 1) <= _probability) then {
-				_active = getNumber(_groupCfg >> "active");
-				_configPath = getArray(_groupCfg >> "configPath");
-				_classNames = getArray(_groupCfg >> "classNames");
-				_config = ([configFile, "CfgGroups"] + _configPath) call BIS_fnc_getCfg;
+				_active = getNumber(_groupCfg >> "active");	
+				_configPath = getArray(_groupCfg >> "configPath");				
 				_groupInit = getText(_groupCfg >> "groupInit");
 				_isMerc = [false, true] select getNumber(_groupCfg >> "isMerc");
 				_mode = getText(_groupCfg >> "mode");
 				_side = (_configPath select 0) call _returnSide;
 				_unitInit = getText(_groupCfg >> "unitInit");
-				
-				// ToDo: handle motorised patrols.
-				
 				_pos = _marker call IP_fnc_SHKPos;
-				_toSpawn = if (_active > 1) then {_config} else {_classNames};
-				_grp = [_pos, _side, _toSpawn] call BIS_fnc_spawnGroup;
+				
+				_grp = switch (_active) do {
+					case 2: {
+						_config = ([configFile, "CfgGroups"] + _configPath) call BIS_fnc_getCfg;
+						([_pos, _side, _config] call BIS_fnc_spawnGroup)
+					};
+					
+					case 3: {
+						private ["_range", "_road"];					
+						_className = getText(_groupCfg >> "className");						
+						_range = (_size select 0) min (_size select 1);
+						
+						while {isNil "_road"} do {
+							_roads = _pos nearRoads _range;
+							
+							if (count _roads > 0) then {
+								_road = _roads select 0;
+							} else {
+								_range = _range * 2;
+							};
+						};
+						
+						_roadPos = getPos _road;
+						_connectedRoad = (roadsConnectedTo _road) select 0;
+						_dir = _road getDir _connectedRoad;
+						(([_roadPos, _dir, _className, _side] call BIS_fnc_spawnVehicle) select 2)					
+					};
+					
+					default {						
+						_classNames = getArray(_groupCfg >> "classNames");
+						([_pos, _side, _classNames] call BIS_fnc_spawnGroup)
+					};
+				};
 				
 				_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
 				

@@ -18,9 +18,10 @@ class CfgZones
 		
 		class Assets
 		{
-			class AssetsDefault 
+			class AssetDefault 
 			{
 				active = 0;
+				className = "O_G_Offroad_01_armed_F";
 				classNames[] = {"O_G_Soldier_SL_F","O_G_Soldier_AR_F","O_G_Sharpshooter_F","O_G_medic_F","O_G_Soldier_GL_F"};
 				configPath[] = {"East","OPF_F","Infantry","OIA_InfSquad"};
 				groupInit = "";
@@ -39,20 +40,43 @@ class CfgZones
 		
 		class Assets: Assets
 		{
-			class Assets0: AssetsDefault
+			class Asset0: AssetDefault
 			{
 				active = 1;
 			};
-			class Assets1: AssetsDefault
+			class Asset1: AssetDefault
 			{
 				active = 1;
 			};
-			class Assets2: AssetsDefault
+			class Asset2: AssetDefault
 			{
 				active = 2;
 				isMerc = 1;
 				mode = "MOVE";
 				probability = 0.9;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 3;
+				isMerc = 1;
+				mode = "NOFOLLOW";
+				probability = 1;
+			};
+			class Asset4: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_hmg_F";
+				isMerc = 1;
+				mode = "MOVE";
+				probability = 0.75;
+			};
+			class Asset5: AssetDefault
+			{
+				active = 3;
+				className = "O_APC_Tracked_02_AA_F";
+				isMerc = 1;
+				mode = "FORTIFY";
+				probability = 0.33;
 			};
 		};
 	};
@@ -64,11 +88,11 @@ class CfgZones
 		
 		class Assets: Assets
 		{
-			class Assets0: AssetsDefault
+			class Asset0: AssetDefault
 			{
 				active = 1;
 			};
-			class Assets1: AssetsDefault
+			class Asset1: AssetDefault
 			{
 				active = 2;
 				configPath[] = {"East","OPF_F","Infantry","OIA_InfTeam"};
@@ -82,24 +106,14 @@ class CfgZones
 	class Zone2: ZoneDefault
 	{
 		active = 1;
-		size[] = {1000,1000};
+		size[] = {250,250};
 		
 		class Assets: Assets
 		{
-			class Assets0: AssetsDefault
-			{
-				active = 1;
-			};
-			class Assets1: AssetsDefault
+			class Asset0: AssetDefault
 			{
 				active = 1;
 				mode = "FORTIFY";
-			};
-			class Assets2: AssetsDefault
-			{
-				active = 2;
-				isMerc = 1;
-				mode = "MOVE";
 				probability = 0.5;
 			};
 		};
@@ -112,25 +126,74 @@ class CfgZones
 		
 		class Assets: Assets
 		{
-			class Assets0: AssetsDefault
+			class Asset0: AssetDefault
 			{
 				active = 1;
 			};
-			class Assets1: AssetsDefault
+			class Asset1: AssetDefault
 			{
 				active = 1;
 			};
-			class Assets2: AssetsDefault
+			class Asset2: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+				mode = "MOVE";
+				probability = 1;
+			};
+			class Asset4: AssetDefault
 			{
 				active = 2;
 				isMerc = 1;
 				mode = "NOFOLLOW";
 				probability = 0.75;
 			};
-			class Assets3: Assets2 
+			class Asset5: Asset2 
 			{
 				mode = "FORTIFY";
 				probability = 0.5;
+			};
+			class Asset6: AssetDefault
+			{
+				active = 3;
+			};
+			class Asset7: Asset5
+			{
+				mode = "FORTIFY";
+				probability = 0.75;
+			};
+			class Asset8: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_hmg_F";
+				isMerc = 1;
+			};
+			class Asset9: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_gmg_F";
+				mode = "FORTIFY";
+				isMerc = 1;
+				probability = 0.75;
+			};
+			class Asset10: AssetDefault
+			{
+				active = 3;
+				className = "O_APC_Wheeled_02_rcws_F";
+				isMerc = 1;
+				probability = 0.9;
+			};
+			class Asset11: AssetDefault
+			{
+				active = 3;
+				className = "O_MBT_02_cannon_F";
+				mode = "MOVE";
+				isMerc = 1;
+				probability = 0.3;
 			};
 		};
 	};
@@ -142,7 +205,7 @@ class CfgZones
 		
 		class Assets: Assets
 		{
-			class Assets0: AssetsDefault
+			class Asset0: AssetDefault
 			{
 				active = 1;
 				probability = 0.5;
