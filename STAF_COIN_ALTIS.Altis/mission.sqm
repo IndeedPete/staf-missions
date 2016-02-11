@@ -8,22 +8,22 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1408;
+		nextID=1415;
 	};
 	class MarkerIDProvider
 	{
-		nextID=55;
+		nextID=56;
 	};
 	class LayerIndexProvider
 	{
-		nextID=98;
+		nextID=112;
 	};
 	class Camera
 	{
-		pos[]={14136.261,105.35806,21208.625};
-		dir[]={-0.72725397,-0.68135452,-0.084275395};
-		up[]={-0.67680275,0.73190087,-0.078429848};
-		aside[]={-0.1151164,-5.1981988e-007,0.99344993};
+		pos[]={14235.783,89.631241,21073.703};
+		dir[]={-0.31290743,-0.18974853,0.93076777};
+		up[]={-0.060497448,0.98175436,0.17995059};
+		aside[]={0.94796395,-3.8677827e-006,0.31868342};
 	};
 };
 binarizationWanted=0;
@@ -157,7 +157,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=378;
+		items=383;
 		class Item0
 		{
 			dataType="Marker";
@@ -14049,7 +14049,7 @@ class Mission
 		class Item247
 		{
 			dataType="Marker";
-			position[]={10608.55,113.12708,24341.629};
+			position[]={10615.837,190.26343,24593.842};
 			name="mMeasure";
 			markerType="ELLIPSE";
 			type="ellipse";
@@ -19628,6 +19628,67 @@ class Mission
 			{
 			};
 			id=1362;
+		};
+		class Item378
+		{
+			dataType="Marker";
+			position[]={7244.5391,231.21155,20019.434};
+			name="mAO";
+			markerType="RECTANGLE";
+			type="rectangle";
+			fillName="Border";
+			a=5000;
+			b=4000;
+			drawBorder=1;
+			id=1409;
+		};
+		class Item379
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={5414.1011,76.694977,17908.211};
+				angles[]={6.2658539,0,6.2765183};
+			};
+			name="IP_Zone5";
+			id=1410;
+			type="Logic";
+		};
+		class Item380
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={3692.679,17.374956,17717.77};
+				angles[]={0.016004669,0,6.2791882};
+			};
+			name="IP_Zone6";
+			id=1411;
+			type="Logic";
+		};
+		class Item381
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={5851.3174,222.83833,20148.592};
+				angles[]={0.090418234,0,0.010669862};
+			};
+			name="IP_Zone7";
+			id=1412;
+			type="Logic";
+		};
+		class Item382
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={4560.7798,300.42172,21408.383};
+				angles[]={6.2645216,0,6.2685246};
+			};
+			name="IP_Zone8";
+			id=1413;
+			type="Logic";
 		};
 	};
 	class Connections

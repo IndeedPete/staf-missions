@@ -38,6 +38,9 @@ nul = [] execVM "scripts\IntLight.sqf";
 // MHQ Script
 nul = [] execVM "MHQ\initMHQ.sqf";
 
+// IEDs
+[] execVM "EPD\Ied_Init.sqf";
+
 //_________________________________________Post Processing && Weather_________________________________________//
 0 setFog [0.1, 0.01, 0];
 

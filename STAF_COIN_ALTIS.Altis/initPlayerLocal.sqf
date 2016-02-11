@@ -9,6 +9,7 @@ IP_Stretchers = [];
 
 // Hide Markers
 "mMeasure" setMarkerAlpha 0;
+"mAO" setMarkerAlpha 0;
 
 // Stretchers for MASH Respawn
 {

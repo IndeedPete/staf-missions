@@ -4,7 +4,7 @@ class CfgZones
 	{
 		active = 0;
 		isRectangle = 0;
-		size[] = {0,0};
+		size[] = {1000,1000};
 		
 		class Commander
 		{
@@ -36,7 +36,6 @@ class CfgZones
 	class Zone0: ZoneDefault
 	{
 		active = 1;
-		size[] = {1000,1000};
 		
 		class Assets: Assets
 		{
@@ -122,7 +121,6 @@ class CfgZones
 	class Zone3: ZoneDefault
 	{
 		active = 1;
-		size[] = {1000,1000};
 		
 		class Assets: Assets
 		{
@@ -209,6 +207,236 @@ class CfgZones
 			{
 				active = 1;
 				probability = 0.5;
+			};
+		};
+	};
+	
+	class Zone5: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+				probability = 0.5;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 3;
+				probability = 0.8;
+			};
+		};
+	};
+	
+	class Zone6: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+				mode = "MOVE";
+				probability = 1;
+			};
+			class Asset4: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+				mode = "NOFOLLOW";
+				probability = 0.75;
+			};
+			class Asset5: Asset2 
+			{
+				mode = "FORTIFY";
+				probability = 0.5;
+			};
+			class Asset6: AssetDefault
+			{
+				active = 3;
+			};
+			class Asset7: Asset5
+			{
+				mode = "FORTIFY";
+				probability = 0.75;
+			};
+			class Asset8: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_hmg_F";
+				isMerc = 1;
+			};
+			class Asset9: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_gmg_F";
+				mode = "FORTIFY";
+				isMerc = 1;
+				probability = 0.75;
+			};
+			class Asset10: AssetDefault
+			{
+				active = 3;
+				className = "O_APC_Wheeled_02_rcws_F";
+				isMerc = 1;
+				probability = 0.9;
+			};
+			class Asset11: AssetDefault
+			{
+				active = 3;
+				className = "O_MBT_02_cannon_F";
+				mode = "MOVE";
+				isMerc = 1;
+				probability = 0.3;
+			};
+		};
+	};
+	
+	class Zone7: ZoneDefault
+	{
+		active = 1;
+		size[] = {500,500};
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+				probability = 0.3;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+				probability = 0.6;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_hmg_F";
+				isMerc = 1;
+			};
+			class Asset4: AssetDefault
+			{
+				active = 3;
+				className = "O_MBT_02_cannon_F";
+				mode = "FORTIFY";
+				isMerc = 1;
+				probability = 0.75;
+			};
+			class Asset5: AssetDefault
+			{
+				active = 3;
+				className = "O_APC_Tracked_02_cannon_F";
+				isMerc = 1;
+				probability = 0.5;
+			};
+		};
+	};
+	
+	class Zone8: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+				mode = "MOVE";
+				probability = 1;
+			};
+			class Asset4: AssetDefault
+			{
+				active = 2;
+				isMerc = 1;
+				mode = "NOFOLLOW";
+				probability = 0.75;
+			};
+			class Asset5: Asset2 
+			{
+				mode = "FORTIFY";
+				probability = 0.5;
+			};
+			class Asset6: AssetDefault
+			{
+				active = 3;
+			};
+			class Asset7: Asset5
+			{
+				mode = "FORTIFY";
+				probability = 0.75;
+			};
+			class Asset8: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_hmg_F";
+				isMerc = 1;
+			};
+			class Asset9: AssetDefault
+			{
+				active = 3;
+				className = "O_MRAP_02_gmg_F";
+				mode = "FORTIFY";
+				isMerc = 1;
+				probability = 0.75;
+			};
+			class Asset10: AssetDefault
+			{
+				active = 3;
+				className = "O_APC_Wheeled_02_rcws_F";
+				isMerc = 1;
+				probability = 0.9;
+			};
+			class Asset11: AssetDefault
+			{
+				active = 3;
+				className = "O_MBT_02_cannon_F";
+				mode = "MOVE";
+				isMerc = 1;
+				probability = 0.3;
 			};
 		};
 	};
