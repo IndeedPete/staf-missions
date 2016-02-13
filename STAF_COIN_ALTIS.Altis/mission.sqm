@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1415;
+		nextID=1420;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=112;
+		nextID=119;
 	};
 	class Camera
 	{
-		pos[]={14235.783,89.631241,21073.703};
-		dir[]={-0.31290743,-0.18974853,0.93076777};
-		up[]={-0.060497448,0.98175436,0.17995059};
-		aside[]={0.94796395,-3.8677827e-006,0.31868342};
+		pos[]={14167.826,86.917664,21194.318};
+		dir[]={0.17625095,-0.59457648,0.78463763};
+		up[]={0.1303101,0.80396485,0.58011907};
+		aside[]={0.97577989,-2.1192245e-006,-0.21918961};
 	};
 };
 binarizationWanted=0;
@@ -778,17 +778,41 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14173.11,79.066055,21210.199};
-				angles[]={6.2219291,3.7779894,0.010669862};
+				position[]={14173.11,79.066521,21210.199};
+				angles[]={6.2219238,3.777992,0.010663962};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
-				name="Pandur";
+				init="this setVariable [""IP_LoadoutTemplate"", ""Gorgon""]; [this, ""Gorgon""] call IP_fnc_vehicleLoadout;";
+				name="IP_APC";
 			};
 			id=135;
 			type="IP_I_APC_Wheeled_03_cannon_F_EFAltis";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""IP_arifle_MX_Sage_F"",""FirstAidKit""],[2,10]],[[""1Rnd_HE_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""100Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""HandGrenade"",""NLAW_F"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""Titan_AA"",""Titan_AT"",""Titan_AP""],[6,3,3,3,3,6,12,10,5,8,8,8,8,2,2,2]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item50
 		{
@@ -1383,7 +1407,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="";
+							value="[(_this select 0), ((_this select 1) getVariable [""IP_LoadoutTemplate"", ""vehicleDefault""])] call IP_fnc_vehicleLoadout;";
 						};
 					};
 				};

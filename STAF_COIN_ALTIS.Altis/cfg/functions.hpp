@@ -654,7 +654,11 @@
 			class insignia
 			{
 				file = "fnc\staf\insignia.sqf";
-			};			
+			};
+			class vehicleLoadout
+			{
+				file = "fnc\staf\vehicleLoadout.sqf";
+			};	
 		};
 		
 		class zones
