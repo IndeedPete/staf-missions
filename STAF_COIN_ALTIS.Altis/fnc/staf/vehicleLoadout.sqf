@@ -1,8 +1,12 @@
 params [
 	["_veh", ObjNull, [ObjNull]],
-	["_template", (_veh getVariable ["IP_LoadoutTemplate", "vehicleDefault"]), [""]],
+	["_template", "", [""]],
 	"_cfg"
 ];
+
+if (_template == "") then {
+	_template = _veh getVariable ["IP_LoadoutTemplate", "vehicleDefault"];
+};
 
 _cfg = missionConfigFile >> "CfgVehicleLoadouts" >> _template;
 if (isClass _cfg) then {

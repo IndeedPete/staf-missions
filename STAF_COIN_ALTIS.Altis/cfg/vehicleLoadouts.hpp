@@ -1,6 +1,6 @@
 class CfgVehicleLoadouts
 {
-	class vehicleDefault
+	class VehicleDefault
 	{
 		backpackCargo[] = {};
 		itemCargo[] = {};
@@ -8,7 +8,7 @@ class CfgVehicleLoadouts
 		weaponCargo[] = {};
 	};
 	
-	class Gorgon: vehicleDefault
+	class Gorgon: VehicleDefault
 	{
 		itemCargo[] = {
 			{"NVGoggles", 3},
@@ -21,7 +21,7 @@ class CfgVehicleLoadouts
 			{"ACE_packingBandage", 20},
 			{"ACE_fieldDressing", 10},
 			{"ACE_quikclot", 10},
-			{"ACE_epinephrine", 20},
+			{"ACE_epinephrine", 10},
 			{"ACE_morphine", 20},
 			{"ACE_atropine", 10},
 			{"ACE_EarPlugs", 5},
@@ -34,6 +34,7 @@ class CfgVehicleLoadouts
 			{"ACE_CableTie", 5},
 			{"ACE_IR_Strobe_Item", 10},
 			{"ACE_RangeTable_82mm", 1},
+			{"ACE_MapTools", 1},
 			{"ItemGPS", 1},
 			{"ACE_SpareBarrel", 1},
 			{"ACE_Flashlight_XL50", 3},
@@ -47,6 +48,7 @@ class CfgVehicleLoadouts
 			{"100Rnd_65x39_caseless_mag_Tracer", 10},
 			{"200Rnd_65x39_cased_Box", 5},
 			{"150Rnd_93x64_Mag", 5},
+			{"APERSBoundingMine_Range_Mag", 10},
 			{"HandGrenade", 3},
 			{"MiniGrenade", 3},
 			{"SmokeShell", 6},
@@ -63,7 +65,9 @@ class CfgVehicleLoadouts
 		weaponCargo[] = {
 			{"Binocular", 1},
 			{"launch_NLAW_F", 3},
-			{"IP_arifle_MX_Sage_F", 3}
+			{"IP_arifle_MX_Sage_F", 2},
+			{"IP_arifle_MX_GL_Sage_F", 1},
+			{"IP_arifle_MX_SW_Sage_F", 1}
 		};
 		
 		class attachment0
@@ -91,6 +95,155 @@ class CfgVehicleLoadouts
 		{
 			attachTo[] = {2.5, -1.5, -0.9};
 			className = "B_Mortar_01_weapon_F";
+			vectorDirAndUp[] = {{0, 0, -1}, {3, 0, 0}};
+		};
+	};
+	
+	class MBT: VehicleDefault
+	{
+		itemCargo[] = {
+			{"NVGoggles", 3},
+			{"ToolKit", 1},
+			{"ACE_salineIV", 2},
+			{"ACE_salineIV_500", 2},
+			{"ACE_salineIV_250", 3},
+			{"ACE_tourniquet", 2},
+			{"ACE_elasticBandage", 10},
+			{"ACE_packingBandage", 20},
+			{"ACE_fieldDressing", 10},
+			{"ACE_quikclot", 10},
+			{"ACE_epinephrine", 10},
+			{"ACE_morphine", 20},
+			{"ACE_atropine", 10},
+			{"ACE_EarPlugs", 5},
+			{"ACE_personalAidKit", 1},
+			{"ACE_surgicalKit", 1},
+			{"ACE_wirecutter", 1},
+			{"ACE_Tripod", 1},
+			{"ACE_bodyBag", 5},
+			{"ACE_CableTie", 5},
+			{"ACE_IR_Strobe_Item", 10},
+			{"ItemGPS", 1},
+			{"ACE_Flashlight_XL50", 3},
+			{"acc_flashlight", 3}
+		};
+		
+		magazineCargo[] = {		
+			{"30Rnd_65x39_caseless_mag_Tracer", 15},
+			{"20Rnd_762x51_Mag", 3},
+			{"3Rnd_HE_Grenade_shell", 3},
+			{"100Rnd_65x39_caseless_mag_Tracer", 5},
+			{"200Rnd_65x39_cased_Box", 3},
+			{"150Rnd_93x64_Mag", 3},
+			{"HandGrenade", 3},
+			{"MiniGrenade", 3},
+			{"SmokeShell", 6},
+			{"SmokeShellRed", 3},
+			{"SmokeShellGreen", 3},
+			{"SmokeShellYellow", 3},
+			{"SmokeShellPurple", 3},
+			{"SmokeShellBlue", 3},
+			{"SmokeShellOrange", 3},
+			{"B_IR_Grenade", 3},
+			{"Titan_AT", 3},
+			{"Titan_AP", 3},
+			{"Titan_AA", 3}
+		};
+		
+		weaponCargo[] = {
+			{"Binocular", 1},
+			{"launch_B_Titan_F", 1},
+			{"launch_B_Titan_short_F", 1},
+			{"IP_arifle_MXC_Sage_F", 2}
+		};
+	};
+	
+	class Scout: VehicleDefault
+	{
+		itemCargo[] = {
+			{"NVGoggles", 1},
+			{"ToolKit", 1},
+			{"ACE_salineIV", 1},
+			{"ACE_salineIV_500", 1},
+			{"ACE_salineIV_250", 2},
+			{"ACE_tourniquet", 1},
+			{"ACE_elasticBandage", 5},
+			{"ACE_packingBandage", 10},
+			{"ACE_fieldDressing", 5},
+			{"ACE_quikclot", 5},
+			{"ACE_epinephrine", 5},
+			{"ACE_morphine", 10},
+			{"ACE_atropine", 5},
+			{"ACE_EarPlugs", 2},
+			{"ACE_personalAidKit", 1},
+			{"ACE_surgicalKit", 1},
+			{"ACE_wirecutter", 1},
+			{"ACE_Tripod", 1},
+			{"ACE_bodyBag", 2},
+			{"ACE_CableTie", 2},
+			{"ACE_IR_Strobe_Item", 5},
+			{"ACE_RangeTable_82mm", 1},
+			{"ACE_MapTools", 1},
+			{"ItemGPS", 1},
+			{"ACE_Flashlight_XL50", 1},
+			{"acc_flashlight", 1},
+			{"B_UavTerminal", 1}
+		};
+		
+		magazineCargo[] = {		
+			{"30Rnd_65x39_caseless_mag_Tracer", 10},
+			{"20Rnd_762x51_Mag", 10},
+			{"3Rnd_HE_Grenade_shell", 2},			
+			{"3Rnd_UGL_FlareWhite_F", 2},
+			{"3Rnd_UGL_FlareGreen_F", 2},
+			{"3Rnd_UGL_FlareRed_F", 2},
+			{"3Rnd_UGL_FlareYellow_F", 2},
+			{"3Rnd_UGL_FlareCIR_F", 2},			
+			{"3Rnd_Smoke_Grenade_shell", 1},
+			{"3Rnd_SmokeRed_Grenade_shell", 1},
+			{"3Rnd_SmokeGreen_Grenade_shell", 1},
+			{"3Rnd_SmokeYellow_Grenade_shell", 1},
+			{"3Rnd_SmokePurple_Grenade_shell", 1},
+			{"3Rnd_SmokeBlue_Grenade_shell", 1},
+			{"3Rnd_SmokeOrange_Grenade_shell", 1},			
+			{"HandGrenade", 2},
+			{"SmokeShell", 4},
+			{"SmokeShellRed", 2},
+			{"SmokeShellGreen", 2},
+			{"SmokeShellYellow", 2},
+			{"SmokeShellPurple", 2},
+			{"SmokeShellBlue", 2},
+			{"SmokeShellOrange", 2},
+			{"B_IR_Grenade", 2},
+			{"Laserbatteries", 1}
+		};
+		
+		weaponCargo[] = {
+			{"Rangefinder", 1},
+			{"ACE_Vector", 1},
+			{"Laserdesignator", 1},
+			{"IP_arifle_MXM_Sage_F", 1},
+			{"IP_arifle_MX_GL_Sage_F", 1}
+		};
+		
+		class attachment0
+		{
+			attachTo[] = {1.9, -2.7, -0.3};
+			className = "B_Mortar_01_support_F";
+			vectorDirAndUp[] = {{0, 0, -1}, {3, 0, 0}};
+		};
+		
+		class attachment1
+		{
+			attachTo[] = {-1.9, -2.7, -0.3};
+			className = "B_Mortar_01_weapon_F";
+			vectorDirAndUp[] = {{0, 0, -1}, {-3, 0, 0}};
+		};
+		
+		class attachment2
+		{
+			attachTo[] = {1.9, -1.2, -0.1};
+			className = "B_UAV_01_backpack_F";
 			vectorDirAndUp[] = {{0, 0, -1}, {3, 0, 0}};
 		};
 	};
