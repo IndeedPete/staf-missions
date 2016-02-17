@@ -666,7 +666,11 @@
 			class initZones
 			{
 				file = "fnc\zones\initZones.sqf";
-			};			
+			};
+			class zoneController
+			{
+				file = "fnc\zones\zoneController.sqf";
+			};				
 		};
 		
 		class thirdParty

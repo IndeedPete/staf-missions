@@ -26,7 +26,6 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 {
 	_cfg = _x;
 	_zone = configName _cfg;
-	IP_Zones pushBack _zone;
 	_GL = missionNamespace getVariable [("IP_" + _zone), ObjNull];
 	
 	if !(isNull _GL) then {
@@ -163,6 +162,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		} forEach _assetConfigs;
 		
 		_GL setVariable ["IP_ZoneAssets", _assets];
+		IP_Zones pushBack _GL;
 	};
 } forEach _zoneConfigs;
 
@@ -187,3 +187,5 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 IP_ZoneInitDone = true;
 publicVariable "IP_ZoneInitDone";
 publicVariable "IP_Zones";
+
+[] spawn IP_fnc_zoneController;
