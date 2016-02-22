@@ -8,7 +8,7 @@ IP_TESTMODE = true;
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] execVM "zbe_cache\main.sqf";
 
 // Shop init, for Mercs. Probably not even needed.
-[true, true, [], [[],[],[]], true] call IP_fnc_shopInit;
+// [true, true, [], [[],[],[]], true] call IP_fnc_shopInit;
 
 // Init Zones.
-[] call IP_fnc_initZones; 
+// [] call IP_fnc_initZones; 
