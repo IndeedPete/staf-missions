@@ -8,7 +8,7 @@ class EditorData
 	toggles=129;
 	class ItemIDProvider
 	{
-		nextID=1663;
+		nextID=1664;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=210;
+		nextID=224;
 	};
 	class Camera
 	{
-		pos[]={14195.674,78.094986,21206.785};
-		dir[]={-0.61963636,-0.46925876,0.62936127};
-		up[]={-0.32927096,0.88295251,0.33443609};
-		aside[]={0.71265525,-1.5635742e-006,0.70164216};
+		pos[]={14198.671,79.380989,21193.799};
+		dir[]={0.16483648,-0.27446738,-0.94749528};
+		up[]={0.047064982,0.96149337,-0.27052292};
+		aside[]={-0.98528862,-1.9774307e-006,-0.17141078};
 	};
 };
 binarizationWanted=0;
@@ -557,32 +557,80 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14229.302,74.642624,21238.486};
-				angles[]={0.04131107,4.3594303,6.2525272};
+				position[]={14229.302,74.642639,21238.486};
+				angles[]={0.041311946,4.3594308,6.2525201};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 			};
 			id=85;
 			type="IP_B_Quadbike_01_F_EFAltis";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[4]],[[],[]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item39
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14228.508,74.583839,21240.352};
-				angles[]={0.025330193,4.3594303,6.2525272};
+				position[]={14228.508,74.583717,21240.352};
+				angles[]={0.025324726,4.3594308,6.2525201};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 			};
 			id=86;
 			type="IP_B_Quadbike_01_F_EFAltis";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[4]],[[],[]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item40
 		{
@@ -699,14 +747,14 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14186.925,79.697159,21240.492};
+				position[]={14186.925,79.699158,21240.492};
 				angles[]={0.016004669,0.43687338,0.041311946};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
-				init="this setVariable [""IP_LoadoutTemplate"", ""Scout""]; [this, ""Scout""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""Scout""]; [this, ""Scout""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_Car_Scout";
 			};
 			id=121;
@@ -740,14 +788,14 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14182.873,80.125648,21241.902};
+				position[]={14182.873,80.127647,21241.902};
 				angles[]={0.016004669,0.43118358,0.041311946};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
-				init="this setVariable [""IP_LoadoutTemplate"", ""Scout_HMG""]; [this, ""Scout_HMG""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""Scout_HMG""]; [this, ""Scout_HMG""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_Car_Scout_HMG";
 			};
 			id=126;
@@ -788,7 +836,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="this setVariable [""IP_LoadoutTemplate"", ""MRAP_HMG""]; [this, ""MRAP_HMG""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""MRAP_HMG""]; [this, ""MRAP_HMG""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_MRAP_HMG";
 			};
 			id=128;
@@ -829,7 +877,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="this setVariable [""IP_LoadoutTemplate"", ""MBT""]; [this, ""MBT""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""MBT""]; [this, ""MBT""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_MBT";
 			};
 			id=133;
@@ -870,7 +918,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="this setVariable [""IP_LoadoutTemplate"", ""Gorgon""]; [this, ""Gorgon""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""Gorgon""]; [this, ""Gorgon""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_APC";
 			};
 			id=135;
@@ -904,50 +952,122 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14156.534,79.46553,21253.305};
-				angles[]={6.2805333,0.00040016003,0.0026520467};
+				position[]={14156.534,79.465576,21253.305};
+				angles[]={6.2805324,0.00040142573,0.0026529003};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 				name="heli2";
 			};
 			id=144;
 			type="IP_B_Heli_Transport_01_camo_F_EF";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""IP_arifle_MXC_Green_F"",""FirstAidKit"",""Medikit""],[2,8,1]],[[""SmokeShell"",""SmokeShellBlue"",""30Rnd_65x39_caseless_mag""],[2,2,4]],[[""ToolKit"",""ItemGPS""],[1,1]],[[""B_Parachute""],[8]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item50
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14121.905,78.034775,21258.734};
-				angles[]={0.0053265258,2.3792851,0.059928458};
+				position[]={14121.905,78.037231,21258.734};
+				angles[]={0.0053232545,2.3792851,0.059934605};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 				name="heli4";
 			};
 			id=162;
 			type="IP_B_Heli_Light_01_F_EFGreen";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""IP_arifle_MXC_Green_F"",""FirstAidKit""],[2,2]],[[""SmokeShell"",""SmokeShellBlue"",""30Rnd_65x39_caseless_mag""],[2,2,4]],[[""ToolKit"",""ItemGPS""],[1,1]],[[""B_Parachute""],[4]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item51
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14153.044,78.326294,21229.332};
-				angles[]={6.2618566,3.6674972,0.0066682254};
+				position[]={14153.044,78.326614,21229.33};
+				angles[]={6.2618575,3.6674953,0.0066671576};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 			};
 			id=163;
 			type="IP_B_Heli_Light_01_armed_F_EFGreen";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""IP_arifle_MXC_Green_F"",""FirstAidKit""],[2,2]],[[""SmokeShell"",""SmokeShellBlue"",""30Rnd_65x39_caseless_mag""],[2,2,4]],[[""ToolKit"",""ItemGPS""],[1,1]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item52
 		{
@@ -1202,16 +1322,40 @@ class Mission
 			class PositionInfo
 			{
 				position[]={14230.105,75.485565,21226.117};
-				angles[]={0.017329043,5.2068281,6.2791886};
+				angles[]={0.01733112,5.2068233,6.2791882};
 			};
 			side="Empty";
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 				name="HEMTT1";
 			};
 			id=272;
 			type="IP_B_Truck_01_transport_F_EFAltis";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[10]],[[],[]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item68
 		{
@@ -6720,7 +6864,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="this setVariable [""IP_LoadoutTemplate"", ""MRAP_GMG""]; [this, ""MRAP_GMG""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""MRAP_GMG""]; [this, ""MRAP_GMG""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_MRAP_GMG";
 			};
 			id=470;
@@ -13962,6 +14106,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 				textures="black";
 			};
 			id=1116;
@@ -15355,7 +15500,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setVariable [""IP_LoadoutTemplate"", ""Bobcat""]; [this, ""Bobcat""] call IP_fnc_vehicleLoadout;";
+				init="this setVariable [""IP_LoadoutTemplate"", ""Bobcat""]; [this, ""Bobcat""] call IP_fnc_vehicleLoadout; this setVariable [""zbe_cacheDisabled"", true];";
 				name="IP_Bobcat";
 			};
 			id=1270;
@@ -18237,25 +18382,6 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14214.229,73.948486,21191.166};
-						angles[]={0,4.809021,0};
-					};
-					side="West";
-					flags=1;
-					class Attributes
-					{
-						name="IP_Marksman1";
-						description="Marksman";
-						isPlayable=1;
-					};
-					id=1453;
-					type="IP_B_Sharpshooter_F_EFAltis";
-				};
-				class Item3
-				{
-					dataType="Object";
-					class PositionInfo
-					{
 						position[]={14214.293,73.996742,21192.709};
 						angles[]={0,4.809021,0};
 					};
@@ -18270,7 +18396,7 @@ class Mission
 					id=1454;
 					type="IP_B_medic_F_EFAltis";
 				};
-				class Item4
+				class Item3
 				{
 					dataType="Object";
 					class PositionInfo
@@ -18289,7 +18415,7 @@ class Mission
 					id=1455;
 					type="IP_B_Soldier_GL_F_EFAltis";
 				};
-				class Item5
+				class Item4
 				{
 					dataType="Object";
 					class PositionInfo
@@ -18308,7 +18434,7 @@ class Mission
 					id=1457;
 					type="IP_B_soldier_AR_F_EFAltis";
 				};
-				class Item6
+				class Item5
 				{
 					dataType="Object";
 					class PositionInfo
@@ -18327,7 +18453,7 @@ class Mission
 					id=1458;
 					type="IP_B_HeavyGunner_F_EFAltis";
 				};
-				class Item7
+				class Item6
 				{
 					dataType="Object";
 					class PositionInfo
@@ -18344,6 +18470,24 @@ class Mission
 					};
 					id=1459;
 					type="IP_B_soldier_AT_F_EFAltis";
+				};
+				class Item7
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={14214.229,73.948265,21191.166};
+						angles[]={0,4.8090277,0};
+					};
+					side="West";
+					class Attributes
+					{
+						name="IP_Marksman1";
+						description="Marksman";
+						isPlayable=1;
+					};
+					id=1663;
+					type="IP_B_soldier_M_F_EFAltis";
 				};
 			};
 			class Attributes
@@ -19262,17 +19406,41 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14239.946,75.275566,21225.164};
-				angles[]={0.023993526,5.1838665,6.272521};
+				position[]={14239.946,75.275146,21225.164};
+				angles[]={0.023998277,5.1838722,6.2725215};
 			};
 			side="West";
 			flags=2;
 			class Attributes
 			{
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 				name="ugv5_1";
 			};
 			id=1527;
 			type="IP_B_UGV_01_rcws_FEFAltis";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[4]],[[],[]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item336
 		{
@@ -19286,6 +19454,7 @@ class Mission
 			flags=2;
 			class Attributes
 			{
+				init="this setVariable [""zbe_cacheDisabled"", true];";
 				name="ugv5";
 			};
 			id=1528;
@@ -19326,8 +19495,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14239.772,73.2089,21225.117};
-						angles[]={0.023993526,5.1838665,6.272521};
+						position[]={14239.924,73.199051,21225.211};
+						angles[]={0.023998277,5.1838722,6.2725215};
 					};
 					side="West";
 					flags=3;
