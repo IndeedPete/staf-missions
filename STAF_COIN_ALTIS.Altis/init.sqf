@@ -44,7 +44,7 @@ nul = [] execVM "MHQ\initMHQ.sqf";
 //_________________________________________Post Processing && Weather_________________________________________//
 0 setFog [0.1, 0.01, 0];
 
-//_________________________________________AI Skill_________________________________________//
+/*/_________________________________________AI Skill_________________________________________//
 
 {
 	_x setSkill ["aimingspeed", 0.5];
@@ -55,4 +55,4 @@ nul = [] execVM "MHQ\initMHQ.sqf";
 	_x setSkill ["spotdistance", 0.5];
 	_x setSkill ["commanding", 1];
 	_x setSkill ["general", 1];
-} forEach allUnits;
+} forEach allUnits;*/

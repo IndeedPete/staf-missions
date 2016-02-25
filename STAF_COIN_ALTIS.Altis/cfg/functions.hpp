@@ -686,6 +686,10 @@
 			class repetitiveCleanup
 			{
 				file = "fnc\other\repetitive_cleanup.sqf";
+			};
+			class rydIncognito
+			{
+				file = "fnc\other\rydIncognito.sqf";
 			};	
 			class setDirFly
 			{

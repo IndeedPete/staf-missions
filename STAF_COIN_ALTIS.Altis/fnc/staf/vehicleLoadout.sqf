@@ -1,3 +1,5 @@
+if !(isServer) exitWith {};
+
 params [
 	["_veh", ObjNull, [ObjNull]],
 	["_template", "", [""]],

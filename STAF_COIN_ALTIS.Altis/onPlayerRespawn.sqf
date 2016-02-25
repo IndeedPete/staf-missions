@@ -7,6 +7,7 @@
 // MASH
 _respawnDelayMASH = getNumber(missionConfigFile >> "respawnDelayMASH");
 if (_respawnDelayMASH > 0) then {
+	player allowDamage false;
 	private ["_stretcher", "_gear"];
 	_respawnMessageMASH = getText(missionConfigFile >> "respawnMessageMASH");
 	_stretcher = ObjNull;
@@ -49,5 +50,7 @@ if (_respawnDelayMASH > 0) then {
 		player switchMove "";
 		[player, _gear] call IP_fnc_setLoadout;
 		_stretcher setVariable ["IP_StretcherTaken", false, true];
-	}; 
+	};
+	
+	player allowDamage true;
 };
