@@ -11,4 +11,4 @@ IP_TESTMODE = true;
 // [true, true, [], [[],[],[]], true] call IP_fnc_shopInit;
 
 // Init Zones.
-[] call IP_fnc_initZones; 
+// [] call IP_fnc_initZones; 
