@@ -69,7 +69,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			[_commander] call IP_fnc_createMerc;
 		};
 		
-		_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
+		_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], true];
 		
 		if (_groupInit != "") then {
 			_grp call (compile _groupInit);
@@ -77,7 +77,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		
 		if (_unitInit != "") then {
 			_commander call (compile _unitInit);
-			_commander setVariable ["NOAI", true, false];
+			_commander setVariable ["NOAI", true, true];
 		};
 		
 		_GL setVariable ["IP_ZoneCommander", _commander];
@@ -136,7 +136,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 					};
 				};
 				
-				_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
+				_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], true];
 				
 				if (_groupInit != "") then {
 					_grp call (compile _groupInit);
@@ -151,7 +151,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 						[_x] call IP_fnc_createMerc;
 					};
 					
-					_x setVariable ["NOAI", true, false];
+					_x setVariable ["NOAI", true, true];
 				} forEach (units _grp);
 				
 				_assets pushBack _grp;
@@ -179,7 +179,11 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			_assets = _GL getVariable ["IP_ZoneAssets", []];
 			_assets pushBackUnique _grp;
 			_GL setVariable ["IP_ZoneAssets", _assets];
-			_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], false];
+			_grp setVariable ["GAIA_ZONE_INTEND", [_marker, _mode], true];
+			
+			{
+				_x setVariable ["NOAI", true, true];
+			} forEach (units _grp);
 		};
 	};
 } forEach allGroups;

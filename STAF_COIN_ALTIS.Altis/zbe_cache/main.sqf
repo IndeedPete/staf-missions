@@ -46,21 +46,21 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 	while {true} do {
 		_assetscar = zbe_centerPOS nearEntities ["LandVehicle", zbe_mapside];
 		{
-			if !(_x in zbe_cached_cars) then {
+			if (!(_x in zbe_cached_cars) && !(_x getVariable ["zbe_cacheDisabled", false])) then {
 				zbe_cached_cars = zbe_cached_cars + [_x];
 					[_x, zbe_vehicleCacheDistCar] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};
 		} forEach _assetscar;
 		_assetsair = zbe_centerPOS nearEntities ["Air", zbe_mapside];
 		{
-			if !(_x in zbe_cached_air) then {
+			if &!(_x in zbe_cached_air) && !(_x getVariable ["zbe_cacheDisabled", false])) then {
 				zbe_cached_air = zbe_cached_air + [_x];
 				    [_x, zbe_vehicleCacheDistAir] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};
 		} forEach _assetsair;
 		_assetsboat = zbe_centerPOS nearEntities ["Ship", zbe_mapside];
 		{
-			if !(_x in zbe_cached_boat) then {
+			if (!(_x in zbe_cached_boat) && !(_x getVariable ["zbe_cacheDisabled", false])) then {
 				zbe_cached_boat = zbe_cached_boat + [_x];
 					[_x, zbe_vehicleCacheDistBoat] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};
