@@ -10,5 +10,5 @@ IP_TESTMODE = true;
 // Shop init, for Mercs. Probably not even needed.
 // [true, true, [], [[],[],[]], true] call IP_fnc_shopInit;
 
-// Init Zones.
-[] call IP_fnc_initZones; 
+// Init Zones. // Moved to init.sqf for HC.
+// [] call IP_fnc_initZones; 

@@ -56,3 +56,21 @@ nul = [] execVM "MHQ\initMHQ.sqf";
 	_x setSkill ["commanding", 1];
 	_x setSkill ["general", 1];
 } forEach allUnits;*/
+
+// Init Zones on HC if connected, on server otherwise.
+waitUntil {!isNil "IP_TESTMODE"};
+if !(isServer OR hasInterface) then {
+	[] call IP_fnc_initZones;	
+};
+
+if (isServer && isMultiplayer) then {
+	[] spawn {
+		sleep 300;		
+		if (isNil "IP_ZoneInitDone") then {
+			diag_log "HC is not connected or failed to initialise zones. The server is doing that instead.";
+			[] call IP_fnc_initZones;
+		};
+	};
+} else {
+	[] call IP_fnc_initZones;
+};

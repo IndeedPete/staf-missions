@@ -6,13 +6,13 @@ class CfgORBAT
 		commander = "Stephen Hackett";
 		commanderRank = "GENERAL";
 		description = "The 5th EUROFORCE fleet under command of Admiral Stephen Hackett is deployed in the Mediterrainian in order to maintain peace in the wartorn regions on Altis and Stratis.";
-		insignia = "pics\EF_ORBAT.paa";
+		insignia = "\STAF_GEAR\img\EF_ORBAT.paa";
 		side = "West";
 		size = "Regiment";
 		subordinates[] = {TF_COIN};
 		text = "5th Fleet EUROFORCE";
 		textShort = "5th Fleet";
-		texture = "Campaigns\IP_CMP_ICE\img\ORBAT\EF_ORBAT.paa";
+		texture = "\STAF_GEAR\img\EF_ORBAT.paa";
 		//texture = "pics\EF_ORBAT.paa";
 		type = "HQ";
 	};
@@ -23,12 +23,12 @@ class CfgORBAT
 		commander = "NATOMen";
 		commanderRank = "CAPTAIN";
 		description = "Taskforce COIN is deployed at F.O.B. Moneypenny in order to take on a counter insurgency campaign against a criminal network of local insurgents and foreign mercenaries.";
-		insignia = "pics\COIN_ORBAT.paa";
+		insignia = "\STAF_GEAR\img\COIN_ORBAT.paa";
 		side = "West";
 		size = "Company";
 		text = "Task Force Counter Insurgency";
 		textShort = "TF COIN";
-		texture = "Campaigns\IP_CMP_ICE\img\ORBAT\COIN_ORBAT.paa";
+		texture = "\STAF_GEAR\img\COIN_ORBAT.paa";
 		//texture = "pics\COIN_ORBAT.paa";
 		type = "HQ";
 		
