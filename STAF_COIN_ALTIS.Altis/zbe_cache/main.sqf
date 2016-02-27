@@ -53,7 +53,7 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 		} forEach _assetscar;
 		_assetsair = zbe_centerPOS nearEntities ["Air", zbe_mapside];
 		{
-			if &!(_x in zbe_cached_air) && !(_x getVariable ["zbe_cacheDisabled", false])) then {
+			if (!(_x in zbe_cached_air) && !(_x getVariable ["zbe_cacheDisabled", false])) then {
 				zbe_cached_air = zbe_cached_air + [_x];
 				    [_x, zbe_vehicleCacheDistAir] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};

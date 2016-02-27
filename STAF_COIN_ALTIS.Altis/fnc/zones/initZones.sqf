@@ -161,7 +161,8 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			};			
 		} forEach _assetConfigs;
 		
-		_GL setVariable ["IP_ZoneAssets", _assets];
+		_GL setVariable ["IP_ZoneMarker", _marker, true];
+		_GL setVariable ["IP_ZoneAssets", _assets, true];
 		IP_Zones pushBack _GL;
 	};
 } forEach _zoneConfigs;

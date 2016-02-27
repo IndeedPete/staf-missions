@@ -75,7 +75,11 @@
 			class join
 			{
 				file = "fnc\base\join.sqf";
-			};			
+			};
+			class launchFlare
+			{
+				file = "fnc\base\launchFlare.sqf";
+			};
 			class QRF
 			{
 				file = "fnc\base\QRF.sqf";
