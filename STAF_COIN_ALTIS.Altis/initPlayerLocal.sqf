@@ -40,3 +40,9 @@ IP_Stretchers = [];
 		nul = [] execVM "scripts\3rdView Restrictions.sqf";
 	};
 };
+
+// Default Loadout
+[] spawn {
+	waitUntil {!isNull player};
+	player call IP_fnc_defaultLoadout;
+};

@@ -655,6 +655,10 @@
 			{
 				file = "fnc\staf\ACEHeal.sqf";
 			};
+			class defaultLoadout
+			{
+				file = "fnc\staf\defaultLoadout.sqf";
+			};
 			class insignia
 			{
 				file = "fnc\staf\insignia.sqf";

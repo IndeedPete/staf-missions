@@ -1,0 +1,67 @@
+comment "Exported from Arsenal by IndeedPete";
+
+comment "Remove existing items";
+removeAllWeapons _this;
+removeAllItems _this;
+removeAllAssignedItems _this;
+removeUniform _this;
+removeVest _this;
+removeBackpack _this;
+removeHeadgear _this;
+removeGoggles _this;
+
+comment "Add containers";
+_this forceAddUniform "IP_U_B_CombatUniform_Splinter_Altis_tshirt";
+for "_i" from 1 to 4 do {_this addItemToUniform "ACE_fieldDressing";};
+for "_i" from 1 to 3 do {_this addItemToUniform "ACE_packingBandage";};
+for "_i" from 1 to 3 do {_this addItemToUniform "ACE_elasticBandage";};
+_this addItemToUniform "ACE_tourniquet";
+for "_i" from 1 to 2 do {_this addItemToUniform "ACE_morphine";};
+for "_i" from 1 to 3 do {_this addItemToUniform "ACE_quikclot";};
+_this addItemToUniform "ACE_EarPlugs";
+_this addItemToUniform "ACE_IR_Strobe_Item";
+for "_i" from 1 to 2 do {_this addItemToUniform "ACE_CableTie";};
+_this addItemToUniform "Chemlight_green";
+_this addItemToUniform "Chemlight_red";
+_this addItemToUniform "Chemlight_yellow";
+_this addItemToUniform "Chemlight_blue";
+for "_i" from 1 to 2 do {_this addItemToUniform "16Rnd_9x21_Mag";};
+_this addVest "IP_V_PlateCarrier1_rgrEF";
+_this addItemToVest "optic_Hamr";
+for "_i" from 1 to 2 do {_this addItemToVest "ACE_IR_Strobe_Item";};
+for "_i" from 1 to 2 do {_this addItemToVest "SmokeShell";};
+_this addItemToVest "SmokeShellYellow";
+_this addItemToVest "SmokeShellRed";
+_this addItemToVest "SmokeShellGreen";
+_this addItemToVest "SmokeShellPurple";
+_this addItemToVest "SmokeShellBlue";
+_this addItemToVest "SmokeShellOrange";
+_this addItemToVest "B_IR_Grenade";
+for "_i" from 1 to 2 do {_this addItemToVest "MiniGrenade";};
+_this addItemToVest "150Rnd_93x64_Mag";
+_this addBackpack "IP_B_Carryall_Sage";
+_this addItemToBackpack "ACE_SpareBarrel";
+for "_i" from 1 to 4 do {_this addItemToBackpack "150Rnd_93x64_Mag";};
+_this addHeadgear "IP_H_HelmetB_light_Green_Sand";
+
+comment "Add weapons";
+_this addWeapon "IP_MMG_01_Sage_F";
+_this addPrimaryWeaponItem "acc_pointer_IR";
+_this addPrimaryWeaponItem "optic_tws_mg";
+_this addPrimaryWeaponItem "bipod_01_F_blk";
+_this addWeapon "hgun_P07_F";
+_this addHandgunItem "muzzle_snds_L";
+_this addWeapon "Binocular";
+_this addMagazine "150Rnd_93x64_Mag";
+
+comment "Add items";
+_this linkItem "ItemMap";
+_this linkItem "ItemCompass";
+_this linkItem "ItemWatch";
+_this linkItem "ItemAndroid";
+_this linkItem "NVGoggles";
+
+comment "Set identity";
+//_this setFace "STAF_WhiteHead_03_ATACS_Lush";
+_this setSpeaker "ACE_NoVoice";
+//[_this,"EF_Germany"] call bis_fnc_setUnitInsignia;
