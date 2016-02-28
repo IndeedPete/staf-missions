@@ -1492,6 +1492,8 @@ _covertGeneralItems = [
 	"h_Booniehat_dgtl",
 	"v_chestrig_rgr",
 	"v_chestrig_khk",
+	"V_Chestrig_blk",
+	"V_Chestrig_oli",
 	"v_BandollierB_blk",
 	"v_BandollierB_cbr",
 	"v_BandollierB_rgr",

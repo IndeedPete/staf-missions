@@ -194,7 +194,7 @@ while {true} do {
 			};
 		} forEach allGroups;
 		
-		_vehs pushBack [_x,_vh,_asVh,_knowAboutMe,_knowAboutMeG];
+		_vehs pushBack [_x, _vh, _asVh, _knowAboutMe, _knowAboutMeG];
 	} forEach _units;
 
 	{

@@ -11,4 +11,7 @@ IP_TESTMODE = true;
 // [true, true, [], [[],[],[]], true] call IP_fnc_shopInit;
 
 // Init Zones. // Moved to init.sqf for HC.
-// [] call IP_fnc_initZones; 
+// [] call IP_fnc_initZones;
+
+// Mission
+call(compileFinal(preProcessFileLineNumbers "missions\missions.sqf")); // Compile Main Mission Flows

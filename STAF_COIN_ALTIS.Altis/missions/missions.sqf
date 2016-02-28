@@ -1,0 +1,1 @@
+IP_mission_M01 = compileFinal(preprocessFileLineNumbers "missions\M01.sqf"); // IED clearing.

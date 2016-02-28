@@ -5,8 +5,8 @@ EPD_IED_debug = IP_TESTMODE;
 hideIedSectionMarkers = true;  //sets the alpha to 0 after spawning IEDs at a section
 hideSafeZoneMarkers = true;  //sets the alpha to 0 of a safezone
 
-itemsRequiredToDisarm = ["ToolKit"];   //"MineDetector" or "ToolKit" for example
-betterDisarmers = ["B_soldier_exp_F", "B_engineer_F", "B_diver_exp_F", "B_recon_exp_F"]; // people who are better at disarming
+itemsRequiredToDisarm = ["ACE_DefusalKit"];   //"MineDetector" or "ToolKit" for example
+betterDisarmers = ["IP_B_recon_exp_F_EFAltis", "IP_B_soldier_exp_F_EFAltis", "IP_B_engineer_F_EFAltis", "IP_B_soldier_repair_F_EFAltis"]; // people who are better at disarming
 
 baseDisarmChance = 75; //how well everybody can disarm
 bonusDisarmChance = 20; //increase that the "betterDisarmers" get
@@ -67,7 +67,8 @@ allowExplosiveToTriggerIEDs = true;
 //http://community.bistudio.com/wiki/side
 
 iedInitialArray = [
-	["mAO", "West"]
+	["mAO", ["West", "CIV"]],
+	["mM01", [0.33, 0, 0, 100] ,  ["West", "CIV"]]
 	/*["AllCities","West"],
 	["AllVillages","West"],
 	/*["AltisRandom1",6,"West"],
