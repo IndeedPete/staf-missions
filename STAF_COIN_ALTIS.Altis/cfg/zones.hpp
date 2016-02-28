@@ -440,4 +440,108 @@ class CfgZones
 			};
 		};
 	};
+	
+	class Zone9: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+				probability = 0.75;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 3;
+				probability = 0.8;
+			};
+		};
+	};
+	
+	class Zone10: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+				probability = 0.8;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 1;
+				probability = 0.3;
+			};
+		};
+	};
+	
+	class Zone11: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+				probability = 0.8;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 1;
+				probability = 0.3;
+			};
+		};
+	};
+	
+	class Zone12: ZoneDefault
+	{
+		active = 1;
+		
+		class Assets: Assets
+		{
+			class Asset0: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset1: AssetDefault
+			{
+				active = 1;
+			};
+			class Asset2: AssetDefault
+			{
+				active = 1;
+				probability = 0.8;
+			};
+			class Asset3: AssetDefault
+			{
+				active = 1;
+				probability = 0.3;
+			};
+		};
+	};
 };

@@ -1,6 +1,15 @@
-private ["_class", "_template"];
-_class = typeOf _this;
+params [
+	["_obj", player, [ObjNull]],
+	["_isBox", false, [true]],
+	"_class",
+	"_template"
+];
 
+if (_isBox) exitWith {
+	_obj addAction ["<img size='1' shadow='1' image='\a3\ui_f\data\igui\cfg\Actions\reammo_ca.paa'/> Take Default Loadout", {[(_this select 1), false] call IP_fnc_defaultLoadout}, [], 1.5, false, true, "", "(_this distance _target < 8)"];
+};
+
+_class = typeOf _obj;
 _template = switch (_class) do {
 	case "IP_B_soldier_AR_F_EFAltis": {"AR_Altis"};
 	case "IP_B_arecon_AR_EFAltis_F": {"AR_Altis"};
@@ -17,5 +26,5 @@ _template = switch (_class) do {
 };
 
 if (_template != "") then {
-	_this execVM ("cfg\loadouts\" + _template + ".sqf");
+	_obj execVM ("cfg\loadouts\" + _template + ".sqf");
 };

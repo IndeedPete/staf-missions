@@ -44,5 +44,5 @@ IP_Stretchers = [];
 // Default Loadout
 [] spawn {
 	waitUntil {!isNull player};
-	player call IP_fnc_defaultLoadout;
+	[player, false] call IP_fnc_defaultLoadout;
 };

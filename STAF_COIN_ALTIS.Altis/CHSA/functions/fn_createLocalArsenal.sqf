@@ -59,7 +59,7 @@ if (_index isEqualTo -1) then {
 };
 player setVariable ["CHSA_objArray", _objArray, true];
 
-_actionText = if (isLocalized "STR_chsa_action") then {localize "STR_chsa_action"} else {"Select specialization"};
+_actionText = if (isLocalized "STR_chsa_action") then {localize "STR_chsa_action"} else {"Select Specialization"};
 _actionId = _obj addAction [("<img image='\a3\Modules_F_Curator\Data\iconDiary_ca.paa' width='64' height='64' /> " + _actionText), CHSA_fnc_createDialog, [_target], 5, false, true, "", "_target distance _this < 8"];
 _obj setVariable ["CHSA_actionID", _actionId];
 

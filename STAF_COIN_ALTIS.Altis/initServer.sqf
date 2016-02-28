@@ -14,4 +14,4 @@ IP_TESTMODE = true;
 // [] call IP_fnc_initZones;
 
 // Mission
-call(compileFinal(preProcessFileLineNumbers "missions\missions.sqf")); // Compile Main Mission Flows
+// call(compileFinal(preProcessFileLineNumbers "missions\missions.sqf")); // Compile Main Mission Flows
