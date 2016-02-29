@@ -8,7 +8,7 @@ class EditorData
 	toggles=129;
 	class ItemIDProvider
 	{
-		nextID=1946;
+		nextID=1949;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=329;
+		nextID=343;
 	};
 	class Camera
 	{
-		pos[]={8929.0859,240.01984,21146.246};
-		dir[]={-0.59641755,-0.39840516,-0.69698179};
-		up[]={-0.25905821,0.91715431,-0.30273911};
-		aside[]={-0.75987941,-5.1593815e-007,0.65024197};
+		pos[]={14181.954,118.45194,21276.363};
+		dir[]={-0.53966272,-0.41229343,-0.73409367};
+		up[]={-0.24424914,0.91100973,-0.33224759};
+		aside[]={-0.80575448,1.0476215e-006,0.5923419};
 	};
 };
 binarizationWanted=0;
@@ -184,7 +184,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=624;
+		items=626;
 		class Item0
 		{
 			dataType="Marker";
@@ -1366,7 +1366,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={14230.105,75.485565,21226.117};
-				angles[]={0.017329043,5.2068233,6.2791886};
+				angles[]={0.01733112,5.2068233,6.2791882};
 			};
 			side="Empty";
 			class Attributes
@@ -4704,7 +4704,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={15100.047,0.010351263,15577.018};
+				position[]={15100.047,0.0098705292,15577.018};
 			};
 			id=405;
 			type="ACE_moduleAdvancedMedicalSettings";
@@ -4744,7 +4744,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=-1;
 						};
 					};
 				};
@@ -4782,7 +4782,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=1;
 						};
 					};
 				};
@@ -4877,7 +4877,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=3;
 						};
 					};
 				};
@@ -4896,7 +4896,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=-1;
 						};
 					};
 				};
@@ -4915,7 +4915,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=3;
 						};
 					};
 				};
@@ -4934,7 +4934,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=-1;
 						};
 					};
 				};
@@ -15214,8 +15214,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14238.341,73.060341,21230.701};
-						angles[]={0.043973263,4.4631209,6.2525272};
+						position[]={14217.198,74.886383,21260.979};
+						angles[]={6.1349473,3.740963,6.1414752};
 					};
 					side="West";
 					flags=2;
@@ -19451,8 +19451,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14239.946,75.275146,21225.164};
-				angles[]={0.023998277,5.1838722,6.2725215};
+				position[]={14220.272,76.295151,21259.322};
+				angles[]={6.1349473,3.6118667,6.1742849};
 			};
 			side="West";
 			flags=2;
@@ -19492,8 +19492,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14238.404,75.135094,21230.695};
-				angles[]={0.043973263,4.4631209,6.2525272};
+				position[]={14217.262,76.961136,21260.973};
+				angles[]={6.1349473,3.740963,6.1414752};
 			};
 			side="West";
 			flags=2;
@@ -19540,8 +19540,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14239.924,73.199051,21225.211};
-						angles[]={0.023998277,5.1838722,6.2725215};
+						position[]={14220.25,74.219055,21259.369};
+						angles[]={6.1349473,3.6118667,6.1742849};
 					};
 					side="West";
 					flags=3;
@@ -28389,16 +28389,71 @@ class Mission
 			id=1945;
 			type="Land_ScrapHeap_2_F";
 		};
+		class Item624
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={14232.53,75.317223,21230.385};
+				angles[]={0.023993526,5.2158203,6.272521};
+			};
+			side="Empty";
+			class Attributes
+			{
+				init="this setVariable [""zbe_cacheDisabled"", true];";
+				name="IP_CASEVACTruck";
+			};
+			id=1947;
+			type="IP_B_Truck_01_medical_F_EFAltis";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[10]],[[],[]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item625
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={14220.411,73.690857,21255.908};
+				angles[]={6.1349473,0.53177726,6.1742849};
+			};
+			side="Empty";
+			class Attributes
+			{
+			};
+			id=1948;
+			type="Land_ClutterCutter_large_F";
+		};
 	};
 	class Connections
 	{
 		class LinkIDProvider
 		{
-			nextID=15;
+			nextID=17;
 		};
 		class Links
 		{
-			items=15;
+			items=17;
 			class Item0
 			{
 				linkID=0;
@@ -28543,6 +28598,26 @@ class Mission
 			{
 				linkID=14;
 				item0=1270;
+				item1=339;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item15
+			{
+				linkID=15;
+				item0=1526;
+				item1=339;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item16
+			{
+				linkID=16;
+				item0=1947;
 				item1=339;
 				class CustomData
 				{

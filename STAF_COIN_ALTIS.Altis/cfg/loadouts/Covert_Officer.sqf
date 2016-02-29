@@ -11,7 +11,7 @@ removeHeadgear _this;
 removeGoggles _this;
 
 comment "Add containers";
-_this forceAddUniform "U_I_G_Story_Protagonist_F";
+_this forceAddUniform "STAF_U_BG_Guerilla2_1_Steppentarn";
 for "_i" from 1 to 4 do {_this addItemToUniform "ACE_fieldDressing";};
 for "_i" from 1 to 3 do {_this addItemToUniform "ACE_packingBandage";};
 for "_i" from 1 to 2 do {_this addItemToUniform "ACE_morphine";};
