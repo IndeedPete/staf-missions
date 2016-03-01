@@ -5,10 +5,10 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=129;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1949;
+		nextID=1951;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=343;
+		nextID=350;
 	};
 	class Camera
 	{
-		pos[]={14181.954,118.45194,21276.363};
-		dir[]={-0.53966272,-0.41229343,-0.73409367};
-		up[]={-0.24424914,0.91100973,-0.33224759};
-		aside[]={-0.80575448,1.0476215e-006,0.5923419};
+		pos[]={14197.984,77.937561,21208.701};
+		dir[]={0.48141423,-0.70956755,-0.51470762};
+		up[]={0.48472136,0.70458078,-0.51824373};
+		aside[]={-0.73038977,1.9988802e-006,-0.68314189};
 	};
 };
 binarizationWanted=0;
@@ -184,7 +184,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=626;
+		items=628;
 		class Item0
 		{
 			dataType="Marker";
@@ -2472,7 +2472,6 @@ class Mission
 						init="(group this) setGroupID [""King""]; ";
 						name="IP_Company_Commander";
 						description="Company Commander [King]";
-						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1431;
@@ -2514,6 +2513,7 @@ class Mission
 						rank="SERGEANT";
 						name="IP_Company_Medic";
 						description="Company Medic";
+						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1426;
@@ -4934,7 +4934,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=-1;
+							value=1;
 						};
 					};
 				};
@@ -4998,7 +4998,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={15108.176,-0.012581032,15577.079};
+				position[]={15108.176,-0.012527466,15577.08};
 			};
 			id=407;
 			type="ACE_moduleMedicalSettings";
@@ -5038,7 +5038,7 @@ class Mission
 									"BOOL"
 								};
 							};
-							value=0;
+							value=1;
 						};
 					};
 				};
@@ -5114,7 +5114,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=1;
 						};
 					};
 				};
@@ -28444,16 +28444,103 @@ class Mission
 			id=1948;
 			type="Land_ClutterCutter_large_F";
 		};
+		class Item626
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={14212.811,68.547836,21140.977};
+				angles[]={6.1232305,0,0.010664274};
+			};
+			id=1949;
+			type="ACE_moduleAssignMedicalFacility";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ACE_moduleAssignMedicalFacility_enabled";
+					expression="_this setVariable ['enabled',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=1;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item627
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={14239.589,73.201065,21225.414};
+				angles[]={0.023998277,0,6.2725215};
+			};
+			id=1950;
+			type="ACE_moduleAssignMedicVehicle";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ACE_moduleAssignMedicVehicle_EnableList";
+					expression="_this setVariable ['EnableList',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="""IP_B_Truck_01_medical_F_EFAltis"" ";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="ACE_moduleAssignMedicVehicle_enabled";
+					expression="_this setVariable ['enabled',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=1;
+						};
+					};
+				};
+				nAttributes=2;
+			};
+		};
 	};
 	class Connections
 	{
 		class LinkIDProvider
 		{
-			nextID=17;
+			nextID=20;
 		};
 		class Links
 		{
-			items=17;
+			items=20;
 			class Item0
 			{
 				linkID=0;
@@ -28619,6 +28706,36 @@ class Mission
 				linkID=16;
 				item0=1947;
 				item1=339;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item17
+			{
+				linkID=17;
+				item0=1949;
+				item1=1654;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item18
+			{
+				linkID=18;
+				item0=1949;
+				item1=1655;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item19
+			{
+				linkID=19;
+				item0=1950;
+				item1=1947;
 				class CustomData
 				{
 					type="Sync";
