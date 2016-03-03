@@ -431,7 +431,7 @@ _generalItems = [
 	"ACE_Flashlight_XL50",
 	"ACE_Tripod",
 	//Task Force Arrowhead
-	"tf_anprc152",
+	/*"tf_anprc152",
 	"tf_anprc152_2",
 	"tf_anprc152_3",
 	"tf_anprc152_4",
@@ -450,7 +450,7 @@ _generalItems = [
 	"tf_anprc152_17",
 	"tf_anprc152_18",
 	"tf_anprc152_19",
-	"tf_anprc152_20",
+	"tf_anprc152_20",*/
 	"tf_rf7800str",
 	"tf_rt1523g",
 	"tf_rt1523g_big",
@@ -462,7 +462,7 @@ _generalItems = [
 	"tf_rt1523g_big_bwmod",
 	"tf_rt1523g_big_bwmod_tropen",
 	"tf_rt1523g_big_bwmod_flecken",
-	"tf_anprc152_2",
+	//"tf_anprc152_2",
 	"tf_rf7800str_2",
 	"tf_rt1523g_2",
 	"tf_rt1523g_big_2",
@@ -1512,6 +1512,7 @@ _covertGeneralItems = [
 	"V_HarnessOGL_gry",
 	"V_HarnessOSpec_brn",
 	"V_HarnessOSpec_gry",
+	"V_TacVestIR_blk",
 	"B_TacticalPack_rgr",
 	"B_TacticalPack_mcamo",
 	"B_TacticalPack_ocamo",
@@ -1669,7 +1670,7 @@ _covertGeneralItems = [
 	"ACE_Flashlight_XL50",
 	"ACE_Tripod",
 	//Task Force Arrowhead
-	"tf_anprc152",
+	"tf_rf7800str",
 	//Euroforce
 	"IP_H_Booniehat_mcamoEFAltis",
 	"IP_H_Booniehat_mcamoEFBlack",

@@ -22,7 +22,7 @@ for "_i" from 1 to 3 do {_this addItemToUniform "ACE_CableTie";};
 _this addItemToUniform "ACE_EarPlugs";
 for "_i" from 1 to 3 do {_this addItemToUniform "ACE_IR_Strobe_Item";};
 for "_i" from 1 to 2 do {_this addItemToUniform "11Rnd_45ACP_Mag";};
-_this addVest "V_TacVest_camo";
+_this addVest "V_TacVestIR_blk";
 for "_i" from 1 to 5 do {_this addItemToVest "30Rnd_556x45_Stanag_Tracer_Red";};
 _this addItemToVest "Chemlight_green";
 _this addItemToVest "Chemlight_red";

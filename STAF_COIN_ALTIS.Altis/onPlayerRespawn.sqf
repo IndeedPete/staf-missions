@@ -2,7 +2,7 @@
 [player] spawn IP_fnc_insignia;
 
 // Automated TFR Radio
-[player] execVM "radio.sqf";
+[] spawn IP_fnc_STAFRadio;
 
 // MASH
 _respawnDelayMASH = getNumber(missionConfigFile >> "respawnDelayMASH");

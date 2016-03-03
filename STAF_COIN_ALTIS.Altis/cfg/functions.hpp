@@ -663,6 +663,10 @@
 			{
 				file = "fnc\staf\insignia.sqf";
 			};
+			class STAFRadio
+			{
+				file = "fnc\staf\radio.sqf";
+			};	
 			class vehicleLoadout
 			{
 				file = "fnc\staf\vehicleLoadout.sqf";
