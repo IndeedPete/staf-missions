@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=350;
+		nextID=357;
 	};
 	class Camera
 	{
-		pos[]={14197.984,77.937561,21208.701};
-		dir[]={0.48141423,-0.70956755,-0.51470762};
-		up[]={0.48472136,0.70458078,-0.51824373};
-		aside[]={-0.73038977,1.9988802e-006,-0.68314189};
+		pos[]={14196.949,77.937561,21209.873};
+		dir[]={0.63826239,-0.48610491,-0.59707284};
+		up[]={0.35505101,0.87383628,-0.33213785};
+		aside[]={-0.68320531,1.1210504e-006,-0.7303341};
 	};
 };
 binarizationWanted=0;
@@ -2472,10 +2472,53 @@ class Mission
 						init="(group this) setGroupID [""King""]; ";
 						name="IP_Company_Commander";
 						description="Company Commander [King]";
+						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1431;
 					type="IP_B_officer_light_F_EFAltis";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=2;
+					};
 				};
 				class Item1
 				{
@@ -2497,6 +2540,48 @@ class Mission
 					};
 					id=1432;
 					type="IP_B_officer_light_F_EFAltis";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=2;
+					};
 				};
 				class Item2
 				{
@@ -2513,7 +2598,6 @@ class Mission
 						rank="SERGEANT";
 						name="IP_Company_Medic";
 						description="Company Medic";
-						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1426;
@@ -3834,7 +3918,26 @@ class Mission
 						};
 					};
 				};
-				nAttributes=3;
+				class Attribute3
+				{
+					property="ace_mk6mortar_module_useAmmoHandling";
+					expression="_this setVariable ['useAmmoHandling',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=4;
 			};
 		};
 		class Item101
@@ -5082,8 +5185,8 @@ class Mission
 				};
 				class Attribute4
 				{
-					property="ACE_moduleMedicalSettings_remoteControlledAI";
-					expression="_this setVariable ['remoteControlledAI',_value,true];";
+					property="ACE_moduleMedicalSettings_increaseTrainingInLocations";
+					expression="_this setVariable ['increaseTrainingInLocations',_value,true];";
 					class Value
 					{
 						class data
@@ -5120,6 +5223,25 @@ class Mission
 				};
 				class Attribute6
 				{
+					property="ACE_moduleMedicalSettings_remoteControlledAI";
+					expression="_this setVariable ['remoteControlledAI',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute7
+				{
 					property="ACE_moduleMedicalSettings_painCoefficient";
 					expression="_this setVariable ['painCoefficient',_value,true];";
 					class Value
@@ -5137,7 +5259,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute7
+				class Attribute8
 				{
 					property="ACE_moduleMedicalSettings_AIDamageThreshold";
 					expression="_this setVariable ['AIDamageThreshold',_value,true];";
@@ -5156,7 +5278,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute8
+				class Attribute9
 				{
 					property="ACE_moduleMedicalSettings_playerDamageThreshold";
 					expression="_this setVariable ['playerDamageThreshold',_value,true];";
@@ -5175,7 +5297,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute9
+				class Attribute10
 				{
 					property="ACE_moduleMedicalSettings_level";
 					expression="_this setVariable ['level',_value,true];";
@@ -5194,7 +5316,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute10
+				class Attribute11
 				{
 					property="ACE_moduleMedicalSettings_allowLitterCreation";
 					expression="_this setVariable ['allowLitterCreation',_value,true];";
@@ -5213,7 +5335,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute11
+				class Attribute12
 				{
 					property="ACE_moduleMedicalSettings_keepLocalSettingsSynced";
 					expression="_this setVariable ['keepLocalSettingsSynced',_value,true];";
@@ -5232,7 +5354,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute12
+				class Attribute13
 				{
 					property="ACE_moduleMedicalSettings_medicSetting";
 					expression="_this setVariable ['medicSetting',_value,true];";
@@ -5251,7 +5373,7 @@ class Mission
 						};
 					};
 				};
-				nAttributes=13;
+				nAttributes=14;
 			};
 		};
 		class Item117
