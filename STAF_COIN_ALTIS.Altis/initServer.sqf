@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
 
 // Communicate dem vars
 {publicVariable _x} forEach ["IP_TESTMODE"];

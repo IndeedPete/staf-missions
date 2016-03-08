@@ -30,7 +30,9 @@ player addEventHandler ["Put", {
 	// Check for SL radio.
     if ((leader(group _unit) == _unit) && {(toLower _items) find "tf_anprc152" >= 0}) then {
         // Re add it.
-        _unit addItem "tf_anprc152";
+		if ({(toLower _x) find "tf_anprc152" >= 0} count (items player) isEqualTo 0) then {
+			_unit addItem "tf_anprc152";
+		};
 		
         // Remove dropped radio.
         _itemCargo = getItemCargo _container;

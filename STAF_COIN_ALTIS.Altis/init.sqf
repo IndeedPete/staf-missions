@@ -14,12 +14,13 @@ enableSaving [false, false];
 //Mute Orders and Reports
 enableSentences false;
 
-//No "XXX is now Zeus" Message
+/*/ No "XXX is now Zeus" Message
 zeusmodule1 setVariable ["showNotification", false];
 zeusmodule2 setVariable ["showNotification", false];
 zeusmodule3 setVariable ["showNotification", false];
 zeusmodule4 setVariable ["showNotification", false];
 zeusmodule5 setVariable ["showNotification", false];
+*/
 
 //Add everytjomg to Zeus
 { 
