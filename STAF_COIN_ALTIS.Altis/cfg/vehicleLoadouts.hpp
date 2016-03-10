@@ -8,6 +8,95 @@ class CfgVehicleLoadouts
 		weaponCargo[] = {};
 	};
 	
+	class SafehouseBox: VehicleDefault
+	{
+		backpackCargo[] = {
+			{"STAF_tf_rt1523g_big_altis", 1},
+			{"STAF_tf_anarc210_Altis", 1}
+		};
+		
+		itemCargo[] = {
+			{"NVGoggles", 3},
+			{"ToolKit", 1},
+			{"ACE_wirecutter", 1},
+			{"ACE_DefusalKit", 1},
+			{"ACE_Tripod", 1},
+			{"ACE_CableTie", 5},
+			{"ACE_IR_Strobe_Item", 10},
+			{"ACE_RangeTable_82mm", 1},
+			{"ACE_MapTools", 1},
+			{"ACE_EarPlugs", 5},
+			{"ItemGPS", 1},
+			{"ACE_SpareBarrel", 1},
+			{"ACE_Flashlight_XL50", 3},
+			{"acc_flashlight", 3},
+			{"U_BG_Guerilla2_1", 1},
+			{"U_BG_Guerilla2_2", 1},
+			{"U_I_G_Story_Protagonist_F", 1},
+			{"B_FieldPack_oli", 1},
+			{"B_TacticalPack_blk", 1},
+			{"G_Bandanna_khk", 1},
+			{"G_Bandanna_shades", 1},
+			{"G_Aviator", 1},
+			{"h_Booniehat_khk", 1},
+			{"H_Bandanna_camo", 1},
+			{"H_Cap_red", 1},
+			{"v_BandollierB_oli", 1},
+			{"v_TacVest_blk", 1},
+			{"acc_pointer_IR", 3},
+			{"muzzle_snds_M", 3},
+			{"muzzle_snds_L", 3},
+			{"muzzle_snds_H", 1},
+			{"muzzle_snds_B", 1},
+			{"optic_Aco", 1},
+			{"optic_MRCO", 1},
+			{"optic_Arco", 1},
+			{"optic_DMS", 1},
+			{"bipod_01_F_blk", 3}
+		};
+		
+		magazineCargo[] = {		
+			{"16Rnd_9x21_Mag", 10},
+			{"30Rnd_556x45_Stanag_Tracer_Red", 30},
+			{"10Rnd_762x54_Mag", 10},
+			{"150Rnd_762x54_Box_Tracer", 6},
+			{"30Rnd_65x39_caseless_mag_Tracer", 30},
+			{"20Rnd_762x51_Mag", 5},
+			{"3Rnd_HE_Grenade_shell", 6},
+			{"100Rnd_65x39_caseless_mag_Tracer", 10},
+			{"200Rnd_65x39_cased_Box", 5},
+			{"150Rnd_93x64_Mag", 5},
+			{"APERSBoundingMine_Range_Mag", 10},
+			{"HandGrenade", 3},
+			{"MiniGrenade", 3},
+			{"SmokeShell", 6},
+			{"SmokeShellRed", 3},
+			{"SmokeShellGreen", 3},
+			{"SmokeShellYellow", 3},
+			{"SmokeShellPurple", 3},
+			{"SmokeShellBlue", 3},
+			{"SmokeShellOrange", 3},
+			{"B_IR_Grenade", 3},
+			{"DemoCharge_Remote_Mag", 5},
+			{"Chemlight_green", 10},
+			{"Chemlight_red", 10},
+			{"Chemlight_yellow", 10},
+			{"Chemlight_blue", 10}
+		};
+		
+		weaponCargo[] = {
+			{"Binocular", 1},
+			{"launch_NLAW_F", 3},
+			{"IP_arifle_MX_Sage_F", 1},
+			{"IP_arifle_MX_GL_Sage_F", 1},
+			{"IP_arifle_MX_SW_Sage_F", 1},
+			{"arifle_TRG20_F", 1},
+			{"arifle_TRG21_F", 1},
+			{"arifle_TRG21_GL_F", 1},
+			{"hgun_Rook40_F", 3}
+		};
+	};
+	
 	class Gorgon: VehicleDefault
 	{
 		itemCargo[] = {
@@ -638,7 +727,8 @@ class CfgVehicleLoadouts
 	class Littlebird: VehicleDefault
 	{
 		backpackCargo[] = {
-			{"STAF_tf_anarc210_Sage", 1}
+			{"STAF_tf_anarc210_Sage", 1},
+			{"B_Parachute", 2}
 		};
 		
 		itemCargo[] = {
@@ -682,7 +772,8 @@ class CfgVehicleLoadouts
 	class Ghosthawk: VehicleDefault
 	{
 		backpackCargo[] = {
-			{"STAF_tf_anarc210_Sage", 1}
+			{"STAF_tf_anarc210_Sage", 1},
+			{"B_Parachute", 12}
 		};
 		
 		itemCargo[] = {
@@ -745,6 +836,73 @@ class CfgVehicleLoadouts
 			{"IP_arifle_MX_Sage_F", 2},
 			{"IP_arifle_MX_GL_Sage_F", 1},
 			{"IP_arifle_MX_SW_Sage_F", 1}
+		};
+	};
+	
+	class SUV: VehicleDefault
+	{
+		backpackCargo[] = {
+			{"STAF_tf_rt1523g_big_altis", 1}
+		};
+		
+		itemCargo[] = {
+			{"NVGoggles", 2},
+			{"ToolKit", 1},
+			{"ACE_salineIV", 2},
+			{"ACE_salineIV_500", 2},
+			{"ACE_salineIV_250", 3},
+			{"ACE_tourniquet", 2},
+			{"ACE_elasticBandage", 10},
+			{"ACE_packingBandage", 20},
+			{"ACE_fieldDressing", 10},
+			{"ACE_quikclot", 10},
+			{"ACE_epinephrine", 10},
+			{"ACE_morphine", 20},
+			{"ACE_atropine", 10},
+			{"ACE_EarPlugs", 5},
+			{"ACE_personalAidKit", 3},
+			{"ACE_surgicalKit", 1},
+			{"ACE_wirecutter", 1},
+			{"ACE_DefusalKit", 1},
+			{"ACE_Tripod", 1},
+			{"ACE_bodyBag", 5},
+			{"ACE_CableTie", 5},
+			{"ACE_IR_Strobe_Item", 10},
+			{"ItemGPS", 1},
+			{"ACE_SpareBarrel", 1},
+			{"ACE_Flashlight_XL50", 3},
+			{"acc_flashlight", 3}
+		};
+		
+		magazineCargo[] = {		
+			{"30Rnd_556x45_Stanag_Tracer_Red", 10},
+			{"20Rnd_762x51_Mag", 3},
+			{"10Rnd_762x54_Mag", 6},
+			{"3Rnd_HE_Grenade_shell", 2},
+			{"150Rnd_762x54_Box_Tracer", 2},
+			{"200Rnd_65x39_cased_Box", 1},
+			{"APERSBoundingMine_Range_Mag", 3},
+			{"HandGrenade", 3},
+			{"MiniGrenade", 3},
+			{"SmokeShell", 6},
+			{"SmokeShellRed", 3},
+			{"SmokeShellGreen", 3},
+			{"SmokeShellYellow", 3},
+			{"SmokeShellPurple", 3},
+			{"SmokeShellBlue", 3},
+			{"SmokeShellOrange", 3},
+			{"B_IR_Grenade", 3},
+			{"DemoCharge_Remote_Mag", 1},
+			{"Chemlight_green", 5},
+			{"Chemlight_red", 5},
+			{"Chemlight_yellow", 5},
+			{"Chemlight_blue", 5}
+		};
+		
+		weaponCargo[] = {
+			{"Binocular", 1},
+			{"launch_NLAW_F", 1},
+			{"arifle_TRG20_F", 1}
 		};
 	};
 };

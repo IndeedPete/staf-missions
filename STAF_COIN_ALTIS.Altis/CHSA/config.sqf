@@ -837,9 +837,10 @@ _leaderItems = [
 	"IP_arifle_MX_GL_Sage_F",
 	"IP_arifle_MX_GL_Altis_F",
 	"IP_arifle_MX_GL_Green_F",
-	"IP_arifle_MX_GL_Woodland_F"
+	"IP_arifle_MX_GL_Woodland_F",
 	//"IP_arifle_MX_GL_White_F",
 	//"IP_arifle_MX_GL_Snow_F"
+	"STAF_U_I_OfficerUniform_Fabulous"
 ] + _generalItems;
 
 _autoriflemanItems = [
@@ -1328,6 +1329,7 @@ _pilotItems = [
 	"B_UavTerminal",
 	"H_PilotHelmetHeli_B",
 	"H_PilotHelmetFighter_B",
+	"STAF_H_PilotHelmetHeli_Stroke_B",
 	"STAF_H_CrewHelmetHeli_Stroke_B",
 	"U_B_HeliPilotCoveralls",
 	"U_B_PilotCoveralls",
