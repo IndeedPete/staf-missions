@@ -70,6 +70,17 @@ class CfgFunctions
 
 //__________________________________________
 
+class Params
+{
+	class Persistence
+	{
+		title = "Persistence (Whether the game automatically saves and loads progress to and from an iniDB file.)";
+		texts[] = {"No", "Yes"};
+		values[] = {0, 1};
+		default = 1;
+	};
+};
+
 class Extended_PostInit_EventHandlers
 {
 	RYD_INC_Post_Init = "RYD_INC_Post_Init_Var = [] spawn IP_fnc_rydIncognito";

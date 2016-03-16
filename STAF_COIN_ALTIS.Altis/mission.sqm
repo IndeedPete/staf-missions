@@ -5,7 +5,7 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=1;
+	toggles=129;
 	class ItemIDProvider
 	{
 		nextID=2135;
@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=399;
+		nextID=406;
 	};
 	class Camera
 	{
@@ -24621,7 +24621,7 @@ class Mission
 			{
 				name="trgM01";
 				condition="{(vehicle _x) in thisList} count allPlayers > 0";
-				onActivation="if (isServer) then {[] spawn IP_mission_M01};";
+				onActivation="if (isServer) then {[""M01""] call IP_fnc_startMission};";
 				sizeA=150;
 				sizeB=150;
 				timeout[]={10,20,30};
@@ -32861,7 +32861,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={4389.8848,124.26616,18576.307};
-			angle=-0.21251759;
+			angle=-0.21251753;
 			class Attributes
 			{
 				sizeB=10;
@@ -33167,7 +33167,7 @@ class Mission
 			position[]={11855.239,46.166748,19086.807};
 			name="mM01Spawn4";
 			type="Empty";
-			angle=185.04652;
+			angle=185.04643;
 			id=2131;
 		};
 		class Item766
@@ -33194,7 +33194,7 @@ class Mission
 			position[]={10920.389,61.011173,18284.365};
 			name="mM01Spawn5";
 			type="Empty";
-			angle=89.379028;
+			angle=89.379021;
 			id=2134;
 		};
 	};

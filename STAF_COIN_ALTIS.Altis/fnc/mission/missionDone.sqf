@@ -1,5 +1,9 @@
-private ["_unit", "_mission"];
-_unit = [_this, 0, player, [ObjNull]] call BIS_fnc_param;
-_mission = [_this, 1, "", [""]] call BIS_fnc_param;
+params [
+	["_mission", "", [""]]
+];
 
-(_mission in (_unit getVariable ["IP_MissionsDone", []]))
+if (_mission == "") exitWith {
+	["Mission key is empty!"] call BIS_fnc_error;
+};
+
+(_mission in (missionNamespace getVariable ["IP_COIN_MissionsDone", []]))

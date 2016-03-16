@@ -1,1 +1,1 @@
-IP_mission_M01 = compileFinal(preprocessFileLineNumbers "missions\M01.sqf"); // IED clearing.
+/*IP_mission_M01 =*/ call(compile(preprocessFileLineNumbers "missions\M01.sqf")); // IED clearing.

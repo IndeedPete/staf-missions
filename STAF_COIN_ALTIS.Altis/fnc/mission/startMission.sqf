@@ -1,7 +1,16 @@
-private ["_key", "_params", "_missionFlow"];
-_key = [_this, 0, "", [""]] call BIS_fnc_param;
-if (_key == "") exitWith {["No mission key given!"] call BIS_fnc_error};
-_params = [_this, 1, [], [[], "", ObjNull, GrpNull, 0]] call BIS_fnc_param;
+params [
+	["_key", "", [""]],
+	["_params", [], [[], "", ObjNull, GrpNull, 0]],
+	"_missionFlow"
+];
+
+if (_key == "") exitWith {
+	["No mission key given!"] call BIS_fnc_error;
+};
 
 _missionFlow = "IP_mission_" + _key;
-[_params, _missionFlow, false] call BIS_fnc_MP;
+_params remoteExec [_missionFlow, 2];
+
+if (IP_TESTMODE) then {
+	systemChat (format ["Mission %1 has been started.", _key]);
+};

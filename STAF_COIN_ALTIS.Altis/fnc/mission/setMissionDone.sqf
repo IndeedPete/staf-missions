@@ -1,14 +1,23 @@
-private ["_objOrArray", "_mission", "_units"];
-_objOrArray = [_this, 0, player, [ObjNull, []]] call BIS_fnc_param;
-_mission = [_this, 1, "", [""]] call BIS_fnc_param;
-if (_mission == "") exitWith {["Mission key empty!"] call BIS_fnc_error};
+params [
+	["_mission", "", [""]],
+	"_task",
+	"_missionsDone"
+];
 
-_units = if (typeName _objOrArray == "OBJECT") then {[_objOrArray]} else {_objOrArray};
-{
-	_unit = _x;
-	if (!([_unit, _mission] call IP_fnc_missionDone)) then {
-		_missionsDone = _unit getVariable ["IP_MissionsDone", []];
-		_missionsDone pushBack _mission;
-		_unit setVariable ["IP_MissionsDone", _missionsDone, true];
-	};
-} forEach _units;
+if (_mission == "") exitWith {
+	["Mission key is empty!"] call BIS_fnc_error;
+};
+
+_task = "t" + _mission;
+if (_task call BIS_fnc_taskExists) then {
+	[_task, "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+_missionsDone = missionNamespace getVariable ["IP_COIN_MissionsDone", []];
+_missionsDone pushBackUnique _mission;
+IP_COIN_MissionsDone = _missionsDone;
+publicVariable "IP_COIN_MissionsDone";
+
+if (!(isNil "IP_Persistence") && {IP_Persistence}) then {
+	["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_MissionsDone", _missionsDone] call iniDB_write;
+};
