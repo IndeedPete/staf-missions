@@ -1,75 +1,66 @@
-_this spawn {	
-	private ["_mission", "_owner", "_ownerGrp", "_agentName", "_agentPos", "_laptopPos", "_laptopActionParams", "_transmitterActionParams", "_task", "_taskParams"];
-	#define CHECK false //({alive _x} count(units _ownerGrp) == 0)
-	_mission = "M01";
-	_owner = [_this, 0, player, [ObjNull]] call BIS_fnc_param;
-	
-	_ownerGrp = group _owner;
-	_agentName = name IP_Doctor;
-	_agentPos = getPosATL IP_Doctor;
-	_laptopPos = getPosATL IP_NPP_Laptop;
-	_ownerGrp setVariable ["IP_M01_Started", true, true];
-	
-	_laptopActionParams = [
-		IP_NPP_Laptop,
-		[
-			"Use Laptop",
-			{
-				_text = "FROM: vs13@contention.com<br/>TO: jh05@contention.com<br/>SUBJECT: Transmitter on Altis NPP Xeon-538<br/><br/><br/>James,<br/><br/>as per your request I've placed the transmitter on top of the facility to monitor this weird radiation leak. See attached pic.<br/>Let's just hope this won't become another Chernobyl, right Jamesy?! Just joking! ;)<br/>BTW: You're still joining Lenka and me for Christmas, right?<br/><br/>Victor";
-				_handle = createDialog "IP_DLG_LAPTOP";
-				((findDisplay 50000) displayCtrl 1100) ctrlSetStructuredText (parseText _text);
-			},
-			nil,
-			1.5,
-			true,
-			true,
-			"",
-			"(_target distance _this <= 3)"
-		]
-	];
-	
-	_transmitterActionParams = [
-		IP_NPP_Transmitter,
-		[
-			"Take Transmitter",
-			{
-				_unit = _this select 0;
-				_zoner = _this select 1;
-				_id = _this select 2;
-				_grp = group _zoner;
-				
-				[[_unit, _id], "removeAction", _grp] call BIS_fnc_MP;
-				_grp setVariable ["IP_M01_TransmitterFound", true, true];
-			},
-			nil,
-			1.5,
-			true,
-			true,
-			"",
-			"(_target distance _this <= 3) && (leader(group _this) == _this)"
-		]
-	];
-	
-	[_laptopActionParams, "addAction", _ownerGrp] call BIS_fnc_MP;
-	[_transmitterActionParams, "addAction", _ownerGrp] call BIS_fnc_MP;
+if (IP_TESTMODE) then {
+	systemChat "Mission M01 has been triggered.";
+};
 
-	_task = "t" + _mission;
-	_taskParams = [_ownerGrp, _task, [(_agentName + " wants you to bring him a transmitting device. The transmitter is connected to a laptop in a tower at the gate of a decommissioned nuclear power plant at grid " + (mapGridPosition _laptopPos) + ". Locate the transmitter and return it to " + _agentName + "."), "Connections", _agentName], nil, true, 1];
-	[_taskParams, "BIS_fnc_taskCreate", _ownerGrp] call BIS_fnc_MP;
-	
-	waitUntil {(_ownerGrp getVariable ["IP_M01_TransmitterFound", false]) OR CHECK};
-	
-	if (!CHECK) then {
-		[[_task, _agentPos], "BIS_fnc_taskSetDestination", _ownerGrp] call BIS_fnc_MP;
-		[[1000, ["You picked up the transmitter data. It must be brought back to Surfer's Scrapyard to be analysed.", "PLAIN DOWN", 1, true]], "cutText", _ownerGrp] call BIS_fnc_MP;
-		
-		waitUntil {(_ownerGrp getVariable ["IP_M01_QuestDone", false]) OR CHECK};
-		
-		if (!CHECK) then {
-			[[_task, "SUCCEEDED"], "BIS_fnc_taskSetState", _ownerGrp] call BIS_fnc_MP;
-			[(units _ownerGrp), _mission] call IP_fnc_setMissionDone;
-		};
+[] spawn {
+	waitUntil {
+		sleep 2;
+		"IED_Section_M01" call GET_REMAINING_IED_COUNT == 0
 	};
 	
-	_ownerGrp setVariable ["IP_M01_Started", nil, true];
+	["tM01", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
+
+// Send Scout Team
+_scoutGrp = [(getMarkerPos "mM01Spawn2"), east, ["O_G_Soldier_TL_F","O_G_Soldier_AR_F","O_G_Sharpshooter_F"], [], ["CORPORAL", "PRIVATE", "PRIVATE"], [], [], [], [], (markerDir "mM01Spawn2")] call BIS_fnc_spawnGroup;
+//_scoutGrp setBehaviour "STEALTH";
+_scoutGrp setCombatMode "GREEN";
+
+_wp = _scoutGrp addWaypoint [(getMarkerPos "mM01Scout1"), 0, 0];
+_wp setWaypointType "MOVE";
+_wp setWaypointFormation "COLUMN";
+_wp setWaypointTimeout [20, 40, 60];
+
+_wp = _scoutGrp addWaypoint [(getMarkerPos "mM01Scout2"), 0, 1];
+_wp setWaypointType "MOVE";
+_wp setWaypointCombatMode "STEALTH";
+
+if (IP_TESTMODE) then {
+	[(leader _scoutGrp)] call IP_fnc_track;
+};
+
+sleep (30 + random 30);
+if (({alive _x} count (units _scoutGrp) == 0) OR {("tM01" call BIS_fnc_taskState) == "SUCCEEDED"}) exitWith {
+	if (IP_TESTMODE) then {
+		systemChat "M01: Scout team eliminated, no reinforcements are spawned.";
+	};
+};
+
+if (IP_TESTMODE) then {
+	systemChat "M01: Reinforcements incoming.";
+};
+
+// Spawn Reinforcements
+{
+	_grp = _x;	
+	_grp setCombatMode "RED";
+
+	_wp = _grp addWaypoint [(getMarkerPos "mM01"), 0, 0];
+	_wp setWaypointType "MOVE";
+	_wp setWaypointFormation "LINE";
+
+	_wp = _grp addWaypoint [(getMarkerPos "mM01"), 0, 1];
+	_wp setWaypointType "SAD";
+	
+	{
+		[_x] call IP_fnc_createMerc;
+	} forEach (units _grp);
+	
+	if (IP_TESTMODE) then {
+		[(leader _grp)] call IP_fnc_track
+	};
+} forEach [
+	([(getMarkerPos "mM01Spawn3"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad"), [], [], [], [], [], [], (markerDir "mM01Spawn3")] call BIS_fnc_spawnGroup),
+	([(getMarkerPos "mM01Spawn4"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad"), [], [], [], [], [], [], (markerDir "mM01Spawn4")] call BIS_fnc_spawnGroup),
+	([(getMarkerPos "mM01Spawn5"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam"), [], [], [], [], [], [], (markerDir "mM01Spawn5")] call BIS_fnc_spawnGroup)
+];

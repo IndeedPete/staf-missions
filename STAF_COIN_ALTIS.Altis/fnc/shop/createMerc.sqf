@@ -1,6 +1,6 @@
 params [
 	["_unitOrPos", [0, 0, 0], [ObjNull, []], 3],
-	["_class", "Rifleman", [""]],
+	["_class", "", [""]],
 	["_side", west, [west]],
 	["_grp", grpNull, [grpNull]],
 	["_addMoney", false, [true]],
@@ -38,6 +38,21 @@ _getClasses = {
 	} forEach _this;
 	
 	_arr
+};
+
+if (_class == "") then {
+	_class = "Rifleman";
+	
+	if (typeName _unitOrPos == "OBJECT") then {
+		_type = toLower(typeOf _unitOrPos);
+		
+		{
+			_baseClasses = getArray(_x >> "baseClasses");
+			if ({_type == (toLower _x)} count _baseClasses > 0) exitWith {
+				_class = configName _x;
+			};
+		} forEach ("true" configClasses (missionConfigFile >> "ShopPersonnel" >> "Merc"));
+	};
 };
 
 _cfg = missionConfigFile >> "ShopPersonnel" >> "Merc" >> _class;

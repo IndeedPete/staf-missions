@@ -14,9 +14,9 @@ enableSaving [false, false];
 //Mute Orders and Reports
 enableSentences false;
 
-/*/ No "XXX is now Zeus" Message
-zeusmodule1 setVariable ["showNotification", false];
-zeusmodule2 setVariable ["showNotification", false];
+// No "XXX is now Zeus" Message
+IP_ZeusModule setVariable ["showNotification", false];
+/*zeusmodule2 setVariable ["showNotification", false];
 zeusmodule3 setVariable ["showNotification", false];
 zeusmodule4 setVariable ["showNotification", false];
 zeusmodule5 setVariable ["showNotification", false];
@@ -73,5 +73,5 @@ if (isServer && isMultiplayer) then {
 		};
 	};
 } else {
-	//[] call IP_fnc_initZones;
+	[] call IP_fnc_initZones;
 };
