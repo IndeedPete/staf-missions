@@ -75,4 +75,11 @@ IP_mission_M01 = compileFinal '
 		([(getMarkerPos "mM01Spawn4"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad"), [], [], [], [], [], [], (markerDir "mM01Spawn4")] call BIS_fnc_spawnGroup),
 		([(getMarkerPos "mM01Spawn5"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam"), [], [], [], [], [], [], (markerDir "mM01Spawn5")] call BIS_fnc_spawnGroup)
 	];
+	
+	_grp = (([(getMarkerPos "mM01Spawn2"), (markerDir "mM01Spawn2"), "O_G_Offroad_01_armed_F", east] call BIS_fnc_spawnVehicle) select 2);
+	_wp = _grp addWaypoint [(getMarkerPos "mM01"), 0, 0];
+	_wp setWaypointType "MOVE";
+
+	_wp = _grp addWaypoint [(getMarkerPos "mM01"), 0, 1];
+	_wp setWaypointType "SAD";
 ';

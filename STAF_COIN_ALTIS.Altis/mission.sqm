@@ -8,22 +8,22 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=2219;
+		nextID=2230;
 	};
 	class MarkerIDProvider
 	{
-		nextID=80;
+		nextID=83;
 	};
 	class LayerIndexProvider
 	{
-		nextID=413;
+		nextID=420;
 	};
 	class Camera
 	{
-		pos[]={14209.219,79.285538,21198.027};
-		dir[]={-0.54626435,-0.38936853,0.74161232};
-		up[]={-0.23092188,0.92108113,0.31350103};
-		aside[]={0.80515224,-9.6857548e-008,0.59306729};
+		pos[]={14204.688,77.513268,21203.934};
+		dir[]={-0.64745313,-0.52999443,0.54764926};
+		up[]={-0.40465197,0.84799933,0.34227586};
+		aside[]={0.64580983,7.4272975e-008,0.76350266};
 	};
 };
 binarizationWanted=0;
@@ -193,7 +193,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=810;
+		items=813;
 		class Item0
 		{
 			dataType="Marker";
@@ -2621,6 +2621,48 @@ class Mission
 					};
 					id=1426;
 					type="IP_B_medic_F_EFAltis";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=2;
+					};
 				};
 				class Item3
 				{
@@ -2636,10 +2678,53 @@ class Mission
 						rank="SERGEANT";
 						name="IP_Company_FAC";
 						description="Company FAC";
+						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1430;
 					type="IP_B_recon_JTAC_F_EFAltis";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=2;
+					};
 				};
 			};
 			class Attributes
@@ -13827,7 +13912,7 @@ class Mission
 		class Item235
 		{
 			dataType="Marker";
-			position[]={10285.692,40.061768,23473.633};
+			position[]={10280.125,-53.475098,23531.592};
 			name="mMeasure";
 			markerType="ELLIPSE";
 			type="ellipse";
@@ -17928,7 +18013,6 @@ class Mission
 						init="(group this) setGroupID [""Swordsman""]; ";
 						name="IP_Platoon_Commander";
 						description="Platoon Commander [Swordsman]";
-						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1438;
@@ -35431,6 +35515,33 @@ class Mission
 				};
 				nAttributes=3;
 			};
+		};
+		class Item810
+		{
+			dataType="Marker";
+			position[]={5926.189,-186.19603,25082.592};
+			name="mM02Spawn1";
+			type="Empty";
+			angle=145.05057;
+			id=2219;
+		};
+		class Item811
+		{
+			dataType="Marker";
+			position[]={6586.4751,-169.24001,25587.971};
+			name="mM02Spawn2";
+			type="Empty";
+			angle=141.07648;
+			id=2220;
+		};
+		class Item812
+		{
+			dataType="Marker";
+			position[]={10485.646,-17.190918,18535.779};
+			name="mM02Spawn1End";
+			type="Empty";
+			angle=142.66196;
+			id=2221;
 		};
 	};
 	class Connections

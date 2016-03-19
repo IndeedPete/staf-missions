@@ -695,6 +695,14 @@
 			{
 				file = "fnc\other\explosionDetector.sqf";
 			};
+			class halo
+			{
+				file = "fnc\parachuting\fn_halo.sqf";
+			};
+			class paradrop
+			{
+				file = "fnc\parachuting\fn_paradrop.sqf";
+			};
 			class repetitiveCleanup
 			{
 				file = "fnc\other\repetitive_cleanup.sqf";

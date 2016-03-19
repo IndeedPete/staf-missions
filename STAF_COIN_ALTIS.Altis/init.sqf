@@ -74,6 +74,6 @@ if (isServer) then {
 	};
 } else {
 	if (!isMultiplayer) then {
-		[] call IP_fnc_initZones;
+		//[] call IP_fnc_initZones;
 	};
 };
