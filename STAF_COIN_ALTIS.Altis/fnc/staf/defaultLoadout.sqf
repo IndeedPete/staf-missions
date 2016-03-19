@@ -21,10 +21,14 @@ _template = switch (_class) do {
 	case "B_G_officer_F": {"Covert_Officer"};
 	case "B_G_Sharpshooter_F": {"Covert_Marksman"};
 	case "B_G_Soldier_exp_F": {"Covert_Exp"};
-	case "B_G_Soldier_AR_F": {"Covert_AR"};	
+	case "B_G_Soldier_AR_F": {"Covert_AR"};
+	case "IP_B_officer_light_F_EFAltis": {"Officer_Light_Altis"};
+	case "IP_B_officer_F_EFAltis": {"Officer_Altis"};
 	default {""};
 };
 
 if (_template != "") then {
 	_obj execVM ("cfg\loadouts\" + _template + ".sqf");
+} else {
+	systemChat "There is no default loadout defined for this class. Why don't you create one and send it to IndeedPete?";
 };
