@@ -1,3 +1,6 @@
+// The HC does not need to process that shit below.
+if !(hasInterface) exitWith {};
+
 // Vars
 IP_Stretchers = [];
 

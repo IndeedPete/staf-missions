@@ -7,7 +7,6 @@ if (["M02"] call IP_fnc_missionDone) exitWith {
 };
 
 IP_M02_Helis = [IP_M02_Heli1, IP_M02_Heli2];
-
 {
 	_x addEventHandler ["Killed", {
 		if (isServer && {!(missionNamespace getVariable [("IP_M02_Started"), false])}) then {
@@ -21,10 +20,11 @@ IP_mission_M02 = compileFinal '
 	_dropSequence = {
 		params [
 			"_units",
-			"_veh"
+			"_veh",
+			"_distance"
 		];
 		
-		waitUntil {((_veh distance (getMarkerPos "mM02")) <= 500) OR !(alive _veh) OR !(canMove _veh)};		
+		waitUntil {((_veh distance (getMarkerPos "mM02")) <= _distance) OR !(alive _veh) OR !(canMove _veh)};		
 		if (!(alive _veh) OR !(canMove _veh)) exitWith {};		
 		
 		{
@@ -105,9 +105,9 @@ IP_mission_M02 = compileFinal '
 		} forEach _units;
 		
 		if (_index == 0) then {
-			[_units, _veh1] spawn _dropSequence;
+			[_units, _veh1, 500] spawn _dropSequence;
 		} else {
-			[_units, _veh2] spawn _dropSequence;
+			[_units, _veh2, 750] spawn _dropSequence;
 		};
 		
 		if (IP_TESTMODE) then {

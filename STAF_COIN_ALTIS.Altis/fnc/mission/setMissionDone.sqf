@@ -19,5 +19,5 @@ IP_COIN_MissionsDone = _missionsDone;
 publicVariable "IP_COIN_MissionsDone";
 
 if (!(isNil "IP_Persistence") && {IP_Persistence}) then {
-	["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_MissionsDone", _missionsDone] call iniDB_write;
+	[] call IP_fnc_saveProgress;
 };

@@ -244,6 +244,10 @@
 			{
 				file = "fnc\mission\missionDone.sqf";
 			};
+			class saveProgress
+			{
+				file = "fnc\mission\saveProgress.sqf";
+			};
 			class setMissionDone
 			{
 				file = "fnc\mission\setMissionDone.sqf";
@@ -710,6 +714,10 @@
 			class rydIncognito
 			{
 				file = "fnc\other\rydIncognito.sqf";
+			};
+			class realWeather
+			{
+				file = "fnc\other\real_weather.sqf";
 			};	
 			class setDirFly
 			{

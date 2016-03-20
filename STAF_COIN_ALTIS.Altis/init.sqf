@@ -1,3 +1,23 @@
+// Init Zones on HC if connected, on server otherwise.
+waitUntil {!isNil "IP_TESTMODE"};
+if !(isServer OR hasInterface) exitWith {
+	[] call IP_fnc_initZones;	
+};
+
+if (isServer) then {
+	[] spawn {
+		sleep 300;		
+		if (isNil "IP_ZoneInitDone") then {
+			diag_log "HC is not connected or failed to initialise zones. The server is doing that instead.";
+			[] call IP_fnc_initZones;
+		};
+	};
+} else {
+	if (!isMultiplayer) then {
+		[] call IP_fnc_initZones;
+	};
+};
+
 //_________________________________________Mission Settings_________________________________________//
 
 //TFR
@@ -43,7 +63,22 @@ nul = [] execVM "MHQ\initMHQ.sqf";
 [] execVM "EPD\Ied_Init.sqf";
 
 //_________________________________________Post Processing && Weather_________________________________________//
-0 setFog [0.1, 0.01, 0];
+/*
+_weatherTemplate = if (isMultiplayer) then {
+	(paramsArray select 2)
+} else {
+	3
+};
+
+_weatherTemplate spawn {
+	waitUntil {!(isNil "IP_Persistence")};
+	
+	if ((!IP_Persistence && {_this < 4}) OR (IP_Persistence && {_this < 4} && {isNil "wcweather"}) OR (IP_Persistence && {!(isNil "wcweather")} && {count wcweather > 0})) then {
+		[_this] call IP_fnc_realWeather;
+	} else {
+		0 setFog [0.1, 0.01, 0];
+	};
+};*/
 
 /*/_________________________________________AI Skill_________________________________________//
 
@@ -57,23 +92,3 @@ nul = [] execVM "MHQ\initMHQ.sqf";
 	_x setSkill ["commanding", 1];
 	_x setSkill ["general", 1];
 } forEach allUnits;*/
-
-// Init Zones on HC if connected, on server otherwise.
-waitUntil {!isNil "IP_TESTMODE"};
-if !(isServer OR hasInterface) then {
-	[] call IP_fnc_initZones;	
-};
-
-if (isServer) then {
-	[] spawn {
-		sleep 300;		
-		if (isNil "IP_ZoneInitDone") then {
-			diag_log "HC is not connected or failed to initialise zones. The server is doing that instead.";
-			[] call IP_fnc_initZones;
-		};
-	};
-} else {
-	if (!isMultiplayer) then {
-		//[] call IP_fnc_initZones;
-	};
-};

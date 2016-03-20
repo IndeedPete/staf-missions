@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=2230;
+		nextID=2233;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=420;
+		nextID=497;
 	};
 	class Camera
 	{
-		pos[]={14204.688,77.513268,21203.934};
-		dir[]={-0.64745313,-0.52999443,0.54764926};
-		up[]={-0.40465197,0.84799933,0.34227586};
-		aside[]={0.64580983,7.4272975e-008,0.76350266};
+		pos[]={14207.198,76.154289,21203.213};
+		dir[]={-0.73488528,-0.25785214,-0.62728548};
+		up[]={-0.19613039,0.96617913,-0.1674148};
+		aside[]={-0.64923966,1.9185245e-007,0.76060379};
 	};
 };
 binarizationWanted=0;
@@ -182,6 +182,8 @@ class Mission
 		forecastWeather=0.34999999;
 		forecastWind=0.099999994;
 		forecastWaves=0.099999994;
+		rainForced=1;
+		lightningsForced=1;
 		wavesForced=1;
 		windForced=1;
 		year=2038;
@@ -2492,6 +2494,7 @@ class Mission
 						init="(group this) setGroupID [""King""]; ";
 						name="IP_Company_Commander";
 						description="Company Commander [King]";
+						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1431;
@@ -2678,7 +2681,6 @@ class Mission
 						rank="SERGEANT";
 						name="IP_Company_FAC";
 						description="Company FAC";
-						isPlayer=1;
 						isPlayable=1;
 					};
 					id=1430;
@@ -2823,6 +2825,48 @@ class Mission
 					};
 					id=1442;
 					type="IP_B_HeavyGunner_F_EFAltis";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=2;
+					};
 				};
 				class Item3
 				{
@@ -4338,7 +4382,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={15133.932,-0.044272698,15591.702};
+				position[]={15133.932,-0.043773651,15591.702};
 			};
 			id=398;
 			type="ace_weather_ModuleSettings";
@@ -35540,7 +35584,7 @@ class Mission
 			position[]={10485.646,-17.190918,18535.779};
 			name="mM02Spawn1End";
 			type="Empty";
-			angle=142.66196;
+			angle=142.66194;
 			id=2221;
 		};
 	};
