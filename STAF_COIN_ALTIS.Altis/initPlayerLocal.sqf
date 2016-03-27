@@ -8,7 +8,7 @@ IP_Stretchers = [];
 [player] spawn IP_fnc_insignia;
 
 // Automated TFR Radio
-[] spawn IP_fnc_STAFRadio;
+// [] spawn IP_fnc_STAFRadio;
 
 // Hide Markers
 "mMeasure" setMarkerAlpha 0;

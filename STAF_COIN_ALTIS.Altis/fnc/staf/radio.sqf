@@ -1,3 +1,7 @@
+if (true) exitWith {
+	["Deprecated, do not call this function! Use the STAF Module Radio Manager instead!"] call BIS_fnc_error;
+};
+
 // Give player radio at start
 player linkItem "tf_rf7800str";
 if (leader(group player) == player) then {
