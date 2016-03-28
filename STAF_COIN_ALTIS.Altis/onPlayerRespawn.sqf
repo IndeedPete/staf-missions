@@ -1,5 +1,5 @@
 // Automated Country Flag
-[player] spawn IP_fnc_insignia;
+// [player] spawn IP_fnc_insignia;
 
 // Automated TFR Radio
 // [] spawn IP_fnc_STAFRadio;

@@ -1,3 +1,7 @@
+if (true) exitWith {
+	["Deprecated, do not call this function! Use the STAF Module Insignia Manager instead!"] call BIS_fnc_error;
+};
+
 params [
     ["_unit", player, [ObjNull]],
     "_uid",
