@@ -28,7 +28,10 @@ _template = switch (_class) do {
 };
 
 if (_template != "") then {
-	_obj execVM ("cfg\loadouts\" + _template + ".sqf");
+	_handle = _obj execVM ("cfg\loadouts\" + _template + ".sqf");
+	waitUntil {scriptDone _handle};
 } else {
 	systemChat "There is no default loadout defined for this class. Why don't you create one and send it to IndeedPete?";
 };
+
+[missionNamespace, "IP_DefaultLoadoutTaken", [_obj, _template]] call BIS_fnc_callScriptedEventHandler;
