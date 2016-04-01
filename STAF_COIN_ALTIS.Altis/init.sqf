@@ -4,7 +4,7 @@ if !(isServer OR hasInterface) exitWith {
 	[] call IP_fnc_initZones;	
 };
 
-if (isServer) then {
+if (isServer && isMultiplayer) then {
 	[] spawn {
 		sleep 300;		
 		if (isNil "IP_ZoneInitDone") then {
@@ -13,7 +13,7 @@ if (isServer) then {
 		};
 	};
 } else {
-	if (!isMultiplayer) then {
+	if (!hasInterface OR !isMultiplayer) then {
 		[] call IP_fnc_initZones;
 	};
 };

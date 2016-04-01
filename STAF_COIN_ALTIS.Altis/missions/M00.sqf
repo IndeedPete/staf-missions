@@ -4,9 +4,11 @@ if (["M00"] call IP_fnc_missionDone) exitWith {};
 
 // Main Flow
 [] spawn {
+	_zoneCount = count("getNumber(_x >> 'active') == 1" configClasses (missionConfigFile >> "CfgZones"));
+	
 	waitUntil {
 		sleep 60;
-		!(isNil "IP_Zones") && {!(isNil "IP_COIN_ZonesCleared")} && {(count IP_Zones) == (count IP_COIN_ZonesCleared)}
+		!(isNil "IP_Zones") && {!(isNil "IP_COIN_ZonesCleared")} && {(count IP_COIN_ZonesCleared) == _zoneCount}
 	};
 
 	["M00"] call IP_fnc_setMissionDone;

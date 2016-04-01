@@ -136,6 +136,7 @@ while {count IP_Zones > 0} do {
 						IP_COIN_ZonesCleared pushBack _zone;
 					};
 					
+					("mCentre" + _zone) setMarkerColor "ColorBLUFOR";
 					publicVariable "IP_COIN_ZonesCleared";					
 					if (isServer) then {
 						[] call IP_fnc_saveProgress;
