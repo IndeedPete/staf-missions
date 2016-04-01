@@ -28,7 +28,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 	_zone = configName _cfg;
 	_GL = missionNamespace getVariable [("IP_" + _zone), ObjNull];
 	
-	if !(isNull _GL) then {
+	if (!(isNull _GL) && {(isNil "IP_COIN_ZonesCleared") OR {!(isNil "IP_COIN_ZonesCleared") && {!(_zone in IP_COIN_ZonesCleared)}}}) then {
 		_centre = getPos _GL;
 		_dir = getDir _GL; 
 		_shape = if (getNumber(_cfg >> "isRectangle") == 1) then {"RECTANGLE"} else {"ELLIPSE"};
@@ -161,6 +161,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			};			
 		} forEach _assetConfigs;
 		
+		_GL setVariable ["IP_Zone", _zone, true];
 		_GL setVariable ["IP_ZoneMarker", _marker, true];
 		_GL setVariable ["IP_ZoneAssets", _assets, true];
 		IP_Zones pushBack _GL;
@@ -193,4 +194,6 @@ IP_ZoneInitDone = true;
 publicVariable "IP_ZoneInitDone";
 publicVariable "IP_Zones";
 
-[] spawn IP_fnc_zoneController;
+if (count IP_Zones > 0} then {
+	[] spawn IP_fnc_zoneController;
+};

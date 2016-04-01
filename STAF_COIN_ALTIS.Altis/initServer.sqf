@@ -47,6 +47,9 @@ if (IP_Persistence) then {
 		IP_COIN_MissionsDone = _missionsDone;
 		publicVariable "IP_COIN_MissionsDone";
 		
+		IP_COIN_ZonesCleared = ["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_ZonesCleared", "ARRAY"] call iniDB_read;
+		publicVariable "IP_COIN_ZonesCleared";
+		
 		if (count _missionsDone > 0) then {
 			{
 				_mission = _x getVariable ["IP_Mission", ""];
@@ -70,6 +73,10 @@ if (IP_Persistence) then {
 		["STAF_COIN_ALTIS_BACKUP"] call IP_fnc_saveProgress;
 	} else {
 		[0.1, 0.01, 0] call BIS_fnc_setFog;
+	};
+	
+	"IP_COIN_ZonesCleared" addPublicVariableEventHandler {
+		[] call IP_fnc_saveProgress;
 	};
 	
 	["IP_DiscoEH", "onPlayerDisconnected", {

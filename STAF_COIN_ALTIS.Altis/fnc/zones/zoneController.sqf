@@ -104,6 +104,7 @@ while {count IP_Zones > 0} do {
 					systemChat format ["Zone %1 is trying to evacuate!", _GL];
 					
 					private ["_evacTo", "_min"];
+					_zone = _GL getVariable ["IP_Zone", ""];
 					_evacTo = ObjNull;
 					_min = 999999;
 					{
@@ -116,14 +117,28 @@ while {count IP_Zones > 0} do {
 					
 					if !(isNull _evacTo) then {
 						_marker = _evacTo getVariable ["IP_ZoneMarker", ""];
+						_evacAssets = _evacTo getVariable ["IP_ZoneAssets", []];
 						
 						{
 							_x setVariable ["GAIA_ZONE_INTEND", [_marker, "FORTIFY"], true];
+							_evacAssets pushBack _x;
 						} forEach (_assets + [(group _commander)]);
 						
+						_evacTo getVariable ["IP_ZoneAssets", _evacAssets];						
 						systemChat format ["Zone %1 is evacuating to zone %2!", _GL, _evacTo];
 					} else {
 						systemChat format ["Zone %1 cannot evacuate!", _GL];
+					};
+					
+					if (isNil "IP_COIN_ZonesCleared") then {
+						IP_COIN_ZonesCleared = [_zone];
+					} else {
+						IP_COIN_ZonesCleared pushBack _zone;
+					};
+					
+					publicVariable "IP_COIN_ZonesCleared";					
+					if (isServer) then {
+						[] call IP_fnc_saveProgress;
 					};
 				};
 			};
