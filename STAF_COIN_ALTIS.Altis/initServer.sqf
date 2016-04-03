@@ -3,7 +3,7 @@ IP_TESTMODE = true;
 IP_Persistence = if (isMultiplayer) then {
 	([false, true] select (paramsArray select 0))
 } else {
-	true
+	false
 };
 
 // Communicate dem vars
@@ -86,6 +86,20 @@ if (IP_Persistence) then {
 		//};
 	}] call BIS_fnc_addStackedEventHandler;
 } else {
+	private "_overcast";
+	_basicOvercast = selectRandom [0, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.75, 0.75, 1];
+	_add = (selectRandom [-1, 1]) * (random 0.25);
+	_overcast = _basicOvercast + _add;
+	
+	if (_overcast < 0) then {
+		_overcast = 0;
+	};
+	
+	if (_overcast > 1) then {
+		_overcast = 1;
+	};
+	
+	[_overcast] call BIS_fnc_setOvercast;
 	[0.1, 0.01, 0] call BIS_fnc_setFog;
 };
 
