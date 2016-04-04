@@ -19,17 +19,17 @@ IP_Stretchers = [];
 	if (_x getVariable ["IP_Stretcher", false]) then {
 		IP_Stretchers pushBack _x;
 	};
-} forEach allMissionObjects "All";
+} forEach (allMissionObjects "All");
 
 // Debug
 [] spawn {
-	waitUntil {!isNil "IP_TESTMODE"};
+	waitUntil {!(isNil "IP_TESTMODE")};
 	if (IP_TESTMODE) then {
 		player allowDamage false;
 		player enableFatigue false;
 		player enableStamina false;
 
-		if (!isMultiplayer) then {
+		if !(isMultiplayer) then {
 			{
 				deleteVehicle _x;
 			} forEach switchableUnits;
@@ -46,6 +46,6 @@ IP_Stretchers = [];
 
 // Default Loadout
 [] spawn {
-	waitUntil {!isNull player};
+	waitUntil {!(isNull player)};
 	[player, false] call IP_fnc_defaultLoadout;
 };

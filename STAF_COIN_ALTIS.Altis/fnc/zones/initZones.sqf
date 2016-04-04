@@ -26,14 +26,21 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 {
 	_cfg = _x;
 	_zone = configName _cfg;
+	_displayName = getText(_cfg >> "displayName");
 	_GL = missionNamespace getVariable [("IP_" + _zone), ObjNull];
+	_centre = getPos _GL;
 	
-	if !(isNull _GL) then {
-		_centre = getPos _GL;
+	_centreMarker = createMarker [("mCentre" + _zone), [(_centre select 0), (_centre select 1)]];
+	_centreMarker setMarkerShape "ICON";
+	_centreMarker setMarkerType "mil_flag";
+	_centreMarker setMarkerText _displayName;
+	
+	if ((isNil "IP_COIN_ZonesCleared") OR {!(isNil "IP_COIN_ZonesCleared") && {!(_zone in IP_COIN_ZonesCleared)}}) then {
 		_dir = getDir _GL; 
 		_shape = if (getNumber(_cfg >> "isRectangle") == 1) then {"RECTANGLE"} else {"ELLIPSE"};
 		_size = getArray(_cfg >> "size");
 		
+		_centreMarker setMarkerColor "ColorOPFOR";
 		_marker = createMarker [("m" + _zone), [(_centre select 0), (_centre select 1)]];
 		_marker setMarkerDir _dir;
 		_marker setMarkerShape _shape;
@@ -41,13 +48,7 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 		_marker setMarkerColor "ColorPink";
 		_marker setMarkerBrush "Cross";
 		
-		if (IP_TESTMODE) then {
-			_centreMarker = createMarker [("mCentre" + _zone), [(_centre select 0), (_centre select 1)]];
-			_centreMarker setMarkerShape "ICON";
-			_centreMarker setMarkerColor "ColorPink";
-			_centreMarker setMarkerType "mil_flag";
-			_centreMarker setMarkerText _zone;
-		} else {
+		if !(IP_TESTMODE) then {
 			_marker setMarkerAlpha 0;
 		};
 		
@@ -161,9 +162,12 @@ _zoneConfigs = "getNumber(_x >> 'active') == 1" configClasses (missionConfigFile
 			};			
 		} forEach _assetConfigs;
 		
+		_GL setVariable ["IP_Zone", _zone, true];
 		_GL setVariable ["IP_ZoneMarker", _marker, true];
 		_GL setVariable ["IP_ZoneAssets", _assets, true];
 		IP_Zones pushBack _GL;
+	} else {
+		_centreMarker setMarkerColor "ColorBLUFOR";
 	};
 } forEach _zoneConfigs;
 
@@ -193,4 +197,6 @@ IP_ZoneInitDone = true;
 publicVariable "IP_ZoneInitDone";
 publicVariable "IP_Zones";
 
-[] spawn IP_fnc_zoneController;
+if (count IP_Zones > 0) then {
+	[] spawn IP_fnc_zoneController;
+};

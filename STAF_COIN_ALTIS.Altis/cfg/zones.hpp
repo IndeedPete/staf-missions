@@ -3,6 +3,7 @@ class CfgZones
 	class ZoneDefault
 	{
 		active = 0;
+		displayName = "Zone Default";
 		isRectangle = 0;
 		size[] = {1000,1000};
 		
@@ -36,6 +37,7 @@ class CfgZones
 	class Zone0: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Airfield";
 		
 		class Assets: Assets
 		{
@@ -83,6 +85,7 @@ class CfgZones
 	class Zone1: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Abdera";
 		size[] = {750,750};
 		
 		class Assets: Assets
@@ -105,6 +108,7 @@ class CfgZones
 	class Zone2: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Galati";
 		size[] = {250,250};
 		
 		class Assets: Assets
@@ -121,6 +125,7 @@ class CfgZones
 	class Zone3: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Syrta";
 		
 		class Assets: Assets
 		{
@@ -199,6 +204,7 @@ class CfgZones
 	class Zone4: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Orino";
 		size[] = {500,500};
 		
 		class Assets: Assets
@@ -214,6 +220,7 @@ class CfgZones
 	class Zone5: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Gori";
 		
 		class Assets: Assets
 		{
@@ -241,6 +248,7 @@ class CfgZones
 	class Zone6: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Agios Konstantinos";
 		
 		class Assets: Assets
 		{
@@ -319,6 +327,7 @@ class CfgZones
 	class Zone7: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Dump";
 		size[] = {500,500};
 		
 		class Assets: Assets
@@ -366,6 +375,7 @@ class CfgZones
 	class Zone8: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Oerokastro";
 		
 		class Assets: Assets
 		{
@@ -444,6 +454,7 @@ class CfgZones
 	class Zone9: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone North";
 		
 		class Assets: Assets
 		{
@@ -467,6 +478,7 @@ class CfgZones
 	class Zone10: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone Centre";
 		
 		class Assets: Assets
 		{
@@ -494,6 +506,7 @@ class CfgZones
 	class Zone11: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone South-West";
 		
 		class Assets: Assets
 		{
@@ -521,6 +534,7 @@ class CfgZones
 	class Zone12: ZoneDefault
 	{
 		active = 1;
+		displayName = "Zone West";
 		
 		class Assets: Assets
 		{

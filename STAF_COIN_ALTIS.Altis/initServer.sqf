@@ -3,7 +3,7 @@ IP_TESTMODE = true;
 IP_Persistence = if (isMultiplayer) then {
 	([false, true] select (paramsArray select 0))
 } else {
-	true
+	false
 };
 
 // Communicate dem vars
@@ -47,6 +47,9 @@ if (IP_Persistence) then {
 		IP_COIN_MissionsDone = _missionsDone;
 		publicVariable "IP_COIN_MissionsDone";
 		
+		IP_COIN_ZonesCleared = ["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_ZonesCleared", "ARRAY"] call iniDB_read;
+		publicVariable "IP_COIN_ZonesCleared";
+		
 		if (count _missionsDone > 0) then {
 			{
 				_mission = _x getVariable ["IP_Mission", ""];
@@ -72,6 +75,10 @@ if (IP_Persistence) then {
 		[0.1, 0.01, 0] call BIS_fnc_setFog;
 	};
 	
+	"IP_COIN_ZonesCleared" addPublicVariableEventHandler {
+		[] call IP_fnc_saveProgress;
+	};
+	
 	["IP_DiscoEH", "onPlayerDisconnected", {
 		//if (count(allPlayers - (entities "HeadlessClient_F")) == 0) then {
 			[] call IP_fnc_saveProgress;
@@ -79,6 +86,20 @@ if (IP_Persistence) then {
 		//};
 	}] call BIS_fnc_addStackedEventHandler;
 } else {
+	private "_overcast";
+	_basicOvercast = selectRandom [0, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.75, 0.75, 1];
+	_add = (selectRandom [-1, 1]) * (random 0.25);
+	_overcast = _basicOvercast + _add;
+	
+	if (_overcast < 0) then {
+		_overcast = 0;
+	};
+	
+	if (_overcast > 1) then {
+		_overcast = 1;
+	};
+	
+	[_overcast] call BIS_fnc_setOvercast;
 	[0.1, 0.01, 0] call BIS_fnc_setFog;
 };
 
