@@ -3,6 +3,7 @@
 
 if (["M01"] call IP_fnc_missionDone) exitWith {
 	deleteVehicle trgM01;
+	deleteMarker "mM01Display";
 };
 
 [] spawn {

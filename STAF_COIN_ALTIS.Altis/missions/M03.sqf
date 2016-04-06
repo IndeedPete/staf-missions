@@ -18,17 +18,20 @@ if (["M03"] call IP_fnc_missionDone) exitWith {
 
 IP_M03_BLUFOR_Units = [];
 {
-	if ((side _x == civilian) && {(_x getVariable ["IP_Mission", ""]) == "M03"}) then {
+	if ((side _x == civilian) && {(_x getVariable ["IP_Mission", ""]) == "M03"} && {!(_x in units(group IP_M03_Commander))}) then {
 		IP_M03_BLUFOR_Units pushBack _x;
 	};
 } forEach allUnits;
 
+[IP_M03_Commander, "M03Opener"] remoteExecCall ["IP_fnc_addConversation", 0, true];
+
 // Main Flow
 IP_mission_M03 = compileFinal '
+	[IP_M03_Commander, "M03Opener"] remoteExecCall ["IP_fnc_removeConversation", 0, true];
 	private ["_handles", "_allUnits"];
 	_handles = [];
 	_allUnits = [];
-	["tM03", "mM03"] remoteExecCall ["BIS_fnc_taskSetDestination", 0, true];
+	["tM03", (getMarkerPos "mM03")] remoteExecCall ["BIS_fnc_taskSetDestination", 0, true];
 	
 	{
 		_handles pushBack (_x spawn {
@@ -63,7 +66,7 @@ IP_mission_M03 = compileFinal '
 		} forEach _units;
 		
 		if (IP_TESTMODE) then {
-			[(leader _grp)] call IP_fnc_track
+			[(leader _grp)] call IP_fnc_track;
 		};
 	} forEach [
 		([(getMarkerPos "mM03Spawn1"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam"), [], [], [], [], [], [], (markerDir "mM03Spawn1")] call BIS_fnc_spawnGroup),
@@ -82,7 +85,7 @@ IP_mission_M03 = compileFinal '
 		} forEach _units;
 		
 		if (IP_TESTMODE) then {
-			[(leader _grp)] call IP_fnc_track
+			[(leader _grp)] call IP_fnc_track;
 		};
 	} forEach [
 		([(getMarkerPos "mM03Spawn1"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad"), [], [], [], [], [], [], (markerDir "mM03Spawn1")] call BIS_fnc_spawnGroup),
@@ -90,6 +93,7 @@ IP_mission_M03 = compileFinal '
 		([(getMarkerPos "mM03Spawn3"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam"), [], [], [], [], [], [], (markerDir "mM03Spawn3")] call BIS_fnc_spawnGroup)
 	];
 	
+	["IED_Section_M03", ["mM03_AO", (5 + round(random 5)), ["West", "CIV"]]] call CREATE_IED_SECTION;
 	sleep 10;
 	if (IP_TESTMODE) then {
 		systemChat "M03: BLUFOR is moving in.";
