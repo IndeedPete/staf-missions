@@ -12,7 +12,7 @@ if (["M03"] call IP_fnc_missionDone) exitWith {
 	};
 	
 	{
-		deleteMarker _x;
+		_x remoteExec ["deleteMarker", 0, true];
 	} forEach (["mM03_RV", "mM03_AO", "mM03_OP1", "mM03_OP2", "mM03_OP3"] + _arrows);
 };
 

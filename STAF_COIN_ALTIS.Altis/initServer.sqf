@@ -19,6 +19,7 @@ IP_Persistence = if (isMultiplayer) then {
 if (isMultiplayer) then {
 	_date = date;
 	_date set [3, (paramsArray select 1)];
+	_date set [4, 0];
 	[_date] call BIS_fnc_setDate;
 };
 
@@ -29,6 +30,12 @@ if (IP_Persistence) then {
 	if ("STAF_COIN_ALTIS" call iniDB_exists) then {
 		_date = ["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_Date", "ARRAY"] call iniDB_read;
 		[_date] call BIS_fnc_setDate;
+		
+		_overcast = ["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_Overcast", "SCALAR"] call iniDB_read;
+		[_overcast] call BIS_fnc_setOvercast;
+		
+		_fog = ["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_Fog", "ARRAY"] call iniDB_read;
+		_fog call BIS_fnc_setFog;
 		
 		/*
 		_weather = ["STAF_COIN_ALTIS", "STAF_COIN", "IP_COIN_Weather", "ARRAY"] call iniDB_read;
@@ -110,8 +117,8 @@ call(compile(preProcessFileLineNumbers "missions\missions.sqf")); // Compile Mai
 if (!(isNil "IP_COIN_MissionsDone") && {count IP_COIN_MissionsDone > 0}) then {
 	{
 		_task = "t" + _x;
-		if (_task call BIS_fnc_taskExists) then {
+		//if (_task call BIS_fnc_taskExists) then {
 			[_task, "SUCCEEDED", false] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-		};
+		//};
 	} forEach IP_COIN_MissionsDone;
 };

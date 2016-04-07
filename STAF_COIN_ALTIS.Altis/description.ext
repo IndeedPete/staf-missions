@@ -2,6 +2,7 @@
 
 author = "STAF|IndeedPete";
 OnLoadName = "STAF|COIN (Altis)";
+briefingName = "STAF|COIN (Altis)";
 onLoadMission = "Taskforce COIN is deployed at F.O.B. Moneypenny in order to take on a counter insurgency campaign against a criminal network of local insurgents and foreign mercenaries.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
@@ -94,6 +95,24 @@ class Params
 		default = 3;
 	};
 	*/
+};
+
+class CfgRemoteExec
+{ 
+	class Commands
+	{
+		class deleteMarker
+		{ 
+			allowedTargets = 0;
+			jip = 1;
+		};
+		
+		class systemChat
+		{ 
+			allowedTargets = 0;
+			jip = 1;
+		};
+	};
 };
 
 class Extended_PostInit_EventHandlers

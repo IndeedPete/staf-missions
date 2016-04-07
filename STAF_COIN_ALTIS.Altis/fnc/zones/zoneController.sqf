@@ -22,6 +22,7 @@ while {count IP_Zones > 0} do {
 	{
 		private ["_assetCount", "_newState", "_nearestEnemies"];
 		_GL = _x;
+		_zone = _GL getVariable ["IP_Zone", ""];
 		_commander = _GL getVariable ["IP_ZoneCommander", ObjNull];
 		_assets = _GL getVariable ["IP_ZoneAssets", []];
 		_state = _GL getVariable ["IP_ZoneState", 0];
@@ -104,7 +105,6 @@ while {count IP_Zones > 0} do {
 					systemChat format ["Zone %1 is trying to evacuate!", _GL];
 					
 					private ["_evacTo", "_min"];
-					_zone = _GL getVariable ["IP_Zone", ""];
 					_evacTo = ObjNull;
 					_min = 999999;
 					{
@@ -129,19 +129,24 @@ while {count IP_Zones > 0} do {
 					} else {
 						systemChat format ["Zone %1 cannot evacuate!", _GL];
 					};
-					
-					if (isNil "IP_COIN_ZonesCleared") then {
-						IP_COIN_ZonesCleared = [_zone];
-					} else {
-						IP_COIN_ZonesCleared pushBack _zone;
-					};
-					
-					("mCentre" + _zone) setMarkerColor "ColorBLUFOR";
-					publicVariable "IP_COIN_ZonesCleared";					
-					if (isServer) then {
-						[] call IP_fnc_saveProgress;
-					};
 				};
+			};
+		};
+		
+		if ((_newState >= 4) && {!(alive _commander)}) then {
+			if (isNil "IP_COIN_ZonesCleared") then {
+				IP_COIN_ZonesCleared = [_zone];
+			} else {
+				IP_COIN_ZonesCleared pushBack _zone;
+			};
+			
+			IP_Zones = IP_Zones - [_GL];
+			("mCentre" + _zone) setMarkerColor "ColorBLUFOR";
+			publicVariable "IP_Zones";
+			publicVariable "IP_COIN_ZonesCleared";
+			
+			if (isServer) then {
+				[] call IP_fnc_saveProgress;
 			};
 		};
 		

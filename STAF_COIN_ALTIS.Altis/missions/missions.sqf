@@ -1,4 +1,9 @@
-call(compile(preprocessFileLineNumbers "missions\M00.sqf")); // Zones
-/*IP_mission_M01 =*/ call(compile(preprocessFileLineNumbers "missions\M01.sqf")); // IED Clearing
-call(compile(preprocessFileLineNumbers "missions\M02.sqf")); // Airfield
-call(compile(preprocessFileLineNumbers "missions\M03.sqf")); // Attack Syrta
+{
+	call(compile(preprocessFileLineNumbers(format ["missions\%1.sqf", _x])));
+} forEach [
+	"M00", // Zones
+	"M01", // IED Clearing
+	"M02", // Airfield
+	"M03", // Attack Syrta
+	"M04" // Neutralise Attack Helicopter
+];

@@ -49,3 +49,20 @@ IP_Stretchers = [];
 	waitUntil {!(isNull player)};
 	[player, false] call IP_fnc_defaultLoadout;
 };
+
+// Ostereier
+IP_Toilet addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\ico_cpt_thtl_idl_ca.paa'/> Take a Piss", {
+	//(_this select 0) removeAction (_this select 2);
+	(format ["%1 is going for a relieving piss, expect him to return soon.", (name player)]) remoteExec ["systemChat", 0, false];
+	["IP_BlackScreen", true, 1.5, true] call IP_fnc_blackOut;
+	sleep 1.5;
+	
+	playSound "STAF_Pee_And_Fart";
+	//skipTime (5/60);
+	sleep 20;
+	
+	sleep 1.5;
+	["IP_BlackScreen", true] call IP_fnc_blackIn;
+	//sleep 1.5;
+	//["tPiss", "SUCCEEDED"] call BIS_fnc_taskSetState;
+}, [], 1.5, false, true, "", "(_this distance _target < 3)"];

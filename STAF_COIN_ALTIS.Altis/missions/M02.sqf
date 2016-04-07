@@ -2,8 +2,8 @@
 [west, "tM02", [(format ["The enemy uses a <marker name=""mM02"">Decommissioned Airfield North of Abdera</marker> for illegal smuggling operations and human trafficking. Two currently grounded %1 transport helicopters have been sighted and need to be destroyed. Intel indicates possible <marker name=""mM02AA"">Static and Mobile AA are West of the Airfield</marker>, as well as civilians around the airfield which must not be harmed.", (getText(configFile >> "CfgVehicles" >> "I_Heli_Transport_02_F" >> "displayName"))]), "Destroy the Transport Helicopters", "Transport Helicopters"], "mM02", false, 1] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 if (["M02"] call IP_fnc_missionDone) exitWith {
-	deleteMarker "mM02AA";
-	deleteMarker "mM02AAArea";
+	"mM02AA" remoteExec ["deleteMarker", 0, true];
+	"mM02AAArea" remoteExec ["deleteMarker", 0, true];
 };
 
 IP_M02_Helis = [IP_M02_Heli1, IP_M02_Heli2];
@@ -64,7 +64,7 @@ IP_mission_M02 = compileFinal '
 		_x setVariable ["NOAI", true, true];
 	} forEach (units _grp);
 	
-	_grp = (([(getMarkerPos "mM02Spawn2"), (markerDir "mM02Spawn2"), "O_Heli_Attack_02_black_F", east] call BIS_fnc_spawnVehicle) select 2);
+	_grp = (([(getMarkerPos "mM02Spawn2"), (markerDir "mM02Spawn2"), "O_Heli_Light_02_v2_F", east] call BIS_fnc_spawnVehicle) select 2);
 	_veh2 = vehicle(leader _grp);
 	_grp setBehaviour "COMBAT";
 	_grp setCombatMode "RED";

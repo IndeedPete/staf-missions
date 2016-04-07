@@ -3,7 +3,7 @@
 
 if (["M01"] call IP_fnc_missionDone) exitWith {
 	deleteVehicle trgM01;
-	deleteMarker "mM01Display";
+	"mM01Display" remoteExec ["deleteMarker", 0, true];
 };
 
 [] spawn {
