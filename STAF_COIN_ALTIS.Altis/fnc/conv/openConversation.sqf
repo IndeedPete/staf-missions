@@ -36,12 +36,12 @@ _conversation = [_this, 2, "", [""]] call BIS_fnc_param;
 _config = missionConfigFile >> "Conversations" >> _conversation;
 
 _handle = createDialog "IP_DLG_CONVERSATION";
-_picture = _first getVariable ["IP_Avatar", "images\defaultAvatar.jpg"];
+_picture = _first getVariable ["IP_Avatar", "pics\defaultAvatar.jpg"];
 ctrlSetText [1200, _picture];
 _rank = if ((side _first) != civilian) then {if (!isNil "IP_fnc_getRank") then {(([_first, false] call IP_fnc_getRank) + "<br/>")} else {(rank _first) + "<br/>"}} else {""};
 _faction = if ((_first getVariable ["IP_Faction", ""]) != "") then {((getText(missionConfigFile >> "Factions" >> (_first getVariable "IP_Faction") >> "displayName")) + "<br/>")} else {""};
 ((findDisplay 20001) displayCtrl 1101) ctrlSetStructuredText (parseText(_rank + (name _first) + "<br/>" + _faction + (_first getVariable ["IP_ConvSpecial", ""])));
-_picture = _second getVariable ["IP_Avatar", "images\defaultAvatar.jpg"];
+_picture = _second getVariable ["IP_Avatar", "pics\defaultAvatar.jpg"];
 ctrlSetText [1201, _picture];
 _rank = if ((side _second) != civilian) then {if (!isNil "IP_fnc_getRank") then {(([_second, false] call IP_fnc_getRank) + "<br/>")} else {(rank _second) + "<br/>"}} else {""};
 _faction = if ((_second getVariable ["IP_Faction", ""]) != "") then {((getText(missionConfigFile >> "Factions" >> (_second getVariable "IP_Faction") >> "displayName")) + "<br/>")} else {""};

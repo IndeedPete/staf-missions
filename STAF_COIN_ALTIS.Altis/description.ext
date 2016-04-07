@@ -2,7 +2,7 @@
 
 author = "STAF|IndeedPete";
 OnLoadName = "STAF|COIN (Altis)";
-briefingName = "STAF|COIN (Altis)";
+//briefingName = "STAF|COIN (Altis)";
 onLoadMission = "Taskforce COIN is deployed at F.O.B. Moneypenny in order to take on a counter insurgency campaign against a criminal network of local insurgents and foreign mercenaries.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
@@ -41,12 +41,13 @@ wreckRemovalMinTime = 360;
 wreckRemovalMaxTime = 1200;
 
 //__________________________________________
-
+#include "cfg\defines.hpp"
 #include "cfg\missionConversations.hpp"
 #include "cfg\vehicleLoadouts.hpp"
 #include "cfg\zones.hpp"
 #include "cfg\ORBAT.hpp"
 
+#include "cfg\conv\dialogs.hpp"
 //#include "cfg\shop\dialogs.hpp"
 #include "cfg\shop\meta.hpp"
 #include "cfg\shop\missions.hpp"

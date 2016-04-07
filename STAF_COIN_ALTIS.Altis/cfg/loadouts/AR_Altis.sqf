@@ -41,6 +41,7 @@ for "_i" from 1 to 2 do {_this addItemToVest "MiniGrenade";};
 _this addItemToVest "200Rnd_65x39_cased_Box_Tracer";
 _this addBackpack "IP_B_Kitbag_Splinter_Altis";
 _this addItemToBackpack "ACE_SpareBarrel";
+_this addItemToBackpack "ACE_personalAidKit";
 for "_i" from 1 to 5 do {_this addItemToBackpack "200Rnd_65x39_cased_Box_Tracer";};
 _this addHeadgear "IP_H_HelmetB_Altis";
 _this addGoggles "G_Combat";

@@ -39,12 +39,13 @@ _this addItemToVest "1Rnd_SmokeBlue_Grenade_shell";
 _this addItemToVest "1Rnd_SmokeOrange_Grenade_shell";
 for "_i" from 1 to 3 do {_this addItemToVest "1Rnd_Smoke_Grenade_shell";};
 _this addBackpack "IP_B_AssaultPack_EFAltis";
-for "_i" from 1 to 6 do {_this addItemToBackpack "3Rnd_HE_Grenade_shell";};
+for "_i" from 1 to 5 do {_this addItemToBackpack "3Rnd_HE_Grenade_shell";};
 for "_i" from 1 to 3 do {_this addItemToBackpack "ACE_HuntIR_M203";};
 for "_i" from 1 to 3 do {_this addItemToBackpack "B_IR_Grenade";};
 for "_i" from 1 to 4 do {_this addItemToBackpack "30Rnd_65x39_caseless_mag_Tracer";};
 _this addItemToBackpack "UGL_FlareCIR_F";
 _this addItemToBackpack "UGL_FlareRed_F";
+_this addItemToBackpack "ACE_personalAidKit";
 _this addHeadgear "IP_H_HelmetSpecB_Green";
 _this addGoggles "G_Balaclava_combat";
 

@@ -1,4 +1,4 @@
-class rscTitles
+/*class rscTitles
 {
 	// RAD
 	class SURF_RSC_RAD
@@ -119,7 +119,7 @@ class rscTitles
 			////////////////////////////////////////////////////////
 		};
 	};
-};
+};*/
 
 class IP_DLG_CONVERSATION
 {
