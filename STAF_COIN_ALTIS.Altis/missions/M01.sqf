@@ -1,5 +1,5 @@
 // Init
-[west, "tM01", [(format ["Callsign %1 reported a possible IED in <marker name=""mM01"">Koroni</marker>. Secure the area and clear the possible IED threat.", (groupID IP_M01_Group)]), "Clear IED Threat", "Possible IED"], "mM01", false, 1] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tM01", [(format ["Callsign %1 reported a possible IED in <marker name=""mM01"">Koroni</marker>. Secure the area and clear the possible IED threat.", (groupID IP_M01_Group)]), "Clear IED Threat", "Possible IED"], "mM01", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 if (["M01"] call IP_fnc_missionDone) exitWith {
 	deleteVehicle trgM01;
@@ -44,12 +44,12 @@ IP_mission_M01 = compileFinal '
 	sleep (30 + random 30);
 	if (({alive _x} count (units _scoutGrp) == 0) OR {("tM01" call BIS_fnc_taskState) == "SUCCEEDED"}) exitWith {
 		if (IP_TESTMODE) then {
-			systemChat "M01: Scout team eliminated, no reinforcements are spawned.";
+			("M01: Scout team eliminated, no reinforcements are spawned.") remoteExec ["systemChat", 0, false];
 		};
 	};
 
 	if (IP_TESTMODE) then {
-		systemChat "M01: Reinforcements incoming.";
+		("M01: Reinforcements incoming.") remoteExec ["systemChat", 0, false];
 	};
 
 	// Spawn Reinforcements

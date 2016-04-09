@@ -1,7 +1,8 @@
 // Init
-[west, "tM02", [(format ["The enemy uses a <marker name=""mM02"">Decommissioned Airfield North of Abdera</marker> for illegal smuggling operations and human trafficking. Two currently grounded %1 transport helicopters have been sighted and need to be destroyed. Intel indicates possible <marker name=""mM02AA"">Static and Mobile AA are West of the Airfield</marker>, as well as civilians around the airfield which must not be harmed.", (getText(configFile >> "CfgVehicles" >> "I_Heli_Transport_02_F" >> "displayName"))]), "Destroy the Transport Helicopters", "Transport Helicopters"], "mM02", false, 1] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tM02", [(format ["The enemy uses a <marker name=""mM02"">Decommissioned Airfield North of Abdera</marker> for illegal smuggling operations and human trafficking. Two currently grounded %1 transport helicopters have been sighted and need to be destroyed. Intel indicates possible <marker name=""mM02AA"">Static and Mobile AA are West of the Airfield</marker>, as well as civilians around the airfield which must not be harmed.", (getText(configFile >> "CfgVehicles" >> "I_Heli_Transport_02_F" >> "displayName"))]), "Destroy the Transport Helicopters", "Transport Helicopters"], "mM02", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 if (["M02"] call IP_fnc_missionDone) exitWith {
+	"mM02" remoteExec ["deleteMarker", 0, true];
 	"mM02AA" remoteExec ["deleteMarker", 0, true];
 	"mM02AAArea" remoteExec ["deleteMarker", 0, true];
 };
@@ -21,7 +22,8 @@ IP_mission_M02 = compileFinal '
 		params [
 			"_units",
 			"_veh",
-			"_distance"
+			"_distance",
+			"_stay"
 		];
 		
 		waitUntil {((_veh distance (getMarkerPos "mM02")) <= _distance) OR !(alive _veh) OR !(canMove _veh)};		
@@ -31,6 +33,10 @@ IP_mission_M02 = compileFinal '
 			[_x, _veh] call IP_fnc_paradrop;
 			sleep 0.5;
 		} forEach _units;
+		
+		if (_stay) then {
+			(group(driver _veh)) setVariable ["GAIA_ZONE_INTEND", ["mZone0", "NOFOLLOW"], true];
+		};
 	};
 	
 	[] spawn {
@@ -43,7 +49,7 @@ IP_mission_M02 = compileFinal '
 	};
 
 	if (IP_TESTMODE) then {
-		systemChat "M02: Reinforcements incoming.";
+		("M02: Reinforcements incoming.") remoteExec ["systemChat", 0, false];
 	};
 	
 	// Spawn Reinforcements
@@ -105,16 +111,16 @@ IP_mission_M02 = compileFinal '
 		} forEach _units;
 		
 		if (_index == 0) then {
-			[_units, _veh1, 500] spawn _dropSequence;
+			[_units, _veh1, 500, false] spawn _dropSequence;
 		} else {
-			[_units, _veh2, 750] spawn _dropSequence;
+			[_units, _veh2, 750, true] spawn _dropSequence;
 		};
 		
 		if (IP_TESTMODE) then {
-			[(leader _grp)] call IP_fnc_track
+			[(leader _grp)] call IP_fnc_track;
 		};
 	} forEach [
-		([(getMarkerPos "mM02Spawn2"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad"), [], [], [], [], [], [], (markerDir "mM02Spawn2")] call BIS_fnc_spawnGroup),
-		([(getMarkerPos "mM02Spawn2"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad"), [], [], [], [], [], [], (markerDir "mM02Spawn2")] call BIS_fnc_spawnGroup)
+		([(getMarkerPos "mM02Spawn2"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup),
+		([(getMarkerPos "mM02Spawn2"), east, (configFile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup)
 	];
 ';

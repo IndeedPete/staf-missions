@@ -1,13 +1,13 @@
 // Init
-[west, "tM03", [(format ["The enemy recently took over the <marker name=""mM03"">Village of Syrta</marker> and command fears this might just be the beginning of a larger offensive with insurgents and mercenaries pushing further south. To counter this development, a mechanised company has been diverted to the area in order to re-take <marker name=""mM03"">Syrta</marker>. TF COIN has been ordered to assist and support the regular troops in their efforts. The command of this mission has been assigned to Captain %1 who is waiting for a representative of TF COIN at an <marker name=""mM03_RV"">RV South of Syrta</marker>. The Captain will brief the TF COIN representative about the situation and the plan of action. In any case, due to the absence of civilians in the AO, a pre-emptive artillery strike will be carried out in order to soften the enemy's defences shortly before the attack.", (name IP_M03_Commander)]), "Seize Syrta", "Meet"], "mM03_RV", false, 1] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tM03", [(format ["The enemy recently took over the <marker name=""mM03"">Village of Syrta</marker> and command fears this might just be the beginning of a larger offensive with insurgents and mercenaries pushing further south. To counter this development, a mechanised company has been diverted to the area in order to re-take <marker name=""mM03"">Syrta</marker>. TF COIN has been ordered to assist and support the regular troops in their efforts. The command of this mission has been assigned to Captain %1 who is waiting for a representative of TF COIN at an <marker name=""mM03_RV"">RV South of Syrta</marker>. The Captain will brief the TF COIN representative about the situation and the plan of action. In any case, due to the absence of civilians in the AO, a pre-emptive artillery strike will be carried out in order to soften the enemy's defences shortly before the attack.", (name IP_M03_Commander)]), "Seize Syrta", "Meet"], "mM03_RV", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 if (["M03"] call IP_fnc_missionDone) exitWith {
 	deleteVehicle trgM03Go;
 	
 	private "_arrows";
-	_arrow = [];
+	_arrows = [];
 	
-	for _i from 1 to 11 do {
+	for "_i" from 1 to 11 do {
 		_arrows pushBack ("mM03_Arr" + str(_i));
 	};
 	
@@ -51,7 +51,7 @@ IP_mission_M03 = compileFinal '
 	{deleteVehicle _x} forEach [IP_M03_ArtyG, IP_M03_Arty2G];
 	
 	if (IP_TESTMODE) then {
-		systemChat "M03: Artillery completed, spawning OFPOR units.";
+		("M03: Artillery completed, spawning OFPOR units.") remoteExec ["systemChat", 0, false];
 	};
 	
 	// Spawn Reinforcements
@@ -96,7 +96,7 @@ IP_mission_M03 = compileFinal '
 	["IED_Section_M03", ["mM03_AO", (5 + round(random 5)), ["West", "CIV"]]] call CREATE_IED_SECTION;
 	sleep 10;
 	if (IP_TESTMODE) then {
-		systemChat "M03: BLUFOR is moving in.";
+		("M03: BLUFOR is moving in.") remoteExec ["systemChat", 0, false];
 	};
 	
 	{
@@ -114,7 +114,7 @@ IP_mission_M03 = compileFinal '
 	waitUntil {
 		_count = {alive _x} count _allUnits;
 		if (IP_TESTMODE) then {
-			systemChat (format ["M03: Enemies left %1/%2.", _count, _allCount]);
+			(format ["M03: Enemies left %1/%2.", _count, _allCount]) remoteExec ["systemChat", 0, false];
 		};
 		sleep 10;
 		(_count <= (_allCount / 10))

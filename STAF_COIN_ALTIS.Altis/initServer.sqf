@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Persistence = if (isMultiplayer) then {
 	([false, true] select (paramsArray select 0))
 } else {
@@ -60,18 +60,26 @@ if (IP_Persistence) then {
 		if (count _missionsDone > 0) then {
 			{
 				_mission = _x getVariable ["IP_Mission", ""];
-				if ((_mission != "") && {[_mission] call IP_fnc_missionDone}) then {
+				if (!(isNull _x) && {_mission != ""} && {[_mission] call IP_fnc_missionDone}) then {
 					// [_x] call IP_fnc_disable;
-					_x enableSimulationGlobal false;
-					_x hideObjectGlobal true;
-					deleteVehicle _x;
+					if !(_x isKindOf "Man") then {
+						_x enableSimulationGlobal false;
+						_x hideObjectGlobal true;
+						deleteVehicle _x;
+					} else {
+						{
+							_x enableSimulationGlobal false;
+							_x hideObjectGlobal true;
+							deleteVehicle _x;
+						} forEach ((crew _x) + [_x]);
+					};
 				};
 			} forEach (allMissionObjects "ALL");
 			
 			if (IP_TESTMODE) then {
 				_missionsDone spawn {
 					waitUntil {time > 0};
-					systemChat ("Already completed missions: " + str(_this));
+					("Already completed missions: " + str(_this)) remoteExec ["systemChat", 0, false];
 				};
 			};
 		};

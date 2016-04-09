@@ -26,6 +26,7 @@ while {count IP_Zones > 0} do {
 		_commander = _GL getVariable ["IP_ZoneCommander", ObjNull];
 		_assets = _GL getVariable ["IP_ZoneAssets", []];
 		_state = _GL getVariable ["IP_ZoneState", 0];
+		_displayName = getText(missionConfigFile >> "CfgZones" >> _zone >> "displayName");
 		_newState = _state;
 		_assetCount = 0;
 		_nearestEnemies = [];		
@@ -55,7 +56,7 @@ while {count IP_Zones > 0} do {
 		switch (true) do {
 			case ((_ratio < 0.75) && (_state < 1)): {
 				if (IP_TESTMODE) then {
-					systemChat format ["Zone %1 is below 75 percent!", _GL];
+					(format ["Zone %1 is below 75 percent!", _GL]) remoteExec ["systemChat", 0, false];
 				};
 				
 				_newState = 1;
@@ -63,7 +64,7 @@ while {count IP_Zones > 0} do {
 			
 			case ((_ratio < 0.5) && (_state < 2)): {
 				if (IP_TESTMODE) then {
-					systemChat format ["Zone %1 is below 50 percent!", _GL];
+					(format ["Zone %1 is below 50 percent!", _GL]) remoteExec ["systemChat", 0, false];
 				};
 				
 				_newState = 2;
@@ -71,7 +72,7 @@ while {count IP_Zones > 0} do {
 			
 			case ((_ratio < 0.25) && (_state < 3)): {
 				if (IP_TESTMODE) then {
-					systemChat format ["Zone %1 is below 25 percent!", _GL];
+					(format ["Zone %1 is below 25 percent!", _GL]) remoteExec ["systemChat", 0, false];
 				};
 				
 				_newState = 3;
@@ -79,7 +80,7 @@ while {count IP_Zones > 0} do {
 			
 			case ((_ratio < 0.1) && (_state < 4)): {
 				if (IP_TESTMODE) then {
-					systemChat format ["Zone %1 is below 10 percent!", _GL];
+					(format ["Zone %1 is below 10 percent!", _GL]) remoteExec ["systemChat", 0, false];
 				};
 				
 				_newState = 4;
@@ -89,7 +90,7 @@ while {count IP_Zones > 0} do {
 		};
 		
 		if (count _nearestEnemies > 0) then {
-			systemChat format ["Enemies detected in zone %1!", _GL];
+			(format ["Enemies detected in zone %1!", _GL]) remoteExec ["systemChat", 0, false];
 			
 			{
 				_grp = _x;
@@ -100,9 +101,10 @@ while {count IP_Zones > 0} do {
 			
 			if ((_state < _newState) && {alive _commander}) then {	
 				if (_newState < 4) then {
-					systemChat format ["Zone %1 is calling for backup!", _GL];
+					(format ["Zone %1 is calling for backup!", _GL]) remoteExec ["systemChat", 0, false];
+					// ToDo: Handle Backup
 				} else {
-					systemChat format ["Zone %1 is trying to evacuate!", _GL];
+					(format ["Zone %1 is trying to evacuate!", _GL]) remoteExec ["systemChat", 0, false];
 					
 					private ["_evacTo", "_min"];
 					_evacTo = ObjNull;
@@ -125,9 +127,9 @@ while {count IP_Zones > 0} do {
 						} forEach (_assets + [(group _commander)]);
 						
 						_evacTo getVariable ["IP_ZoneAssets", _evacAssets];						
-						systemChat format ["Zone %1 is evacuating to zone %2!", _GL, _evacTo];
+						(format ["Zone %1 is evacuating to zone %2!", _GL, _evacTo]) remoteExec ["systemChat", 0, false];
 					} else {
-						systemChat format ["Zone %1 cannot evacuate!", _GL];
+						(format ["Zone %1 cannot evacuate!", _GL]) remoteExec ["systemChat", 0, false];
 					};
 				};
 			};
@@ -148,6 +150,8 @@ while {count IP_Zones > 0} do {
 			if (isServer) then {
 				[] call IP_fnc_saveProgress;
 			};
+			
+			["ZoneCleared", [_displayName]] remoteExec ["BIS_fnc_showNotification", 0, false];
 		};
 		
 		_GL setVariable ["IP_ZoneState", _newState, true];

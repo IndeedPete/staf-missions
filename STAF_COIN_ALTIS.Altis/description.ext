@@ -2,7 +2,7 @@
 
 author = "STAF|IndeedPete";
 OnLoadName = "STAF|COIN (Altis)";
-//briefingName = "STAF|COIN (Altis)";
+briefingName = "STAF|COIN (Altis) (RC)";
 onLoadMission = "Taskforce COIN is deployed at F.O.B. Moneypenny in order to take on a counter insurgency campaign against a criminal network of local insurgents and foreign mercenaries.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
@@ -108,6 +108,12 @@ class CfgRemoteExec
 			jip = 1;
 		};
 		
+		class switchMove
+		{ 
+			allowedTargets = 0;
+			jip = 1;
+		};
+		
 		class systemChat
 		{ 
 			allowedTargets = 0;
@@ -118,7 +124,7 @@ class CfgRemoteExec
 
 class Extended_PostInit_EventHandlers
 {
-	RYD_INC_Post_Init = "RYD_INC_Post_Init_Var = [] spawn IP_fnc_rydIncognito";
+	//RYD_INC_Post_Init = "RYD_INC_Post_Init_Var = [] spawn IP_fnc_rydIncognito";
 };
 
 class CfgCommunicationMenu
@@ -139,6 +145,15 @@ class CfgCommunicationMenu
 
 class CfgNotifications
 {
+	class ZoneCleared
+	{
+		title = "ZONE CLEARED";
+		iconPicture = "\a3\ui_f\data\map\Markers\Military\flag_ca.paa";
+		description = "%1";
+		color[] = {1,1,1,1};
+		//color[] = {"(profileNamespace getVariable ['Map_BLUFOR_R',0])","(profileNamespace getVariable ['Map_BLUFOR_G',1])","(profileNamespace getVariable ['Map_BLUFOR_B',1])","(profileNamespace getVariable ['Map_BLUFOR_A',0.8])"};
+		priority = 7;
+	};	
 	class deploy1
 	{
 		title = "MHQ Deployment"; // Tile displayed as text on black background. Filled by arguments.

@@ -32,7 +32,7 @@ if (_respawnDelayMASH > 0) then {
 		
 		player setDir (getDir _stretcher); 
 		player setPos (getPos _stretcher); 
-		player switchMove _anim;
+		[player, _anim] remoteExec ["switchMove", 0, false];
 	};
 	
 	[0] call BIS_fnc_cinemaBorder;
@@ -47,10 +47,12 @@ if (_respawnDelayMASH > 0) then {
 	[1] call BIS_fnc_cinemaBorder;
 	
 	if !(isNull _stretcher) then {
-		player switchMove "";
+		[player, ""] remoteExec ["switchMove", 0, false];
 		[player, _gear] call IP_fnc_setLoadout;
 		_stretcher setVariable ["IP_StretcherTaken", false, true];
 	};
 	
-	player allowDamage true;
+	if !(IP_TESTMODE) then {
+		player allowDamage true;
+	};
 };

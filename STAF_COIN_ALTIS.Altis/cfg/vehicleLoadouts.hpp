@@ -666,6 +666,7 @@ class CfgVehicleLoadouts
 			{"ItemGPS", 1},
 			{"ACE_SpareBarrel", 1},
 			{"ACE_Flashlight_XL50", 3},
+			{"B_UavTerminal", 1},
 			{"acc_flashlight", 3}
 		};
 		

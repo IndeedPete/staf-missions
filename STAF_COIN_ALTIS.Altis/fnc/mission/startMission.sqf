@@ -16,7 +16,7 @@ if (missionNamespace getVariable [("IP_" + _mission + "_Started"), false]) exitW
 
 if ([_mission] call IP_fnc_missionDone) exitWith {
 	if (IP_TESTMODE) then {
-		systemChat (format ["Mission %1 has been completed already.", _mission]);
+		(format ["Mission %1 has been completed already.", _mission]) remoteExec ["systemChat", 0, false];
 	};
 };
 
@@ -25,5 +25,5 @@ _params remoteExec [_missionFlow, 2];
 missionNamespace setVariable [("IP_" + _mission + "_Started"), true, true];
 
 if (IP_TESTMODE) then {
-	systemChat (format ["Mission %1 has been started.", _mission]);
+	(format ["Mission %1 has been started.", _mission]) remoteExec ["systemChat", 0, false];
 };
