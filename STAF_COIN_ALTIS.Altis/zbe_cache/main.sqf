@@ -43,6 +43,7 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 	zbe_cached_cars = [];
 	zbe_cached_air = [];
 	zbe_cached_boat = [];
+	/*
 	while {true} do {
 		_assetscar = zbe_centerPOS nearEntities ["LandVehicle", zbe_mapside];
 		{
@@ -83,7 +84,7 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 		} forEach zbe_cached_boat;
 		zbe_allVehicles = (_assetscar + _assetsair + _assetsboat);
 		sleep 15;
-	};
+	};*/
 };
 
 [] spawn {

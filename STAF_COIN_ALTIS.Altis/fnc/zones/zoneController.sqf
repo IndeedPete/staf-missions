@@ -90,7 +90,9 @@ while {count IP_Zones > 0} do {
 		};
 		
 		if (count _nearestEnemies > 0) then {
-			(format ["Enemies detected in zone %1!", _GL]) remoteExec ["systemChat", 0, false];
+			if (IP_TESTMODE) then {
+				(format ["Enemies detected in zone %1!", _GL]) remoteExec ["systemChat", 0, false];
+			};
 			
 			{
 				_grp = _x;
@@ -101,10 +103,14 @@ while {count IP_Zones > 0} do {
 			
 			if ((_state < _newState) && {alive _commander}) then {	
 				if (_newState < 4) then {
-					(format ["Zone %1 is calling for backup!", _GL]) remoteExec ["systemChat", 0, false];
+					if (IP_TESTMODE) then {
+						(format ["Zone %1 is calling for backup!", _GL]) remoteExec ["systemChat", 0, false];
+					};
 					// ToDo: Handle Backup
 				} else {
-					(format ["Zone %1 is trying to evacuate!", _GL]) remoteExec ["systemChat", 0, false];
+					if (IP_TESTMODE) then {
+						(format ["Zone %1 is trying to evacuate!", _GL]) remoteExec ["systemChat", 0, false];
+					};
 					
 					private ["_evacTo", "_min"];
 					_evacTo = ObjNull;
@@ -127,9 +133,13 @@ while {count IP_Zones > 0} do {
 						} forEach (_assets + [(group _commander)]);
 						
 						_evacTo getVariable ["IP_ZoneAssets", _evacAssets];						
-						(format ["Zone %1 is evacuating to zone %2!", _GL, _evacTo]) remoteExec ["systemChat", 0, false];
+						if (IP_TESTMODE) then {
+							(format ["Zone %1 is evacuating to zone %2!", _GL, _evacTo]) remoteExec ["systemChat", 0, false];
+						};
 					} else {
-						(format ["Zone %1 cannot evacuate!", _GL]) remoteExec ["systemChat", 0, false];
+						if (IP_TESTMODE) then {
+							(format ["Zone %1 cannot evacuate!", _GL]) remoteExec ["systemChat", 0, false];
+						};
 					};
 				};
 			};

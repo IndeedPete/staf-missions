@@ -26,7 +26,7 @@ IP_M03_BLUFOR_Units = [];
 [IP_M03_Commander, "M03Opener"] remoteExecCall ["IP_fnc_addConversation", 0, true];
 
 // Main Flow
-IP_mission_M03 = compileFinal '
+IP_mission_M03 = compileFinal //'
 	[IP_M03_Commander, "M03Opener"] remoteExecCall ["IP_fnc_removeConversation", 0, true];
 	private ["_handles", "_allUnits"];
 	_handles = [];
@@ -51,7 +51,7 @@ IP_mission_M03 = compileFinal '
 	{deleteVehicle _x} forEach [IP_M03_ArtyG, IP_M03_Arty2G];
 	
 	if (IP_TESTMODE) then {
-		("M03: Artillery completed, spawning OFPOR units.") remoteExec ["systemChat", 0, false];
+		"M03: Artillery completed, spawning OFPOR units." remoteExec ["systemChat", 0, false];
 	};
 	
 	// Spawn Reinforcements
