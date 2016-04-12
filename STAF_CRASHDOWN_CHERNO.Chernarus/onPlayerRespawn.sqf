@@ -46,6 +46,11 @@ if !(triggerActivated trgDepot) then {
 		for "_i" from 1 to 2 do {player addItemToBackpack "ACE_salineIV";};
 		for "_i" from 1 to 4 do {player addItemToBackpack "ACE_salineIV_250";};
 	};
+	
+	if ({(typeOf player) == _x} count ["IP_B_arecon_SL_EFWoodland_F", "IP_B_arecon_TL_EFWoodland_F"] > 0) then {
+		player linkItem "tf_rf7800str";
+		player addWeapon "Binocular";
+	};
 };
 
 if !(IP_TESTMODE) then {
