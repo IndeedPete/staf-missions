@@ -73,4 +73,8 @@ if (IP_TESTMODE) then {
 	180 setFog [0.5, 0.01, 200];
 	//240 setOvercast 0.75;
 	//forceWeatherChange;
+	
+	waitUntil {triggerActivated trgEnd};
+	["tLZ", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	["Won"] call BIS_fnc_endMissionServer;
 };

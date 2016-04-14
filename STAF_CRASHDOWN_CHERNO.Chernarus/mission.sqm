@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1175;
+		nextID=1176;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=7;
+		nextID=8;
 	};
 	class Camera
 	{
 		pos[]={3988.5835,383.80466,11615.592};
-		dir[]={0.67958623,-0.3540749,0.64249647};
-		up[]={0.25729278,0.93521541,0.24325058};
-		aside[]={0.68700117,-6.1932951e-008,-0.72666067};
+		dir[]={-0.74192458,-0.34372661,0.57568103};
+		up[]={-0.27156615,0.9390676,0.21071596};
+		aside[]={0.61303234,-1.2437522e-007,0.79006153};
 	};
 };
 binarizationWanted=0;
@@ -154,7 +154,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=251;
+		items=252;
 		class Item0
 		{
 			dataType="Object";
@@ -199,45 +199,117 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4016.26,361.59637,11640.963};
-				angles[]={6.2325621,6.2244148,0.057269081};
+				position[]={4016.2605,361.5968,11640.963};
+				angles[]={6.232553,6.2244201,0.05726425};
 			};
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""IP_LoadoutTemplate"", ""HMMWV""]; [this, ""HMMWV""] call IP_fnc_vehicleLoadout;";
 			};
 			id=4;
 			type="rhsusf_m1025_w_s_m2";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""rhs_weap_m4_carryhandle"",""rhs_weap_M136_hedp"",""FirstAidKit""],[2,2,4]],[[""rhs_m136_hedp_mag"",""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhsusf_100Rnd_556x45_soft_pouch"",""rhs_mag_M441_HE"",""rhs_mag_m714_White"",""rhs_mag_m662_red"",""rhs_mag_m67"",""rhs_mag_m18_green"",""rhs_mag_m18_red"",""rhs_mag_an_m8hc""],[2,20,8,16,4,2,4,2,2,4]],[[],[]],[[""rhsusf_falconii""],[2]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item2
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4010.583,363.09616,11640.996};
-				angles[]={6.2365508,6.1968102,0.059930447};
+				position[]={4010.5828,363.09616,11640.997};
+				angles[]={6.2365503,6.1968088,0.059934605};
 			};
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""IP_LoadoutTemplate"", ""HMMWV""]; [this, ""HMMWV""] call IP_fnc_vehicleLoadout;";
 			};
 			id=10;
 			type="rhsusf_m998_w_s_2dr_fulltop";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[4]],[[""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_M441_HE"",""rhs_mag_m67"",""rhs_mag_m18_green"",""rhs_mag_m18_red"",""rhs_mag_an_m8hc""],[12,8,4,2,2,4]],[[],[]],[[""rhsusf_falconii""],[1]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item3
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4028.1941,366.24377,11668.45};
-				angles[]={6.2392149,3.0037203,0.051951028};
+				position[]={4028.1943,366.24408,11668.451};
+				angles[]={6.2392201,3.0037117,0.051958453};
 			};
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""IP_LoadoutTemplate"", ""APC""]; [this, ""APC""] call IP_fnc_vehicleLoadout;";
 			};
 			id=21;
 			type="rhsusf_m113_usarmy";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""rhs_weap_m4_carryhandle"",""FirstAidKit"",""Medikit""],[4,10,2]],[[""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_M433_HEDP"",""rhsusf_100Rnd_556x45_soft_pouch"",""rhs_mag_M441_HE"",""rhs_mag_m714_White"",""rhs_mag_m662_red"",""rhs_mag_m67"",""rhs_mag_m18_green"",""rhs_mag_m18_red"",""rhs_mag_an_m8hc""],[50,20,11,20,8,4,10,4,4,10]],[[""ToolKit""],[1]],[[""rhsusf_falconii""],[4]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item4
 		{
@@ -7980,30 +8052,78 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4014.3381,364.32864,11667.385};
-				angles[]={6.2378831,3.0123839,0.061255306};
+				position[]={4014.3376,364.32864,11667.385};
+				angles[]={6.2378764,3.0123858,0.061261058};
 			};
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""IP_LoadoutTemplate"", ""APC""]; [this, ""APC""] call IP_fnc_vehicleLoadout;";
 			};
 			id=615;
 			type="RHS_M2A3_wd";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""rhs_weap_m4_carryhandle_pmag"",""rhs_weap_fgm148"",""FirstAidKit"",""Medikit""],[4,2,10,2]],[[""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhsusf_100Rnd_556x45_soft_pouch"",""rhsusf_100Rnd_762x51"",""rhs_fgm148_magazine_AT"",""rhs_mag_M441_HE"",""rhs_mag_m714_White"",""rhs_mag_m662_red"",""rhs_mag_m67"",""rhs_mag_m18_green"",""rhs_mag_m18_red"",""rhs_mag_an_m8hc""],[75,11,11,4,20,8,4,10,4,4,10]],[[""ToolKit""],[1]],[[""rhsusf_falconii""],[8]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item70
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4031.1135,364.37555,11642.97};
-				angles[]={6.2285728,6.1743073,0.05461248};
+				position[]={4031.114,364.37561,11642.97};
+				angles[]={6.2285738,6.1743116,0.054611351};
 			};
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""IP_LoadoutTemplate"", ""HMMWV""]; [this, ""HMMWV""] call IP_fnc_vehicleLoadout;";
 			};
 			id=618;
 			type="rhsusf_m1025_w_s";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""rhs_weap_m4_carryhandle"",""rhs_weap_M136_hedp"",""FirstAidKit""],[2,2,4]],[[""rhs_m136_hedp_mag"",""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhsusf_100Rnd_556x45_soft_pouch"",""rhs_mag_M441_HE"",""rhs_mag_m714_White"",""rhs_mag_m662_red"",""rhs_mag_m67"",""rhs_mag_m18_green"",""rhs_mag_m18_red"",""rhs_mag_an_m8hc""],[2,20,8,16,4,2,4,2,2,4]],[[],[]],[[""rhsusf_falconii""],[2]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item71
 		{
@@ -8070,15 +8190,39 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4021.6187,361.93631,11641.654};
-				angles[]={6.2299027,0,0.055943742};
+				position[]={4021.6189,361.93631,11641.654};
+				angles[]={6.2299004,0,0.055937801};
 			};
 			side="Empty";
 			class Attributes
 			{
+				init="this setVariable [""IP_LoadoutTemplate"", ""HMMWV""]; [this, ""HMMWV""] call IP_fnc_vehicleLoadout;";
 			};
 			id=637;
 			type="rhsusf_m998_w_s_4dr";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[4]],[[""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_M441_HE"",""rhs_mag_m67"",""rhs_mag_m18_green"",""rhs_mag_m18_red"",""rhs_mag_an_m8hc""],[12,8,4,2,2,4]],[[],[]],[[""rhsusf_falconii""],[1]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item76
 		{
@@ -14220,7 +14364,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="";
+							value="[(_this select 0), ((_this select 1) getVariable [""IP_LoadoutTemplate"", ""vehicleDefault""])] call IP_fnc_vehicleLoadout;";
 						};
 					};
 				};
@@ -21208,6 +21352,22 @@ class Mission
 			isPlayable=1;
 			id=1174;
 			type="HeadlessClient_F";
+		};
+		class Item251
+		{
+			dataType="Trigger";
+			position[]={1081.5431,183.64574,7508.8257};
+			angle=3.1038756;
+			class Attributes
+			{
+				name="trgEnd";
+				condition="this && {{isPlayer _x} count thisList == count (allPlayers - entities ""HeadlessClient_F"")}";
+				sizeA=250;
+				sizeB=250;
+				activationBy="WEST";
+			};
+			id=1175;
+			type="EmptyDetectorArea10x10";
 		};
 	};
 	class Connections
