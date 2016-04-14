@@ -43,6 +43,7 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 	zbe_cached_cars = [];
 	zbe_cached_air = [];
 	zbe_cached_boat = [];
+	zbe_allVehicles = [];
 	/*
 	while {true} do {
 		_assetscar = zbe_centerPOS nearEntities ["LandVehicle", zbe_mapside];
