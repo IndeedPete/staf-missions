@@ -1,10 +1,6 @@
 // The HC does not need to process that shit below.
 if !(hasInterface) exitWith {};
 
-// Hide Markers
-"mMeasure" setMarkerAlpha 0;
-"mAO" setMarkerAlpha 0;
-
 // Debug
 [] spawn {
 	waitUntil {!(isNil "IP_TESTMODE")};

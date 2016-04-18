@@ -14,6 +14,7 @@ if (IP_TESTMODE) then {
 	} forEach allGroups;
 } else {
 	"mPat1" setMarkerAlpha 0;
+	"mPat2" setMarkerAlpha 0;
 };
 
 // Force Lights On

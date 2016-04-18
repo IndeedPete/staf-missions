@@ -12,11 +12,13 @@ if (_template == "") then {
 
 _cfg = missionConfigFile >> "CfgVehicleLoadouts" >> _template;
 if (isClass _cfg) then {
+	private "_whs";
 	_backpackCargo = getArray(_cfg >> "backpackCargo");
 	_itemCargo = getArray(_cfg >> "itemCargo");
 	_magazineCargo = getArray(_cfg >> "magazineCargo");
 	_weaponCargo = getArray(_cfg >> "weaponCargo");
 	_attachments = "true" configClasses _cfg;
+	_whs = [];
 	
 	clearBackpackCargoGlobal _veh;
 	clearItemCargoGlobal _veh;
@@ -37,5 +39,17 @@ if (isClass _cfg) then {
 		_wh = nearestObject [_object, "GroundWeaponHolder"];
 		_wh attachTo [_veh, _attachTo];
 		_wh setVectorDirAndUp _vectorDirAndUp;
+		_whs pushBack _wh;
 	} forEach _attachments;
+	
+	_veh setVariable ["IP_WeaponHolders", _whs];
 };
+
+_veh addEventHandler ["Killed", {
+	if !(isServer) exitWith {};
+	_whs = _veh getVariable ["IP_WeaponHolders", []];
+	
+	{
+		deleteVehicle _x;
+	} forEach _whs;
+}];
