@@ -13,8 +13,9 @@ if (IP_TESTMODE) then {
 		[(leader _x)] call IP_fnc_track;
 	} forEach allGroups;
 } else {
-	"mPat1" setMarkerAlpha 0;
-	"mPat2" setMarkerAlpha 0;
+	{
+		_x setMarkerAlpha 0;
+	} forEach ["mPat1", "mPat2", "mPat3", "mPat4", "mPat5", "mPat6", "mPat7", "mPat8"];
 };
 
 // Force Lights On
@@ -45,7 +46,7 @@ if (IP_TESTMODE) then {
 			_x setGroupOwner (owner IP_HC1);
 		};
 		
-		if (((_zone select 0) == "mPat2") && {!(local IP_HC2)}) then {
+		if (({(_zone select 0) == _x} count ["mPat2", "mPat3", "mPat4", "mPat5", "mPat6", "mPat7", "mPat8"] > 0) && {!(local IP_HC2)}) then {
 			_x setGroupOwner (owner IP_HC2);
 		};
 	};
