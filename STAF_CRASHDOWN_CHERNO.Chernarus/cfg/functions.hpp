@@ -19,7 +19,7 @@ class IP
 			file = "fnc\mission\blackOut.sqf";
 		};
 	};
-		
+	
 	class staf
 	{
 		class ACEHeal
@@ -42,5 +42,13 @@ class IP
 		{
 			file = "fnc\staf\vehicleLoadout.sqf";
 		};	
+	};
+	
+	class thirdParty
+	{
+		class createFireEffect
+		{
+			file = "fnc\other\createFireEffect.sqf";
+		};
 	};
 };
