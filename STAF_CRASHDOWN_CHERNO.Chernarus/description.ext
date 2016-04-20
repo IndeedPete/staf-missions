@@ -40,37 +40,10 @@ wreckRemovalMaxTime = 1200;
 
 //__________________________________________
 #include "cfg\vehicleLoadouts.hpp"
-#include "cfg\ORBAT.hpp"
 
 //__________________________________________
 
 class CfgFunctions
 {
 	#include "cfg\functions.hpp"
-};
-
-//__________________________________________
-
-class CfgRemoteExec
-{ 
-	class Commands
-	{
-		class deleteMarker
-		{ 
-			allowedTargets = 0;
-			jip = 1;
-		};
-		
-		class switchMove
-		{ 
-			allowedTargets = 0;
-			jip = 1;
-		};
-		
-		class systemChat
-		{ 
-			allowedTargets = 0;
-			jip = 1;
-		};
-	};
 };

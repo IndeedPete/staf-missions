@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
