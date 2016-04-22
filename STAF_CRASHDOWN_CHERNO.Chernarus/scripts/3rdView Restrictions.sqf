@@ -1,11 +1,10 @@
-if (!isDedicated) then { //preventing start on server
+if !(isDedicated) then { //preventing start on server
 
-	waitUntil {!isNull (findDisplay 46)}; //making sure player is spawned
+	waitUntil {!(isNull(findDisplay 46))}; //making sure player is spawned
 
-	if (difficultyEnabled "3rdPersonView") then
+	if (difficultyOption "thirdPersonView" == 1) then
 	{
 		while {true} do {
-
 			waitUntil {cameraView == "EXTERNAL" || cameraView == "GROUP"};
 
 			if  (((vehicle player) == player) && (speed ( player)) >= 4) then {
@@ -29,5 +28,4 @@ if (!isDedicated) then { //preventing start on server
 			sleep 0.1;
 		};
 	};
-
 };
