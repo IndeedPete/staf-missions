@@ -4,41 +4,14 @@ IP_TESTMODE = true;
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
 
-// [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
-[2000, -1, IP_TESTMODE, 100, 1000, 1000] execVM "zbe_cache\main.sqf";
-
 // Track Units
 if (IP_TESTMODE) then {
 	{
 		[(leader _x)] call IP_fnc_track;
 	} forEach allGroups;
-} else {
-	for "_i" from 1 to 10 do {
-		("mPat" + str(_i)) setMarkerAlpha 0;
-	};
 };
 
-// Force Lights On
-{
-	if (side _x == west) then {
-		_x addPrimaryWeaponItem "acc_flashlight";
-		_x enableGunLights "forceOn";
-	};
-} forEach allUnits;
-
-[] spawn {	
-	while {true} do {
-		{
-			if ((side _x == west) && {alive _x}) then {
-				_x enableGunLights "forceOn";
-			};
-		} forEach allUnits;
-		
-		sleep 5;
-	};
-};
-
-// Rainy Season Weather
+/*/ Rainy Season Weather
 [] spawn {
 	_min = 180;
 	_max = 300;
@@ -59,21 +32,7 @@ if (IP_TESTMODE) then {
 		
 		sleep (_duration + _trans);
 	};	
-};
-
-/*/ Offload AI to HCs
-{
-	_zone = _x getVariable ["GAIA_ZONE_INTEND", []];
-	if (count _zone > 0) then {
-		if (((_zone select 0) == "mPat1") && {!(local IP_HC1)}) then {
-			_x setGroupOwner (owner IP_HC1);
-		};
-		
-		if (({(_zone select 0) == _x} count ["mPat2", "mPat3", "mPat4", "mPat5", "mPat6", "mPat7", "mPat8"] > 0) && {!(local IP_HC2)}) then {
-			_x setGroupOwner (owner IP_HC2);
-		};
-	};
-} forEach allGroups;*/
+};*/
 
 /*/ Tasks & Mission Flow
 [west, "tDepot", ["Regroup at the <marker name=""mDepot"">Old USMC Depot</marker> and acquire leftover weapons and vehicles!", "Regroup at Depot", "Depot"], "mDepot", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
