@@ -1,6 +1,5 @@
-/*
 player allowDamage false;
-
+/*
 // Respawn before and after arriving at the depot.
 if !(triggerActivated trgDepot) then {
 	removeAllWeapons player;
@@ -53,8 +52,8 @@ if !(triggerActivated trgDepot) then {
 		player addWeapon "Binocular";
 	};
 };
-
+*/
 if !(IP_TESTMODE) then {
 	sleep 60;
 	player allowDamage true;
-};*/
+};

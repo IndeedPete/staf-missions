@@ -5,7 +5,8 @@ IP_TESTMODE = true;
 publicVariable "IP_TESTMODE";
 
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
-[2000, -1, IP_TESTMODE, 100, 1000, 1000] execVM "zbe_cache\main.sqf";
+//[2000, -1, IP_TESTMODE, 100, 1000, 1000] execVM "zbe_cache\main.sqf";
+[2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
 // Hide Flight Path Dots
 {
@@ -68,38 +69,46 @@ if (IP_TESTMODE) then {
 	};	
 };
 
-/*/ Offload AI to HCs
-{
-	_zone = _x getVariable ["GAIA_ZONE_INTEND", []];
-	if (count _zone > 0) then {
-		if (((_zone select 0) == "mPat1") && {!(local IP_HC1)}) then {
-			_x setGroupOwner (owner IP_HC1);
-		};
-		
-		if (({(_zone select 0) == _x} count ["mPat2", "mPat3", "mPat4", "mPat5", "mPat6", "mPat7", "mPat8"] > 0) && {!(local IP_HC2)}) then {
-			_x setGroupOwner (owner IP_HC2);
-		};
-	};
-} forEach allGroups;*/
+// Tasks
+//[independent, "tDepot", ["Regroup at the <marker name=""mDepot"">Old USMC Depot</marker> and acquire leftover weapons and vehicles!", "Regroup at Depot", "Depot"], "mDepot", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[independent, "tContact", ["Locate the contact in one of the four villages <marker name=""mContact1"">Ban Khe</marker>, <marker name=""mContact2"">Bahnar</marker>, <marker name=""mContact3"">Long Vinh</marker>, or <marker name=""mContact4"">Khe Luoi</marker> and extract him back to the <marker name=""mFARP"">FARP</marker>!", "Extract the Contact", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
-/*/ Tasks & Mission Flow
-[west, "tDepot", ["Regroup at the <marker name=""mDepot"">Old USMC Depot</marker> and acquire leftover weapons and vehicles!", "Regroup at Depot", "Depot"], "mDepot", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tLZ", ["Reach the <marker name=""mLZ"">Pick-Up Point</marker> and extract from Chernarus! All units need to be there at the same time to complete the task, we leave no man behind!", "Reach the Pick-Up", "Pick-Up"], "mLZ", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+//  Mission Flow / Contact
 [] spawn {
-	waitUntil {triggerActivated trgDepot};
-	["tDepot", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	IP_Contact allowDamage false;
 	
-	_pos = getMarkerPos "mDepot";
+	private "_buildingPositions";
+	_buildingPositions = [];
 	{
-		_x setMarkerPos _pos;
-	} forEach ["respawn_west_1", "respawn_west_2", "respawn_west_3"];
+		_centre = getMarkerPos _x;
+		_radius = (getMarkerSize _x) select 0;
+		_rawBuildings = _centre nearObjects ["House", _radius];
+		
+		{
+			_building = _x;
+			_positions = [_building] call BIS_fnc_buildingPositions;
+			
+			if (count _positions > 0) then {
+				_buildingPositions = _buildingPositions + _positions;
+			};
+		} forEach _rawBuildings;
+	} forEach ["mVillage_Area1", "mVillage_Area2", "mVillage_Area3", "mVillage_Area4"];
 	
-	120 setRain 0;
-	180 setFog [0.5, 0.01, 200];
-	//240 setOvercast 0.75;
-	//forceWeatherChange;
+	IP_Contact setPos (selectRandom _buildingPositions);
+	IP_Contact setDir (random 359);
 	
-	waitUntil {triggerActivated trgEnd};
-	["tLZ", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	["Won"] call BIS_fnc_endMissionServer;
-};*/
+	IP_Contact addEventHandler ["Killed", {
+		["tContact", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	}];
+	
+	sleep 5;	
+	if !(IP_TESTMODE) then {
+		IP_Contact allowDamage true;
+	};
+	
+	waitUntil {(IP_Contact inArea "mFARP_Area")};
+	if (alive IP_Contact) then {
+		["tContact", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
+};
+
