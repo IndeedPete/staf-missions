@@ -70,7 +70,7 @@ if (IP_TESTMODE) then {
 };
 
 // Tasks
-//[independent, "tDepot", ["Regroup at the <marker name=""mDepot"">Old USMC Depot</marker> and acquire leftover weapons and vehicles!", "Regroup at Depot", "Depot"], "mDepot", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[independent, "tSatPhone", ["Shut down the communication facilities at the <marker name=""mRadio"">Radio Relay</marker>! Find and secure the satellite phone!", "Shut Down Comms", "Radio Relay"], "mRadio", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tContact", ["Locate the contact in one of the four villages <marker name=""mContact1"">Ban Khe</marker>, <marker name=""mContact2"">Bahnar</marker>, <marker name=""mContact3"">Long Vinh</marker>, or <marker name=""mContact4"">Khe Luoi</marker> and extract him back to the <marker name=""mFARP"">FARP</marker>!", "Extract the Contact", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 //  Mission Flow / Contact
@@ -112,3 +112,17 @@ if (IP_TESTMODE) then {
 	};
 };
 
+// Sat Phone
+[IP_SatPhone, ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\take_ca.paa'/> 'Secure Satellite Phone.'", {IP_SatPhoneTaken = true; publicVariable "IP_SatPhoneTaken";}, [], 1.5, false, true, "", "(_this distance _target < 3)"]] remoteExec ["addAction", 0, true];
+[] spawn {
+	waitUntil {!(isNil "IP_SatPhoneTaken") && {IP_SatPhoneTaken}};
+	deleteVehicle IP_SatPhone;
+	["tSatPhone", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+// End Mission
+[] spawn {
+	waitUntil {(("tSatPhone" call BIS_fnc_taskState) == "SUCCEEDED") && {(("tContact" call BIS_fnc_taskState) == "SUCCEEDED") OR (("tContact" call BIS_fnc_taskState) == "FAILED")} && {{_x inArea "mFARP_Area"} count (allPlayers - entities "HeadlessClient_F") == count (allPlayers - entities "HeadlessClient_F")}};
+	sleep 5;
+	["Won"] call BIS_fnc_endMissionServer;
+};
