@@ -20,15 +20,13 @@ if !(hasInterface) exitWith {};
 		} forEach allGroups;
 	} else {
 		// Restrict 3rd Person
-		nul = [] execVM "scripts\3rdView Restrictions.sqf";
+		//nul = [] execVM "scripts\3rdView Restrictions.sqf";
+		[] spawn STAF_fnc_viewRestrictions;
 	};
 };
 
 // PPEffect
 ["STAF_GreenHell", 0, false] call BIS_fnc_setPPeffectTemplate;
-
-// Base Medic
-IP_BaseMedic addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\heal_ca.paa'/> 'Heal me.'", {[player] call IP_fnc_ACEHeal}, [], 1.5, false, true, "", "(_this distance _target < 3)"];
 
 /*/ Briefing
 player createDiaryRecord ["Diary", ["Mission", "The only hope of the survivors now is to evade their Russian pursuers and make it to a known decomissioned depot of the United States Marine Corps from the 2010s in order to regroup, salvage leftover supplies and weapons, maybe even some vehicles, and make a run for the European border to the south for pick-up."]];
