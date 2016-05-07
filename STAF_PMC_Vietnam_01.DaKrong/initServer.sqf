@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -44,6 +44,15 @@ if (IP_TESTMODE) then {
 		
 		sleep 5;
 	};
+};
+
+// HC
+if !(local IP_HC1) then {
+	{
+		if !(isPlayer (leader _x)) then {
+			_x setGroupOwner (owner IP_HC1);
+		};
+	} forEach allGroups;
 };
 
 // Rainy Season Weather
@@ -122,7 +131,7 @@ if (IP_TESTMODE) then {
 
 // End Mission
 [] spawn {
-	waitUntil {(("tSatPhone" call BIS_fnc_taskState) == "SUCCEEDED") && {(("tContact" call BIS_fnc_taskState) == "SUCCEEDED") OR (("tContact" call BIS_fnc_taskState) == "FAILED")} && {{_x inArea "mFARP_Area"} count (allPlayers - entities "HeadlessClient_F") == count (allPlayers - entities "HeadlessClient_F")}};
+	waitUntil {(!(isNil "IP_SatPhoneTaken") && {IP_SatPhoneTaken}) && {(IP_Contact inArea "mFARP_Area") OR !(alive IP_Contact)} && {{_x inArea "mFARP_Area"} count (allPlayers - entities "HeadlessClient_F") == count (allPlayers - entities "HeadlessClient_F")}};
 	sleep 5;
 	["Won"] call BIS_fnc_endMissionServer;
 };
