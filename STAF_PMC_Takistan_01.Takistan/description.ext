@@ -1,0 +1,49 @@
+//__________________________________________
+
+author = "STAF|IndeedPete";
+OnLoadName = "STAF|Transportation";
+//briefingName = "STAF|Transportation";
+onLoadMission = "South Takistan...";
+//overviewText = "A recon detachment of the Thadeus Private Army is preparing an operation to take over the mineral-rich DaKrong District in Vietnam.";
+onLoadIntroTime = false;
+onLoadMissionTime = false;
+disabledAI = 1;
+
+respawn = "BASE";
+respawnDelay = 0;
+respawnDialog = 0;
+respawnOnStart = 0;
+
+showGPS = 1;
+//loadScreen = "img\Overview.paa";
+//overviewPicture = "img\Overview.paa";
+enableDebugConsole = 1;
+joinUnassigned = false;
+disableChannels[] = {0,1,2,3,4,5,6};
+enableItemsDropping = 0;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 61;
+};
+
+corpseManagerMode = 1;
+corpseLimit = 30;
+corpseRemovalMinTime = 360;
+corpseRemovalMaxTime = 1200;
+
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 360;
+wreckRemovalMaxTime = 1200;
+
+//__________________________________________
+//#include "cfg\vehicleLoadouts.hpp"
+
+//__________________________________________
+class CfgFunctions
+{
+	#include "cfg\functions.hpp"
+};
