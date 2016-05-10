@@ -44,6 +44,7 @@ _this addPrimaryWeaponItem "optic_Hamr";
 _this addWeapon "rhsusf_weap_m9";
 _this addWeapon "Rangefinder";
 _this addItemToVest "hlc_30rnd_556x45_EPR";
+_this addItemToVest "1Rnd_HE_Grenade_shell";
 
 comment "Add items";
 _this linkItem "ItemMap";

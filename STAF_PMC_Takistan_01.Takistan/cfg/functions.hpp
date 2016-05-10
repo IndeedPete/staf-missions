@@ -19,36 +19,4 @@ class IP
 			file = "fnc\mission\blackOut.sqf";
 		};
 	};
-	
-	class staf
-	{
-		class ACEHeal
-		{
-			file = "fnc\staf\ACEHeal.sqf";
-		};
-		class defaultLoadout
-		{
-			file = "fnc\staf\defaultLoadout.sqf";
-		};
-		class insignia
-		{
-			file = "fnc\staf\insignia.sqf";
-		};
-		class STAFRadio
-		{
-			file = "fnc\staf\radio.sqf";
-		};	
-		class vehicleLoadout
-		{
-			file = "fnc\staf\vehicleLoadout.sqf";
-		};	
-	};
-	
-	class thirdParty
-	{
-		class createFireEffect
-		{
-			file = "fnc\other\createFireEffect.sqf";
-		};
-	};
 };

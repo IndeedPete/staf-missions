@@ -15,4 +15,4 @@ enableSentences false;
 //_________________________________________Scripts_________________________________________//
 
 // Interior Light
-nul = [] execVM "scripts\IntLight.sqf";
+[] spawn STAF_fnc_intLight;

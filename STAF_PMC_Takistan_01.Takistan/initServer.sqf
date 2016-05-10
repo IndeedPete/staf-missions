@@ -9,7 +9,7 @@ publicVariable "IP_TESTMODE";
 
 // Hide Zhe Markerz
 {
-	if ((markerType _x == "mil_dot") OR {_x find "mMCC_Zone" >= 0}) then {
+	if ((markerType _x == "mil_dot") OR {_x find "mMCC_Zone" >= 0} OR {_x find "mTAOR" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
