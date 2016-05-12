@@ -17,7 +17,7 @@ for "_i" from 1 to 10 do {_this addItemToUniform "ACE_packingBandage";};
 _this addItemToUniform "ACE_personalAidKit";
 _this addItemToUniform "ACE_EarPlugs";
 for "_i" from 1 to 3 do {_this addItemToUniform "ACE_CableTie";};
-_this addItemToUniform "ACE_Flashlight_XL50";
+//_this addItemToUniform "ACE_Flashlight_XL50";
 for "_i" from 1 to 2 do {_this addItemToUniform "ACE_tourniquet";};
 for "_i" from 1 to 2 do {_this addItemToUniform "ACE_morphine";};
 _this addVest "V_PlateCarrier2_blk";

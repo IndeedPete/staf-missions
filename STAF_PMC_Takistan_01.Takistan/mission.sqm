@@ -8,22 +8,22 @@ class EditorData
 	toggles=9;
 	class ItemIDProvider
 	{
-		nextID=1740;
+		nextID=1767;
 	};
 	class MarkerIDProvider
 	{
-		nextID=47;
+		nextID=65;
 	};
 	class LayerIndexProvider
 	{
-		nextID=55;
+		nextID=67;
 	};
 	class Camera
 	{
-		pos[]={5918.4746,107.42765,11880.937};
-		dir[]={0.80555713,-0.49117127,0.33152917};
-		up[]={0.4542239,0.87105858,0.18693738};
-		aside[]={0.38059664,-3.2410026e-007,-0.92478961};
+		pos[]={7311.5386,292.14001,322.33994};
+		dir[]={-0.25553963,-0.27685505,0.9263128};
+		up[]={-0.073625363,0.96091193,0.26688653};
+		aside[]={0.96399397,2.5902409e-008,0.26593435};
 	};
 };
 binarizationWanted=0;
@@ -154,7 +154,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=334;
+		items=357;
 		class Item0
 		{
 			dataType="Object";
@@ -596,8 +596,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={7310.2773,283.694,348.19345};
-						angles[]={0,5.3410959,0};
+						position[]={7310.2769,283.694,348.19299};
+						angles[]={0,5.3410916,0};
 					};
 					side="Independent";
 					flags=5;
@@ -605,6 +605,7 @@ class Mission
 					{
 						rank="CORPORAL";
 						init="if (local this) then {this execVM ""cfg\loadouts\lat.sqf""};";
+						name="IP_LAT";
 						description="Contractor (LAT)";
 						isPlayable=1;
 					};
@@ -2554,7 +2555,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={7197.4199,278.2485,465.215};
-				angles[]={0.006394445,0,0.0015822123};
+				angles[]={0.0063879048,0,0.0015882496};
 			};
 			id=97;
 			type="ACE_ModuleRespawn";
@@ -2594,7 +2595,7 @@ class Mission
 									"BOOL"
 								};
 							};
-							value=1;
+							value=0;
 						};
 					};
 				};
@@ -25056,7 +25057,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="true";
+							value="false";
 						};
 					};
 				};
@@ -25508,7 +25509,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="Motorized";
+							value="Infantry";
 						};
 					};
 				};
@@ -25675,7 +25676,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="true";
+							value="false";
 						};
 					};
 				};
@@ -25751,7 +25752,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="true";
+							value="false";
 						};
 					};
 				};
@@ -25836,7 +25837,7 @@ class Mission
 			fillName="FDiagonal";
 			a=5000;
 			b=100;
-			angle=91.322655;
+			angle=91.322639;
 			id=1671;
 			atlOffset=-18.420822;
 		};
@@ -25851,7 +25852,7 @@ class Mission
 			fillName="FDiagonal";
 			a=5000;
 			b=100;
-			angle=91.322411;
+			angle=91.32238;
 			id=1672;
 			atlOffset=0.61319733;
 		};
@@ -27225,6 +27226,234 @@ class Mission
 				};
 				nAttributes=15;
 			};
+		};
+		class Item334
+		{
+			dataType="Marker";
+			position[]={6423.8208,301.70361,6173.9395};
+			name="marker_56";
+			type="mil_arrow2";
+			colorName="ColorWEST";
+			angle=112.35992;
+			id=1740;
+			atlOffset=-23.907959;
+		};
+		class Item335
+		{
+			dataType="Marker";
+			position[]={4217.7656,226.22151,4592.2388};
+			name="marker_57";
+			type="mil_arrow2";
+			colorName="ColorWEST";
+			angle=142.20135;
+			id=1741;
+			atlOffset=-23.790329;
+		};
+		class Item336
+		{
+			dataType="Marker";
+			position[]={6465.4448,218.62604,8442.4316};
+			name="marker_58";
+			type="mil_arrow2";
+			colorName="ColorWEST";
+			angle=90.265251;
+			id=1742;
+			atlOffset=-24.17981;
+		};
+		class Item337
+		{
+			dataType="Marker";
+			position[]={6371.7925,42.577789,10586.052};
+			name="marker_59";
+			type="mil_arrow2";
+			colorName="ColorWEST";
+			angle=90.243736;
+			id=1743;
+			atlOffset=-23.897583;
+		};
+		class Item338
+		{
+			dataType="Marker";
+			position[]={2094.9568,261.91428,3010.5376};
+			name="marker_60";
+			type="mil_arrow2";
+			colorName="ColorWEST";
+			angle=142.85324;
+			id=1744;
+			atlOffset=-24.061615;
+		};
+		class Item339
+		{
+			dataType="Marker";
+			position[]={9197.2422,71.546356,12638.609};
+			name="mDest";
+			type="mil_arrow";
+			colorName="ColorGUER";
+			id=1745;
+			atlOffset=-1.5258789e-005;
+		};
+		class Item340
+		{
+			dataType="Marker";
+			position[]={7096.1914,47.164764,12608.277};
+			name="mDest_1";
+			type="mil_arrow";
+			colorName="ColorGUER";
+			id=1746;
+			atlOffset=-2.6702881e-005;
+		};
+		class Item341
+		{
+			dataType="Marker";
+			position[]={4627.1128,12.017288,12622.2};
+			name="mDest_2";
+			type="mil_arrow";
+			colorName="ColorGUER";
+			id=1747;
+			atlOffset=8.5830688e-006;
+		};
+		class Item342
+		{
+			dataType="Marker";
+			position[]={2436.5007,40.740234,12645.406};
+			name="mDest_3";
+			type="mil_arrow";
+			colorName="ColorGUER";
+			id=1748;
+			atlOffset=10.828407;
+		};
+		class Item343
+		{
+			dataType="Marker";
+			position[]={11095.067,78.92675,12640.856};
+			name="mDest_4";
+			type="mil_arrow";
+			colorName="ColorGUER";
+			id=1749;
+			atlOffset=2.2171326;
+		};
+		class Item344
+		{
+			dataType="Marker";
+			position[]={7301.3965,282.99643,355.57324};
+			name="mStart";
+			text="Start";
+			type="mil_start";
+			colorName="ColorGUER";
+			id=1750;
+		};
+		class Item345
+		{
+			dataType="Marker";
+			position[]={7310.3037,280.91919,344.53964};
+			name="respawn_guerrila_1";
+			type="Empty";
+			id=1751;
+			atlOffset=-3.1231079;
+		};
+		class Item346
+		{
+			dataType="Marker";
+			position[]={4912.3452,628.69238,2608.947};
+			name="respawn_guerrila_2";
+			type="Empty";
+			id=1752;
+			atlOffset=-0.77996826;
+		};
+		class Item347
+		{
+			dataType="Marker";
+			position[]={10209.153,546.01416,3693.1436};
+			name="respawn_guerrila_3";
+			type="Empty";
+			id=1753;
+			atlOffset=-0.75427246;
+		};
+		class Item348
+		{
+			dataType="Marker";
+			position[]={9681.8779,338.48877,5773.2905};
+			name="respawn_guerrila_4";
+			type="Empty";
+			id=1754;
+			atlOffset=-0.76086426;
+		};
+		class Item349
+		{
+			dataType="Marker";
+			position[]={6694.8911,358.54053,5609.0967};
+			name="respawn_guerrila_5";
+			type="Empty";
+			id=1755;
+			atlOffset=-0.75744629;
+		};
+		class Item350
+		{
+			dataType="Marker";
+			position[]={11659.156,302.72717,7811.3691};
+			name="respawn_guerrila_6";
+			type="Empty";
+			id=1756;
+			atlOffset=-0.7414856;
+		};
+		class Item351
+		{
+			dataType="Marker";
+			position[]={1156.7874,511.45798,4734.3818};
+			name="respawn_guerrila_7";
+			type="Empty";
+			id=1757;
+			atlOffset=-0.75271606;
+		};
+		class Item352
+		{
+			dataType="Marker";
+			position[]={8266.7988,200.38826,11718.786};
+			name="respawn_guerrila_8";
+			type="Empty";
+			id=1759;
+			atlOffset=-0.80149841;
+		};
+		class Item353
+		{
+			dataType="Marker";
+			position[]={12392.312,182.7001,12228.978};
+			name="respawn_guerrila_9";
+			type="Empty";
+			id=1760;
+			atlOffset=-0.76072693;
+		};
+		class Item354
+		{
+			dataType="Marker";
+			position[]={3927.8015,529.77942,6882.5874};
+			name="respawn_guerrila_10";
+			type="Empty";
+			id=1761;
+			atlOffset=-0.75915527;
+		};
+		class Item355
+		{
+			dataType="Marker";
+			position[]={1296.1017,552.40613,9988.6748};
+			name="respawn_guerrila_11";
+			type="Empty";
+			id=1762;
+			atlOffset=-0.79425049;
+		};
+		class Item356
+		{
+			dataType="Marker";
+			position[]={6296.9678,58.518066,12498.863};
+			name="mDestArea";
+			markerType="RECTANGLE";
+			type="rectangle";
+			colorName="ColorGUER";
+			fillName="DiagGrid";
+			a=6000;
+			b=300;
+			id=1763;
+			atlOffset=-53.883293;
 		};
 	};
 	class Connections
