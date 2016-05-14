@@ -1,6 +1,6 @@
 // Variables
-IP_TESTMODE = false;
-IP_Vehicles = [IP_Car1, IP_Car2, IP_MRAP, IP_Heli];
+IP_TESTMODE = true;
+IP_Vehicles = [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -47,17 +47,17 @@ IP_fnc_m_saveProgress = {
 } forEach allMapMarkers;
 
 // Tasks
-[independent, "tTransport", ["Escort the Client to a <marker name=""mDest"">Road to Zargabad in Northern Takistan</marker>!", "Escort Client", "Road to Zargabad"], "mDest", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+//[independent, "tTransport", ["Escort the Client to a <marker name=""mDest"">Road to Zargabad in Northern Takistan</marker>!", "Escort Client", "Road to Zargabad"], "mDest", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tClient", ["The Client must not die or the mission will fail!", "Protect Client", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[independent, "tVehicles", ["COMMANDER'S INTENT: do not lose more than one vehicle! (OPTIONAL)", "Preserve Vehicles (OPTIONAL)", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+//[independent, "tVehicles", ["COMMANDER'S INTENT: do not lose more than one vehicle! (OPTIONAL)", "Preserve Vehicles (OPTIONAL)", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
 // Destroyed Houses
-[IP_DestructionCentre, 6000] spawn BIS_fnc_destroyCity;
+//[IP_DestructionCentre, 6000] spawn BIS_fnc_destroyCity;
 
-// Mission Flows
+/*/ Mission Flows
 [] spawn {
 	waitUntil {(alive IP_Client) && {(vehicle IP_Client) inArea "mDestArea"}};
 	["tTransport", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -84,4 +84,4 @@ IP_fnc_m_saveProgress = {
 	waitUntil {{alive _x} count IP_Vehicles < 3};
 	["tVehicles", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	[] call IP_fnc_m_saveProgress;
-};
+};*/

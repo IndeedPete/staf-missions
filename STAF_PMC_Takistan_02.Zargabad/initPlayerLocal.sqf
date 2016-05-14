@@ -1,9 +1,6 @@
 // The HC does not need to process that shit below.
 if !(hasInterface) exitWith {};
 
-// Vars
-IP_RespawnMarkers = [];
-
 // Debug
 [] spawn {
 	waitUntil {!(isNil "IP_TESTMODE")};
@@ -26,13 +23,6 @@ IP_RespawnMarkers = [];
 		[] spawn STAF_fnc_viewRestrictions;
 	};
 };
-
-// Respawn Positions
-{
-	if (_x find "respawn_guerrila" >= 0) then {
-		IP_RespawnMarkers pushBack _x;
-	};
-} forEach allMapMarkers;
 
 // PPEffect
 ["RealIsBrown", 0, false] call BIS_fnc_setPPeffectTemplate;
