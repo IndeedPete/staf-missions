@@ -18,5 +18,9 @@ class IP
 		{
 			file = "fnc\mission\blackOut.sqf";
 		};
+		class loadLoadout
+		{
+			file = "fnc\mission\loadLoadout.sqf";
+		};
 	};
 };

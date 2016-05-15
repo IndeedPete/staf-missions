@@ -54,30 +54,9 @@ IP_Toilet addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Act
 };
 
 // Post Init - Loadouts
-if (isMultiplayer) then {
+//if (isMultiplayer) then {
 	[] spawn {
 		waitUntil {(time > 0) && {!(isNull player)}};
-		_template = switch (player) do {
-			case (missionNamespace getVariable ["IP_Executive", ObjNull]): {"executive"};
-			case (missionNamespace getVariable ["IP_Leader", ObjNull]): {"detail_leader"};
-			case (missionNamespace getVariable ["IP_AR", ObjNull]): {"ar"};
-			case (missionNamespace getVariable ["IP_Marksman", ObjNull]): {"marksman"};
-			case (missionNamespace getVariable ["IP_LAT", ObjNull]): {"lat"};
-			case (missionNamespace getVariable ["IP_Scout", ObjNull]): {"scout"};
-			case (missionNamespace getVariable ["IP_Engineer", ObjNull]): {"engineer"};
-			case (missionNamespace getVariable ["IP_Medic", ObjNull]): {"medic"};
-			case (missionNamespace getVariable ["IP_GL", ObjNull]): {"GL"};
-			case (missionNamespace getVariable ["IP_Rifleman_M4", ObjNull]): {"M4"};
-			case (missionNamespace getVariable ["IP_Rifleman_AK12", ObjNull]): {"AK12"};
-			case (missionNamespace getVariable ["IP_Pilot", ObjNull]): {"pilot"};
-			default {""};
-		};
-
-		if (_template != "") then {
-			_handle = player execVM ("cfg\loadouts\" + _template + ".sqf");
-			waitUntil {scriptDone _handle};
-		} else {
-			systemChat "There is no default loadout defined for this class. Why don't you create one and send it to IndeedPete?";
-		};
+		[player] remoteExecCall ["IP_fnc_loadLoadout", 2, false];
 	};
-};
+//};
