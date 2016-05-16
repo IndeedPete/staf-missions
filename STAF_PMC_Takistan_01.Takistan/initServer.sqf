@@ -1,6 +1,7 @@
 // Variables
 IP_TESTMODE = false;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_MRAP, IP_Heli];
+IP_VehiclesStr = ["IP_Car1", "IP_Car2", "IP_MRAP", "IP_Heli"];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -18,19 +19,19 @@ IP_fnc_m_saveProgress = {
 	} forEach _players;
 	
 	{
-		_var = str(_x);
-		if !(isNull _x) then {		
-			_alive = alive _x;
-			_damage = damage _x;
-			_fuel = fuel _x;
-			/*_ammo = ammo _x;*/
-			_cargo = [([(backpackCargo _x)] call STAF_fnc_clusterArray), ([(itemCargo _x)] call STAF_fnc_clusterArray), ([(magazineCargo _x)] call STAF_fnc_clusterArray), ([(weaponCargo _x)] call STAF_fnc_clusterArray)];
+		_veh = missionNamespace getVariable [_x, ObjNull];
+		if !(isNull _veh) then {		
+			_alive = alive _veh;
+			_damage = damage _veh;
+			_fuel = fuel _veh;
+			/*_ammo = ammo _veh;*/
+			_cargo = [([(backpackCargo _veh)] call STAF_fnc_clusterArray), ([(itemCargo _veh)] call STAF_fnc_clusterArray), ([(magazineCargo _veh)] call STAF_fnc_clusterArray), ([(weaponCargo _veh)] call STAF_fnc_clusterArray)];
 			_toSave = [_alive, _damage, _fuel, _cargo];
-			["write", ["TBL_Vehicles", _var, _toSave]] call _inidbi;
+			["write", ["TBL_Vehicles", _x, _toSave]] call _inidbi;
 		} else {
-			["write", ["TBL_Vehicles", _var, [false]]] call _inidbi;
+			["write", ["TBL_Vehicles", _x, [false]]] call _inidbi;
 		};
-	} forEach IP_Vehicles;
+	} forEach IP_VehiclesStr;
 };
 ["IP_fnc_m_saveProgress"] call STAF_fnc_compileFinal;
 

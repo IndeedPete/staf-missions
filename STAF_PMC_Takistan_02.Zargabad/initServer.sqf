@@ -39,6 +39,31 @@ IP_fnc_m_saveProgress = {
 	[] call IP_fnc_m_saveProgress;
 }] call BIS_fnc_addStackedEventHandler;
 
+// Load Vehicle Data
+_inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
+{
+	_veh = _x;
+	_loadout = ["read", ["TBL_Vehicles", str(_veh), []]] call _inidbi;
+	if (count _loadout > 0) then {
+		if (_loadout select 0) then {
+			clearBackpackCargoGlobal _veh;
+			clearItemCargoGlobal _veh;
+			clearMagazineCargoGlobal _veh;
+			clearWeaponCargoGlobal _veh;
+			
+			_veh setDamage (_loadout select 1);
+			_veh setFuel (_loadout select 2);
+			_cargo = _loadout select 3;
+			{_veh addBackpackCargoGlobal _x} forEach (_cargo select 0);
+			{_veh addItemCargoGlobal _x} forEach (_cargo select 1);
+			{_veh addMagazineCargoGlobal _x} forEach (_cargo select 2);
+			{_veh addWeaponCargoGlobal _x} forEach (_cargo select 3);
+		} else {
+			deleteVehicle _x;
+		};
+	};
+} forEach [IP_Car1, IP_Car2, IP_MRAP, IP_Heli];
+
 // Hide Zhe Markerz
 {
 	if ((markerType _x == "mil_dot") OR {_x find "mMCC_Zone" >= 0} OR {_x find "mTAOR" >= 0}) then {
