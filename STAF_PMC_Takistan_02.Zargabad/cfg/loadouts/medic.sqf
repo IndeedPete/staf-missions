@@ -47,13 +47,13 @@ _this addWeapon "hgun_ACPC2_F";
 _this addHandgunItem "muzzle_snds_acp";
 _this addWeapon "Binocular";
 _this addItemToVest "hlc_10rnd_12g_buck_S12";
-_this addItemToVest "9Rnd_45ACP_Mag";
+_this addMagazine "9Rnd_45ACP_Mag";
 
 comment "Add items";
 _this linkItem "ItemMap";
 _this linkItem "ItemCompass";
 _this linkItem "ItemWatch";
-//_this linkItem "tf_anprc148jem_1";
+_this linkItem "tf_anprc148jem";
 _this linkItem "ItemAndroid";
 /*
 comment "Set identity";

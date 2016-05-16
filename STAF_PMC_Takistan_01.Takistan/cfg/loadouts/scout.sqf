@@ -49,7 +49,7 @@ comment "Add items";
 _this linkItem "ItemMap";
 _this linkItem "ItemCompass";
 _this linkItem "ItemWatch";
-//_this linkItem "tf_anprc148jem_1";
+_this linkItem "tf_anprc148jem";
 _this linkItem "ItemAndroid";
 /*
 comment "Set identity";

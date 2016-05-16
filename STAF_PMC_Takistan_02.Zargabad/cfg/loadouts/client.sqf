@@ -31,6 +31,7 @@ comment "Add weapons";
 comment "Add items";
 _this linkItem "ItemMap";
 _this linkItem "ItemCompass";
+_this linkItem "tf_anprc148jem";
 _this linkItem "ItemWatch";
 /*
 comment "Set identity";

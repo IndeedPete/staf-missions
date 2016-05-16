@@ -18,4 +18,4 @@ enableSentences false;
 [] spawn STAF_fnc_intLight;
 
 // IEDs
-[] execVM "EPD\Ied_Init.sqf";
+//[] execVM "EPD\Ied_Init.sqf";

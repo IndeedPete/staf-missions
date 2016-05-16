@@ -54,9 +54,7 @@ IP_Toilet addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Act
 };
 
 // Post Init - Loadouts
-//if (isMultiplayer) then {
-	[] spawn {
-		waitUntil {(time > 0) && {!(isNull player)}};
-		[player] remoteExecCall ["IP_fnc_loadLoadout", 2, false];
-	};
-//};
+[] spawn {
+	waitUntil {(time > 0) && {!(isNull player)}};
+	[player] remoteExecCall ["IP_fnc_loadLoadout", 2, false];
+};

@@ -42,13 +42,13 @@ _this addWeapon "hgun_Rook40_F";
 _this addHandgunItem "muzzle_snds_L";
 _this addWeapon "Rangefinder";
 _this addItemToVest "16Rnd_9x21_Mag";
-_this addItemToVest "hlc_30rnd_556x45_EPR";
+_this addMagazine "hlc_30rnd_556x45_EPR";
 
 comment "Add items";
 _this linkItem "ItemMap";
 _this linkItem "ItemCompass";
 _this linkItem "ItemWatch";
-//_this linkItem "tf_anprc148jem_1";
+_this linkItem "tf_anprc148jem";
 _this linkItem "ItemAndroid";
 /*
 comment "Set identity";

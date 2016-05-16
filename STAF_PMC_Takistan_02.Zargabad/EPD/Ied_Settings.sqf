@@ -68,7 +68,7 @@ allowExplosiveToTriggerIEDs = true;
 
 iedInitialArray = [
 	["mMCC_Zone15", (5 + round(random 5)), ["West", "Independent"]],
-	["mMCC_Zone31", (5 + round(random 5)), ["West", "Independent"]]
+	["mMCC_Zone31", (10 + round(random 10)), ["West", "Independent"]]
 	/*["AllCities","West"],
 	["AllVillages","West"],
 	/*["AltisRandom1",6,"West"],

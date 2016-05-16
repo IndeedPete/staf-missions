@@ -67,8 +67,11 @@ allowExplosiveToTriggerIEDs = true;
 //http://community.bistudio.com/wiki/side
 
 iedInitialArray = [
-	["mMCC_Zone15", (5 + round(random 5)), ["West", "Independent"]],
-	["mMCC_Zone31", (5 + round(random 5)), ["West", "Independent"]]
+	["mMCC_Zone15", (3 + round(random 2)), ["West", "GUER"]],
+	["mMCC_Zone31", (5 + round(random 5)), ["West", "GUER"]],
+	["mIED1", [0,75,25,0], ["West", "GUER"]],
+	["mIED2", [0,75,25,0], ["West", "GUER"]],
+	["mIED3", [25,50,25,0], ["West", "GUER"]]
 	/*["AllCities","West"],
 	["AllVillages","West"],
 	/*["AltisRandom1",6,"West"],
