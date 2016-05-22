@@ -5,25 +5,25 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=129;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=907;
+		nextID=908;
 	};
 	class MarkerIDProvider
 	{
-		nextID=6;
+		nextID=7;
 	};
 	class LayerIndexProvider
 	{
-		nextID=14;
+		nextID=16;
 	};
 	class Camera
 	{
-		pos[]={2099.0059,115.7959,7784.4941};
-		dir[]={0.53607529,-0.5956251,-0.59824067};
-		up[]={0.3974953,0.80325878,-0.44358891};
-		aside[]={-0.74475658,-6.1758328e-008,-0.66736692};
+		pos[]={4268.3154,62.963364,4293.4473};
+		dir[]={0.47161719,-0.57336581,-0.66997635};
+		up[]={0.33003768,0.8193028,-0.46884939};
+		aside[]={-0.81773603,-5.2896212e-007,-0.57563138};
 	};
 };
 binarizationWanted=0;
@@ -167,7 +167,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=307;
+		items=308;
 		class Item0
 		{
 			dataType="Object";
@@ -5282,7 +5282,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={1827.0452,39.091213,4656.5498};
-			name="mStart";
+			name="mBase";
 			text="Base";
 			type="mil_flag";
 			colorName="ColorGUER";
@@ -6793,7 +6793,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4325.2993,16.735088,4250.8662};
-			name="mMeeting";
+			name="mMeet";
 			text="Meeting Point";
 			type="hd_join";
 			colorName="ColorGUER";
@@ -17429,6 +17429,20 @@ class Mission
 			id=906;
 			type="Land_HelipadEmpty_F";
 			atlOffset=-7.6293945e-006;
+		};
+		class Item307
+		{
+			dataType="Marker";
+			position[]={1870.8556,38.81786,4680.2896};
+			name="mBaseArea";
+			markerType="RECTANGLE";
+			type="ellipse";
+			colorName="ColorGUER";
+			fillName="BDiagonal";
+			a=105;
+			b=25;
+			angle=337.70288;
+			id=907;
 		};
 	};
 	class Connections

@@ -21,6 +21,9 @@ if (count _loadout > 0) then {
 	};
 	
 	[_unit, [missionNamespace, _key]] call BIS_fnc_loadInventory;
+	if ({_x == "ACE_EarPlugs"} count (items _unit) == 0) then {
+		_unit addItem "ACE_EarPlugs"; 
+	};
 } else {
 	_template = switch (_unit) do {
 		case (missionNamespace getVariable ["IP_Executive", ObjNull]): {"executive"};
