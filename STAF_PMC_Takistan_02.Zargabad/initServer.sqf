@@ -84,6 +84,13 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 [independent, "tClients", ["The Clients must not die or the mission will fail!", "Protect Clients", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tDetect", ["COMMANDER'S INTENT: do not get detected by the NTA until after meeting the contact! (OPTIONAL)", "Avoid Detection (OPTIONAL)", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
+// BLUFOR
+{
+	if (side(leader _x) == west) then {
+		_x setVariable ["zbe_cacheDisabled", true];
+	};
+} forEach allGroups;
+
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 

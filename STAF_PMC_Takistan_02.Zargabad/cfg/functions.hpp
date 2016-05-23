@@ -23,4 +23,20 @@ class IP
 			file = "fnc\mission\loadLoadout.sqf";
 		};
 	};
+	
+	class parachuting
+	{
+		class groupParadrop
+		{
+			file = "fnc\parachuting\fn_groupParadrop.sqf";
+		};
+		class halo
+		{
+			file = "fnc\parachuting\fn_halo.sqf";
+		};
+		class paradrop
+		{
+			file = "fnc\parachuting\fn_paradrop.sqf";
+		};
+	};
 };
