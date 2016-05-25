@@ -35,7 +35,7 @@ IP_RespawnMarkers = [];
 } forEach allMapMarkers;
 
 // PPEffect
-["RealIsBrown", 0, false] call BIS_fnc_setPPeffectTemplate;
+["STAF_RealIsBrown", 0, false] call BIS_fnc_setPPeffectTemplate;
 
 /*/ Ostereier
 IP_Toilet addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\ico_cpt_thtl_idl_ca.paa'/> Take a Piss", {
