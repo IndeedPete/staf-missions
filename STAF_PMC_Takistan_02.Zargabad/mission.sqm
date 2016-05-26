@@ -5,25 +5,25 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=129;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1102;
+		nextID=1109;
 	};
 	class MarkerIDProvider
 	{
-		nextID=7;
+		nextID=8;
 	};
 	class LayerIndexProvider
 	{
-		nextID=18;
+		nextID=20;
 	};
 	class Camera
 	{
-		pos[]={3492.2964,48.405193,7167.167};
-		dir[]={0.49367881,-0.27715108,-0.82435089};
-		up[]={0.14241573,0.96081299,-0.23780537};
-		aside[]={-0.85795981,2.3189932e-007,-0.51380301};
+		pos[]={1788.3334,50.625488,4655.0845};
+		dir[]={0.92740315,-0.27911052,-0.24913201};
+		up[]={0.26956686,0.96025568,-0.072414838};
+		aside[]={-0.25944194,1.7025741e-007,-0.96578538};
 	};
 };
 binarizationWanted=0;
@@ -111,7 +111,8 @@ addons[]=
 	"A3_Soft_F_SUV",
 	"lop_faction_afr_civ",
 	"IP_EUROFORCE",
-	"A3_Characters_F_BLUFOR"
+	"A3_Characters_F_BLUFOR",
+	"cup_desert2_config"
 };
 randomSeed=8222419;
 class ScenarioData
@@ -167,7 +168,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=325;
+		items=332;
 		class Item0
 		{
 			dataType="Object";
@@ -17887,6 +17888,7 @@ class Mission
 					};
 					id=961;
 					type="IP_B_medic_F_EFDesert";
+					atlOffset=-7.6293945e-006;
 				};
 				class Item8
 				{
@@ -20261,6 +20263,99 @@ class Mission
 								};
 							};
 							value="[[[[""IP_arifle_MXC_sand_F"",""FirstAidKit""],[2,10]],[[""SmokeShell"",""SmokeShellBlue"",""30Rnd_65x39_caseless_mag""],[2,2,4]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item325
+		{
+			dataType="Marker";
+			position[]={4003.0325,165.46533,7998.9756};
+			name="mFlyStart1";
+			type="Empty";
+			id=1102;
+		};
+		class Item326
+		{
+			dataType="Marker";
+			position[]={4002.9512,70.052048,199.20117};
+			name="mFlyEnd1";
+			type="Empty";
+			id=1103;
+			atlOffset=3.4196091;
+		};
+		class Item327
+		{
+			dataType="Marker";
+			position[]={5467.353,105.62688,163.59619};
+			name="mFlyEnd3";
+			type="Empty";
+			id=1104;
+			atlOffset=3.4433594;
+		};
+		class Item328
+		{
+			dataType="Marker";
+			position[]={2548.4331,47.123783,247.20557};
+			name="mFlyEnd2";
+			type="Empty";
+			id=1105;
+			atlOffset=3.4058571;
+		};
+		class Item329
+		{
+			dataType="Marker";
+			position[]={2534.3625,147.0564,7989.5874};
+			name="mFlyStart2";
+			type="Empty";
+			id=1106;
+			atlOffset=-12.722504;
+		};
+		class Item330
+		{
+			dataType="Marker";
+			position[]={5507.6079,122.65249,8021.6211};
+			name="mFlyStart3";
+			type="Empty";
+			id=1107;
+			atlOffset=-0.37618256;
+		};
+		class Item331
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={1811.371,40.087543,4632.7729};
+				angles[]={0.017488198,6.039834,6.2656798};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="IP_Toilet";
+			};
+			id=1108;
+			type="Land_Toilet";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ace_isMedicalFacility";
+					expression="_this setVariable [""ace_medical_isMedicalFacility"",_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
 						};
 					};
 				};

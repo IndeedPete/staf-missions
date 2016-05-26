@@ -39,4 +39,12 @@ class IP
 			file = "fnc\parachuting\fn_paradrop.sqf";
 		};
 	};
+	
+	class thirdParty
+	{
+		class SHKPos
+		{
+			file = "fnc\SHK_pos\SHKPos.sqf";
+		};
+	};
 };

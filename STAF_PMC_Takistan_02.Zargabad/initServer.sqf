@@ -1,6 +1,7 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
+IP_EFObjects = [];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -91,6 +92,13 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 	};
 } forEach allGroups;
 
+{
+	if (((_x isKindOf "Man") && {side _x == west}) OR {_x getVariable ["IP_EFVehicle", false]}) then {
+		[_x] call STAF_fnc_disable;
+		IP_EFObjects pushBack _x;
+	};
+} forEach (allMissionObjects "All");
+
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
@@ -126,4 +134,25 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 	if (isNil "IP_MeetingDone") then {
 		["tDetect", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	};
+};
+
+[] spawn {
+	waitUntil {daytime > 19};
+	[(getMarkerPos "mFlyStart1"), (getMarkerPos "mFlyEnd1"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;
+	sleep 1;
+	[(getMarkerPos "mFlyStart2"), (getMarkerPos "mFlyEnd2"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;
+	sleep 1;
+	[(getMarkerPos "mFlyStart3"), (getMarkerPos "mFlyEnd3"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;	
+	sleep 25;
+	
+	for "_i" from 0 to 19 do {
+		_pos = "mMCC_Zone2" call IP_fnc_SHKPos;
+		"Bo_GBU12_LGB_MI10" createVehicle _pos;
+		sleep 2;
+	};
+	
+	[IP_EFObjects] call STAF_fnc_enable;
+	// sleep 30;
+	IP_EFGo = true;
+	publicVariable "IP_EFGo";
 };
