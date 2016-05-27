@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
 IP_EFObjects = [];
 
