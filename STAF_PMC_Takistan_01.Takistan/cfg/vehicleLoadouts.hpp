@@ -61,7 +61,8 @@ class CfgVehicleLoadouts
 		
 		weaponCargo[] = {
 			{"hlc_rifle_M4", 2},
-			{"hgun_P07_F", 2}
+			{"hgun_P07_F", 2},
+			{"rhs_weap_M136", 2}
 		};
 	};
 	
@@ -131,7 +132,8 @@ class CfgVehicleLoadouts
 			{"hlc_rifle_ak12", 1},
 			{"hgun_Rook40_F", 1},
 			{"hlc_rifle_M4", 1},
-			{"hgun_P07_F", 1}
+			{"hgun_P07_F", 1},
+			{"rhs_weap_M136", 1}
 		};
 	};
 	
@@ -176,7 +178,8 @@ class CfgVehicleLoadouts
 			{"SmokeShellOrange", 3},
 			{"HandGrenade", 6},
 			{"MiniGrenade", 6},
-			{"rhs_rpg7_PG7VL_mag", 6},
+			{"rhs_rpg7_PG7VL_mag", 3},
+			{"rhs_rpg7_PG7VR_mag", 3},
 			{"DemoCharge_Remote_Mag", 3}
 		};
 		
@@ -188,6 +191,11 @@ class CfgVehicleLoadouts
 	
 	class MELB: VehicleDefault
 	{
+		backpackCargo[] = {
+			{"B_AssaultPack_cbr", 1},
+			{"STAF_tf_anarc210_Sand", 1}
+		};
+		
 		itemCargo[] = {
 			{"ToolKit", 1},
 			{"ACE_salineIV", 1},
