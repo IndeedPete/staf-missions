@@ -48,3 +48,24 @@ class CfgFunctions
 	#include "cfg\functions.hpp"
 	#include "EPD\EPDcfgFunctions.hpp"
 };
+
+class CfgDebriefing
+{  
+	class PMC_Win
+	{
+		picture = "n_motor_inf";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profileNamespace getVariable ['Map_Independent_R',0])","(profileNamespace getVariable ['Map_Independent_G',1])","(profileNamespace getVariable ['Map_Independent_B',1])","(profileNamespace getVariable ['Map_Independent_A',0.8])"};
+		title = "Mission Accomplished!";
+		subtitle = "";
+	};
+	
+	class PMC_Lose
+	{
+		picture = "n_motor_inf";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profileNamespace getVariable ['Map_OPFOR_R',0])","(profileNamespace getVariable ['Map_OPFOR_G',1])","(profileNamespace getVariable ['Map_OPFOR_B',1])","(profileNamespace getVariable ['Map_OPFOR_A',0.8])"};
+		title = "Mission Failed!";
+		subtitle = "The Client Was Killed!";
+	};
+};

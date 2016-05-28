@@ -68,7 +68,7 @@ IP_fnc_m_saveProgress = {
 	};
 	[] call IP_fnc_m_saveProgress;
 	sleep 5;
-	["Won"] call BIS_fnc_endMissionServer;
+	["PMC_Win"] call BIS_fnc_endMissionServer;
 };
 
 [] spawn {
@@ -78,7 +78,7 @@ IP_fnc_m_saveProgress = {
 	["tVehicles", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	[] call IP_fnc_m_saveProgress;
 	sleep 5;
-	["Lost"] call BIS_fnc_endMissionServer;
+	["PMC_Lose"] call BIS_fnc_endMissionServer;
 };
 
 [] spawn {
