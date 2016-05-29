@@ -137,7 +137,7 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 };
 
 [] spawn {
-	waitUntil {daytime > 19};
+	waitUntil {daytime > 20};
 	[(getMarkerPos "mFlyStart1"), (getMarkerPos "mFlyEnd1"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;
 	sleep 1;
 	[(getMarkerPos "mFlyStart2"), (getMarkerPos "mFlyEnd2"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;

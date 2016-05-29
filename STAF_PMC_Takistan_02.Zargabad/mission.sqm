@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1128;
+		nextID=1129;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=22;
+		nextID=26;
 	};
 	class Camera
 	{
-		pos[]={1788.3334,50.625488,4655.0845};
-		dir[]={0.92740315,-0.27911052,-0.24913201};
-		up[]={0.26956686,0.96025568,-0.072414838};
-		aside[]={-0.25944194,1.7025741e-007,-0.96578538};
+		pos[]={1823.8911,40.61272,4645.2129};
+		dir[]={-0.75964552,-0.3758949,0.53070134};
+		up[]={-0.3081466,0.92666268,0.21527673};
+		aside[]={0.57270283,-2.0605512e-008,0.81976497};
 	};
 };
 binarizationWanted=0;
@@ -172,13 +172,14 @@ class Mission
 		year=2023;
 		month=6;
 		day=6;
-		hour=18;
+		hour=19;
+		minute=0;
 		startFogDecay=0.013;
 		forecastFogDecay=0.013;
 	};
 	class Entities
 	{
-		items=343;
+		items=344;
 		class Item0
 		{
 			dataType="Object";
@@ -6821,7 +6822,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="if (isServer) then {" \n "clearBackpackCargo this;" \n "clearMagazineCargo this;" \n "clearItemCargoGlobal this;" \n "clearWeaponCargoGlobal this;" \n "" \n "this addItemCargoGlobal [""NVGoggles_OPFOR"", 12];" \n "this addItemCargoGlobal [""acc_pointer_IR"", 12];" \n "this addItemCargoGlobal [""acc_flashlight"", 12];" \n "this addItemCargoGlobal [""tf_anprc148jem"", 12];" \n "this addItemCargoGlobal [""ACE_EarPlugs"", 12];" \n "this addItemCargoGlobal [""ACE_Flashlight_XL50"", 12];};";
+				init="if (isServer) then {" \n "clearBackpackCargo this;" \n "clearMagazineCargo this;" \n "clearItemCargoGlobal this;" \n "clearWeaponCargoGlobal this;" \n "" \n "this addItemCargoGlobal [""NVGoggles_OPFOR"", 12];" \n "this addItemCargoGlobal [""acc_pointer_IR"", 12];" \n "this addItemCargoGlobal [""acc_flashlight"", 12];" \n "this addItemCargoGlobal [""tf_anprc148jem"", 12];" \n "this addItemCargoGlobal [""ACE_EarPlugs"", 12];" \n "this addItemCargoGlobal [""ACE_Flashlight_XL50"", 12];" \n "this addItemCargoGlobal [""rhs_mag_mk84"", 12]};";
 			};
 			id=271;
 			type="Box_NATO_Support_F";
@@ -22969,7 +22970,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="";
+							value="mTAOR_BlackList";
 						};
 					};
 				};
@@ -23122,6 +23123,21 @@ class Mission
 			b=1000;
 			drawBorder=1;
 			id=1127;
+		};
+		class Item343
+		{
+			dataType="Marker";
+			position[]={4388.2949,15.128418,4401.355};
+			name="mTAOR_BlackList";
+			markerType="RECTANGLE";
+			type="rectangle";
+			colorName="ColorEAST";
+			fillName="Border";
+			a=150;
+			b=200;
+			drawBorder=1;
+			id=1128;
+			atlOffset=-1.5402451;
 		};
 	};
 	class Connections
