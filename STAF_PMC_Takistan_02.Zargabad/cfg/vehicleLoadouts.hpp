@@ -56,12 +56,14 @@ class CfgVehicleLoadouts
 			{"1Rnd_SmokeRed_Grenade_shell", 3},
 			{"1Rnd_SmokeYellow_Grenade_shell", 3},
 			{"1Rnd_SmokePurple_Grenade_shell", 3},
-			{"DemoCharge_Remote_Mag", 3}
+			{"DemoCharge_Remote_Mag", 3},
+			{"rhs_m136_mag", 2}
 		};
 		
 		weaponCargo[] = {
 			{"hlc_rifle_M4", 2},
-			{"hgun_P07_F", 2}
+			{"hgun_P07_F", 2},
+			{"rhs_weap_M136", 2}
 		};
 	};
 	
@@ -123,7 +125,8 @@ class CfgVehicleLoadouts
 			{"rhs_rpg7_PG7VL_mag", 3},
 			{"rhsusf_mag_6Rnd_M441_HE", 6},
 			{"rhsusf_mag_6Rnd_M714_white", 3},
-			{"Laserbatteries", 1}
+			{"Laserbatteries", 1},
+			{"rhs_m136_mag", 1}
 		};
 		
 		weaponCargo[] = {
@@ -131,7 +134,8 @@ class CfgVehicleLoadouts
 			{"hlc_rifle_ak12", 1},
 			{"hgun_Rook40_F", 1},
 			{"hlc_rifle_M4", 1},
-			{"hgun_P07_F", 1}
+			{"hgun_P07_F", 1},
+			{"rhs_weap_M136", 1}
 		};
 	};
 	
@@ -176,7 +180,8 @@ class CfgVehicleLoadouts
 			{"SmokeShellOrange", 3},
 			{"HandGrenade", 6},
 			{"MiniGrenade", 6},
-			{"rhs_rpg7_PG7VL_mag", 6},
+			{"rhs_rpg7_PG7VL_mag", 3},
+			{"rhs_rpg7_PG7VR_mag", 3},
 			{"DemoCharge_Remote_Mag", 3}
 		};
 		
@@ -188,6 +193,11 @@ class CfgVehicleLoadouts
 	
 	class MELB: VehicleDefault
 	{
+		backpackCargo[] = {
+			{"B_AssaultPack_cbr", 1},
+			{"STAF_tf_anarc210_Sand", 1}
+		};
+		
 		itemCargo[] = {
 			{"ToolKit", 1},
 			{"ACE_salineIV", 1},

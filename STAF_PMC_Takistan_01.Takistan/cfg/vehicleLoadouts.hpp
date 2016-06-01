@@ -56,7 +56,8 @@ class CfgVehicleLoadouts
 			{"1Rnd_SmokeRed_Grenade_shell", 3},
 			{"1Rnd_SmokeYellow_Grenade_shell", 3},
 			{"1Rnd_SmokePurple_Grenade_shell", 3},
-			{"DemoCharge_Remote_Mag", 3}
+			{"DemoCharge_Remote_Mag", 3},
+			{"rhs_m136_mag", 2}
 		};
 		
 		weaponCargo[] = {
@@ -124,7 +125,8 @@ class CfgVehicleLoadouts
 			{"rhs_rpg7_PG7VL_mag", 3},
 			{"rhsusf_mag_6Rnd_M441_HE", 6},
 			{"rhsusf_mag_6Rnd_M714_white", 3},
-			{"Laserbatteries", 1}
+			{"Laserbatteries", 1},
+			{"rhs_m136_mag", 1}
 		};
 		
 		weaponCargo[] = {

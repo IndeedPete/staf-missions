@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_MRAP, IP_Heli];
 IP_VehiclesStr = ["IP_Car1", "IP_Car2", "IP_MRAP", "IP_Heli"];
 

@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1130;
+		nextID=1131;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=34;
+		nextID=36;
 	};
 	class Camera
 	{
-		pos[]={1824.6401,54.012131,4657.9243};
-		dir[]={0.96741128,-0.23982142,0.081759587};
-		up[]={0.23898476,0.97081923,0.020197876};
-		aside[]={0.084218465,8.7842636e-008,-0.99650192};
+		pos[]={3696.7937,433.96603,6671.7939};
+		dir[]={0.32803926,-0.74207467,0.58463234};
+		up[]={0.36312237,0.67031682,0.64715743};
+		aside[]={0.87213141,5.2759424e-007,-0.48935625};
 	};
 };
 binarizationWanted=0;
@@ -628,7 +628,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=345;
+		items=346;
 		class Item0
 		{
 			dataType="Object";
@@ -7271,7 +7271,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="if (isServer) then {" \n "clearBackpackCargo this;" \n "clearMagazineCargo this;" \n "clearItemCargoGlobal this;" \n "clearWeaponCargoGlobal this;" \n "" \n "this addItemCargoGlobal [""NVGoggles_OPFOR"", 12];" \n "this addItemCargoGlobal [""acc_pointer_IR"", 12];" \n "this addItemCargoGlobal [""acc_flashlight"", 12];" \n "this addItemCargoGlobal [""tf_anprc148jem"", 12];" \n "this addItemCargoGlobal [""ACE_EarPlugs"", 12];" \n "this addItemCargoGlobal [""ACE_Flashlight_XL50"", 12];" \n "this addItemCargoGlobal [""rhs_mag_mk84"", 12]};";
+				init="if (isServer) then {" \n "clearBackpackCargoGlobal this;" \n "clearMagazineCargoGlobal this;" \n "clearItemCargoGlobal this;" \n "clearWeaponCargoGlobal this;" \n "" \n "this addItemCargoGlobal [""NVGoggles_OPFOR"", 12];" \n "this addItemCargoGlobal [""acc_pointer_IR"", 12];" \n "this addItemCargoGlobal [""acc_flashlight"", 12];" \n "this addItemCargoGlobal [""tf_anprc148jem"", 12];" \n "this addItemCargoGlobal [""ACE_EarPlugs"", 12];" \n "this addItemCargoGlobal [""ACE_Flashlight_XL50"", 12];" \n "this addItemCargoGlobal [""rhs_mag_mk84"", 12]};";
 			};
 			id=271;
 			type="Box_NATO_Support_F";
@@ -8125,7 +8125,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE""; this setUnitPos ""UP""; this allowDamage false;}";
+						init="if (isServer) then {this disableAI ""MOVE""; this setUnitPos ""UP""; this allowDamage false; this stop true;}";
 						name="IP_Contact";
 					};
 					id=306;
@@ -8192,6 +8192,25 @@ class Mission
 						};
 						class Attribute3
 						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.05;
+								};
+							};
+						};
+						class Attribute4
+						{
 							property="ace_isSurrendered";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
 							class Value
@@ -8209,7 +8228,7 @@ class Mission
 								};
 							};
 						};
-						nAttributes=4;
+						nAttributes=5;
 					};
 				};
 			};
@@ -23605,16 +23624,68 @@ class Mission
 			type="STAF_MapBoard_CoC_F";
 			atlOffset=-0.00048446655;
 		};
+		class Item345
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={1739.5962,39.242226,4767.3672};
+			};
+			id=1130;
+			type="ACE_moduleAssignRepairFacility";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ACE_moduleAssignRepairFacility_role";
+					expression="_this setVariable ['role',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=1;
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="ACE_moduleAssignRepairFacility_EnableList";
+					expression="_this setVariable ['EnableList',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				nAttributes=2;
+			};
+		};
 	};
 	class Connections
 	{
 		class LinkIDProvider
 		{
-			nextID=16;
+			nextID=17;
 		};
 		class Links
 		{
-			items=16;
+			items=17;
 			class Item0
 			{
 				linkID=0;
@@ -23770,6 +23841,16 @@ class Mission
 				linkID=15;
 				item0=1126;
 				item1=1119;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item16
+			{
+				linkID=16;
+				item0=1130;
+				item1=178;
 				class CustomData
 				{
 					type="Sync";
