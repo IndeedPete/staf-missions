@@ -66,21 +66,16 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 } forEach [IP_Car1, IP_Car2, IP_MRAP, IP_Heli];
 
 // Hide Zhe Markerz
-"mHostage" setMarkerAlpha 0;
 {
 	if ((markerType _x == "mil_dot") OR {_x find "mMCC_Zone" >= 0} OR {_x find "mTAOR" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
 
-// Contact
-[IP_Contact, ["<img size='1' shadow='1' image='\a3\ui_f\data\igui\cfg\Actions\talk_ca.paa'/> Get Journalist Whereabouts", {
-	IP_Contact remoteExec ["removeAllActions", 0, true];
-	IP_MeetingDone = true;
-	publicVariable "IP_MeetingDone";
-}, [], 1.5, false, true, "", "(_this distance _target < 3)"]] remoteExec ["addAction", 0, true];
+// Weather
+[1, 0.1, 20] call BIS_fnc_setFog;
 
-// Tasks
+/*/ Tasks
 [independent, "tMeet", ["Meet with the ION contact in <marker name=""mMeet"">Central Zargabad</marker> in order to find out where the Journalist is being held! The contact should be in the first floor of the market buildings.", "Meet Contact", "Meeting Point"], "mMeet", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tClients", ["The Clients must not die or the mission will fail!", "Protect Clients", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tDetect", ["COMMANDER'S INTENT: do not get detected by the NTA until after meeting the contact! (OPTIONAL)", "Avoid Detection (OPTIONAL)", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
@@ -155,4 +150,4 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 	// sleep 30;
 	IP_EFGo = true;
 	publicVariable "IP_EFGo";
-};
+};*/
