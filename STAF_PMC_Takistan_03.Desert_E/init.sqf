@@ -19,3 +19,10 @@ enableSentences false;
 
 // IEDs
 [] execVM "EPD\Ied_Init.sqf";
+
+/*
+//[fog,overcast,use ppEfx,allow rain,force wind,vary fog,use wind audio,EFX strength]
+MKY_arSandEFX = [0,"",true,false,true,true,true,(paramsArray select 0)];
+// init the EFX scripts
+nul = [] execVM "MKY\MKY_Sand_Snow_Init.sqf";
+*/
