@@ -1,0 +1,67 @@
+//__________________________________________
+
+author = "STAF|IndeedPete";
+OnLoadName = "STAF|ToDo";
+//briefingName = "STAF|Hostage Situation";
+onLoadMission = "East Kavala...";
+//overviewText = "After arriving at Zargabad, the client finds out that his contact, a journalist, has been captured by the NTA. ION contractors move out to uncover the journalist's whereabouts and free him from the NTA.";
+onLoadIntroTime = false;
+onLoadMissionTime = false;
+disabledAI = 1;
+
+respawn = "BASE";
+respawnDelay = 0;
+respawnDialog = 0;
+respawnOnStart = 0;
+
+showGPS = 1;
+loadScreen = "img\Overview.paa";
+overviewPicture = "img\Overview.paa";
+enableDebugConsole = 1;
+joinUnassigned = false;
+disableChannels[] = {1,2,3,4,5};
+enableItemsDropping = 0;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 61;
+};
+
+corpseManagerMode = 1;
+corpseLimit = 30;
+corpseRemovalMinTime = 360;
+corpseRemovalMaxTime = 1200;
+
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 360;
+wreckRemovalMaxTime = 1200;
+
+//__________________________________________
+class CfgFunctions
+{
+	#include "cfg\functions.hpp"
+};
+
+class CfgDebriefing
+{  
+	class PMC_Win
+	{
+		picture = "n_motor_inf";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profileNamespace getVariable ['Map_Independent_R',0])","(profileNamespace getVariable ['Map_Independent_G',1])","(profileNamespace getVariable ['Map_Independent_B',1])","(profileNamespace getVariable ['Map_Independent_A',0.8])"};
+		title = "Mission Accomplished!";
+		subtitle = "";
+	};
+	
+	class PMC_Lose
+	{
+		picture = "n_motor_inf";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profileNamespace getVariable ['Map_OPFOR_R',0])","(profileNamespace getVariable ['Map_OPFOR_G',1])","(profileNamespace getVariable ['Map_OPFOR_B',1])","(profileNamespace getVariable ['Map_OPFOR_A',0.8])"};
+		title = "Mission Failed!";
+		subtitle = "The Clients Were Killed!";
+	};
+};
