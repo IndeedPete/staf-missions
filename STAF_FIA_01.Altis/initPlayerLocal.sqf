@@ -20,7 +20,19 @@ if !(hasInterface) exitWith {};
 		} forEach allGroups;
 	} else {
 		// Restrict 3rd Person
-		[] spawn STAF_fnc_viewRestrictions;
+		//[] spawn STAF_fnc_viewRestrictions;
+	};
+};
+
+[] spawn {
+	waitUntil {time > 0};
+	for "_i" from 0 to 60 do {
+		{
+			if (_x isKindOf ["ItemRadio", configFile >> "CfgWeapons"]) exitWith {
+				player unlinkItem _x;
+			};
+		} forEach (assignedItems player);
+		sleep 1;
 	};
 };
 
