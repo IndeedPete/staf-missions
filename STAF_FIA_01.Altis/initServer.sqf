@@ -12,13 +12,10 @@ publicVariable "IP_TESTMODE";
 	};
 } forEach allMapMarkers;
 
-// Weather
-//[1, 0.1, 20] call BIS_fnc_setFog;
-
 // Tasks
 [west, "tCache", ["Reach the <marker name=""mCache"">FIA Weapon Cache</marker> and rearm!", "Rearm", "FIA Weapon Cache"], "mCache", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tCommandPost", ["Attack the <marker name=""mCommandPost"">AAF Command Post</marker> and eliminate the officer!", "Attack Command Post", "AAF Command Post"], "mCommandPost", false, 5, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tConvoy", ["Use the satellite phone at the <marker name=""mCommandPost"">AAF Command Post</marker> to call in the CSAT QRF and destroy their MBT!", "Ambush CSAT QRF", ""], nil, false, 3, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tConvoy", ["Use the satellite phone at the <marker name=""mCommandPost"">AAF Command Post</marker> to call in the CSAT QRF and destroy their APC!", "Ambush CSAT QRF", ""], nil, false, 3, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // AAF
 {
@@ -28,11 +25,17 @@ publicVariable "IP_TESTMODE";
 		_x enableGunLights "forceOn";
 	};
 	
-	if (((_x isKindOf "Man") && {side _x == east}) OR {_x getVariable ["IP_CSATVehicle", false]}) then {
+	if (_x getVariable ["IP_CSATConvoy", false]) then {
 		[_x] call STAF_fnc_disable;
 		IP_CSATObjects pushBack _x;
 	};
 } forEach (allMissionObjects "All");
+
+{
+	if ((side(leader _x) == east) && {(leader _x) getVariable ["IP_CSATConvoy", false]}) then {
+		_x setVariable ["zbe_cacheDisabled", true];
+	};
+} forEach allGroups;
 
 // Weapon Cache
 #include "weaponCache.hpp"
@@ -40,8 +43,14 @@ publicVariable "IP_TESTMODE";
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
-/*
-// Mission Flows
+
+/*/ Mission Flows
+[] spawn {
+	{deleteVehicle _x} forEach ((crew IP_PatrolCar) + [IP_PatrolCar]);
+	[IP_CSATObjects] call STAF_fnc_enable;
+	[["mConvoy1", "mConvoy2", "mConvoy3", "mConvoy4", "mConvoy5"], [IP_ConvoyMRAP, IP_ConvoyTruck, IP_ConvoyAPC], true] spawn IP_fnc_convoyDefend;
+};
+
 [] spawn {
 	waitUntil {({alive _x} count [IP_Client, IP_Journalist] == 2) && {{(vehicle _x) inArea "mBaseArea"} count [IP_Client, IP_Journalist] == 2}};
 	["tFree", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];

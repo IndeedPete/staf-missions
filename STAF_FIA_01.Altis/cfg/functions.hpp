@@ -24,27 +24,11 @@ class IP
 		};
 	};
 	
-	class parachuting
-	{
-		class groupParadrop
-		{
-			file = "fnc\parachuting\fn_groupParadrop.sqf";
-		};
-		class halo
-		{
-			file = "fnc\parachuting\fn_halo.sqf";
-		};
-		class paradrop
-		{
-			file = "fnc\parachuting\fn_paradrop.sqf";
-		};
-	};
-	
 	class thirdParty
 	{
-		class SHKPos
+		class convoyDefend
 		{
-			file = "fnc\SHK_pos\SHKPos.sqf";
-		};
+			file = "fnc\convoyDefend\convoyDefend_init.sqf";
+		};	
 	};
 };
