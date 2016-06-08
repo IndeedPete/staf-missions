@@ -1,10 +1,10 @@
 //__________________________________________
 
 author = "STAF|IndeedPete";
-OnLoadName = "STAF|ToDo";
-//briefingName = "STAF|Hostage Situation";
+OnLoadName = "STAF|Counter Strike";
+//briefingName = "STAF|Counter Strike";
 onLoadMission = "East Kavala...";
-//overviewText = "After arriving at Zargabad, the client finds out that his contact, a journalist, has been captured by the NTA. ION contractors move out to uncover the journalist's whereabouts and free him from the NTA.";
+overviewText = "A few hours after 'Adapt's Signal Lost', a group of FIA survivors in east Kavala make a plan to strike back.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
 disabledAI = 1;
@@ -47,21 +47,12 @@ class CfgFunctions
 
 class CfgDebriefing
 {  
-	class PMC_Win
+	class FIA_Win
 	{
-		picture = "n_motor_inf";
+		picture = "n_inf";
 		pictureBackground = "img\Overview.paa";
 		pictureColor[] = {"(profileNamespace getVariable ['Map_Independent_R',0])","(profileNamespace getVariable ['Map_Independent_G',1])","(profileNamespace getVariable ['Map_Independent_B',1])","(profileNamespace getVariable ['Map_Independent_A',0.8])"};
 		title = "Mission Accomplished!";
 		subtitle = "";
-	};
-	
-	class PMC_Lose
-	{
-		picture = "n_motor_inf";
-		pictureBackground = "img\Overview.paa";
-		pictureColor[] = {"(profileNamespace getVariable ['Map_OPFOR_R',0])","(profileNamespace getVariable ['Map_OPFOR_G',1])","(profileNamespace getVariable ['Map_OPFOR_B',1])","(profileNamespace getVariable ['Map_OPFOR_A',0.8])"};
-		title = "Mission Failed!";
-		subtitle = "The Clients Were Killed!";
 	};
 };

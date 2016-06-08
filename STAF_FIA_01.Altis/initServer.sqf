@@ -1,6 +1,7 @@
 // Variables
 IP_TESTMODE = true;
 IP_CSATObjects = [];
+IP_ConvoyVehicles = [IP_ConvoyMRAP, IP_ConvoyTruck, IP_ConvoyAPC];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -16,6 +17,7 @@ publicVariable "IP_TESTMODE";
 [west, "tCache", ["Reach the <marker name=""mCache"">FIA Weapon Cache</marker> and rearm!", "Rearm", "FIA Weapon Cache"], "mCache", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tCommandPost", ["Attack the <marker name=""mCommandPost"">AAF Command Post</marker> and eliminate the officer!", "Attack Command Post", "AAF Command Post"], "mCommandPost", false, 5, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tConvoy", ["Use the satellite phone at the <marker name=""mCommandPost"">AAF Command Post</marker> to call in the CSAT QRF and destroy their APC!", "Ambush CSAT QRF", ""], nil, false, 3, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tExit", ["Reach the <marker name=""mExit"">Evac Point</marker>!", "Reach Evac", "Evac"], "mExit", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // AAF
 {
@@ -44,63 +46,33 @@ publicVariable "IP_TESTMODE";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
 
-/*/ Mission Flows
+// Mission Flow
 [] spawn {
+	waitUntil {triggerActivated trgCache};
+	["tCache", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	"respawn_west" setMarkerPos [5560.05,12580.6];
+	
+	waitUntil {!(alive IP_Officer)};
+	["tCommandPost", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	"respawn_west" setMarkerPos [3874.19,12011.6];
+	
+	[IP_SatPhone, ["<img size='1' shadow='1' image='\a3\ui_f\data\igui\cfg\Actions\talk_ca.paa'/> Call CSAT QRF", {
+		IP_SatPhone remoteExec ["removeAllActions", 0, true];
+		(format ["%1 has called the CSAT QRF!", (name player)]) remoteExec ["systemChat", 0, false];
+		IP_ConvoyCalled = true;
+		publicVariable "IP_ConvoyCalled";
+	}, [], 1.5, false, true, "", "(_this distance _target < 3)"]] remoteExec ["addAction", 0, true];
+	
+	waitUntil {!(isNil "IP_ConvoyCalled")};
 	{deleteVehicle _x} forEach ((crew IP_PatrolCar) + [IP_PatrolCar]);
 	[IP_CSATObjects] call STAF_fnc_enable;
-	[["mConvoy1", "mConvoy2", "mConvoy3", "mConvoy4", "mConvoy5"], [IP_ConvoyMRAP, IP_ConvoyTruck, IP_ConvoyAPC], true] spawn IP_fnc_convoyDefend;
-};
-
-[] spawn {
-	waitUntil {({alive _x} count [IP_Client, IP_Journalist] == 2) && {{(vehicle _x) inArea "mBaseArea"} count [IP_Client, IP_Journalist] == 2}};
-	["tFree", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	["tClients", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[] call IP_fnc_m_saveProgress;
-	sleep 5;
-	["PMC_Win"] call BIS_fnc_endMissionServer;
-};
-
-[] spawn {
-	waitUntil {({alive _x} count [IP_Client, IP_Journalist] < 2)};
-	["tClients", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[] call IP_fnc_m_saveProgress;
-	sleep 5;
-	["PMC_Lose"] call BIS_fnc_endMissionServer;
-};
-
-[] spawn {
-	waitUntil {!(isNil "IP_MeetingDone") && {IP_MeetingDone}};
-	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	if !(triggerActivated trgDetected) then {["tDetect", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true]};
-	[independent, "tFree", ["Free the Journalist from the NTA-held <marker name=""mHostage"">President's Residence</marker> and bring him back to the <marker name=""mBase"">Base</marker>!", "Rescue Journalist", "Residence"], "mHostage", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	"mHostage" setMarkerAlpha 1;
-	[] call IP_fnc_m_saveProgress;
-};
-
-[] spawn {
-	waitUntil {triggerActivated trgDetected};
-	if (isNil "IP_MeetingDone") then {
-		["tDetect", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	};
-};
-
-[] spawn {
-	waitUntil {daytime > 19.75};
-	[(getMarkerPos "mFlyStart1"), (getMarkerPos "mFlyEnd1"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;
-	sleep 1;
-	[(getMarkerPos "mFlyStart2"), (getMarkerPos "mFlyEnd2"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;
-	sleep 1;
-	[(getMarkerPos "mFlyStart3"), (getMarkerPos "mFlyEnd3"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;	
-	sleep 25;
+	[["mConvoy1", "mConvoy2", "mConvoy3", "mConvoy4", "mConvoy5"], IP_ConvoyVehicles, true] spawn IP_fnc_convoyDefend;
 	
-	for "_i" from 0 to 19 do {
-		_pos = "mMCC_Zone2" call IP_fnc_SHKPos;
-		"Bo_GBU12_LGB_MI10" createVehicle _pos;
-		sleep 2;
-	};
+	waitUntil {!(alive IP_ConvoyAPC)};
+	["tConvoy", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
-	[IP_EFObjects] call STAF_fnc_enable;
-	// sleep 30;
-	IP_EFGo = true;
-	publicVariable "IP_EFGo";
-};*/
+	waitUntil {{isPlayer _x} count (list trgExit) == count (allPlayers - entities "HeadlessClient")};
+	["tExit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	sleep 5;
+	["FIA_Win"] call BIS_fnc_endMissionServer;
+};
