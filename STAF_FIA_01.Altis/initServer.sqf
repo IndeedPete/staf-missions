@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_CSATObjects = [];
 IP_ConvoyVehicles = [IP_ConvoyMRAP, IP_ConvoyTruck, IP_ConvoyAPC];
 
@@ -71,7 +71,7 @@ publicVariable "IP_TESTMODE";
 	waitUntil {!(alive IP_ConvoyAPC)};
 	["tConvoy", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
-	waitUntil {{isPlayer _x} count (list trgExit) == count (allPlayers - entities "HeadlessClient")};
+	waitUntil {{isPlayer _x} count (list trgExit) == count (allPlayers - entities "HeadlessClient_F")};
 	["tExit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	sleep 5;
 	["FIA_Win"] call BIS_fnc_endMissionServer;

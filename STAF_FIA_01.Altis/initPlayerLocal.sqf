@@ -20,7 +20,7 @@ if !(hasInterface) exitWith {};
 		} forEach allGroups;
 	} else {
 		// Restrict 3rd Person
-		//[] spawn STAF_fnc_viewRestrictions;
+		[] spawn STAF_fnc_viewRestrictions;
 	};
 };
 
