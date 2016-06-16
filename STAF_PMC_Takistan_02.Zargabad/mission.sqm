@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1162;
+		nextID=1163;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=48;
+		nextID=50;
 	};
 	class Camera
 	{
-		pos[]={2893.4026,342.0856,4583.2246};
-		dir[]={0.84241557,-0.40123338,-0.35977337};
-		up[]={0.36902809,0.9159559,-0.15760174};
-		aside[]={-0.39277253,1.0736985e-006,-0.91968709};
+		pos[]={4426.2598,135.76331,4445.5532};
+		dir[]={-0.79979253,-0.25660652,-0.54277444};
+		up[]={-0.21238364,0.96649575,-0.14413308};
+		aside[]={-0.56157839,9.6508302e-007,0.82749993};
 	};
 };
 binarizationWanted=0;
@@ -14339,36 +14339,17 @@ class Mission
 						angles[]={0,3.8582423,0};
 					};
 					side="East";
-					flags=7;
+					flags=6;
 					class Attributes
 					{
 						init="this setUnitPos ""MIDDLE"";";
 					};
-					id=780;
-					type="LOP_TKA_Infantry_AA";
+					id=1162;
+					type="LOP_TKA_Infantry_Rifleman_2";
 					atlOffset=0.00047302246;
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -14387,7 +14368,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.98000002;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
