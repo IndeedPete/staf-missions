@@ -17,6 +17,11 @@ enableSentences false;
 // Interior Light
 [] spawn STAF_fnc_intLight;
 
+// Weather
+[] spawn {
+	((60 * 60) - time) setOvercast 0;
+};
+
 /*
 //[fog,overcast,use ppEfx,allow rain,force wind,vary fog,use wind audio,EFX strength]
 MKY_arSandEFX = [0,"",true,false,true,true,true,(paramsArray select 0)];

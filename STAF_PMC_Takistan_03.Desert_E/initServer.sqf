@@ -1,7 +1,7 @@
 // Variables
 IP_TESTMODE = true;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
-IP_EFObjects = [];
+IP_Waves = [[],[],[],[],[],[],[],[],[],[],[]];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -34,6 +34,10 @@ IP_fnc_m_saveProgress = {
 	} forEach IP_Vehicles;
 };
 ["IP_fnc_m_saveProgress"] call STAF_fnc_compileFinal;
+
+IP_fnc_m_wave = {
+	[(IP_Waves select _this)] call STAF_fnc_enable;
+};
 
 // Persistence
 ["IP_DiscoEH", "onPlayerDisconnected", {
@@ -75,38 +79,30 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 // Weather
 [1, 0.1, 20] call BIS_fnc_setFog;
 
-/*/ Tasks
-[independent, "tMeet", ["Meet with the ION contact in <marker name=""mMeet"">Central Zargabad</marker> in order to find out where the Journalist is being held! The contact should be in the first floor of the market buildings.", "Meet Contact", "Meeting Point"], "mMeet", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+// Tasks
+[independent, "tSecure", ["Secure the <marker name=""mFacility"">Underground Facility</marker> and move the Clients there to investigate!", "Secure Facility", "Underground Facility"], "mFacility", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tClients", ["The Clients must not die or the mission will fail!", "Protect Clients", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[independent, "tDetect", ["COMMANDER'S INTENT: do not get detected by the NTA until after meeting the contact! (OPTIONAL)", "Avoid Detection (OPTIONAL)", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+//[independent, "tDetect", ["COMMANDER'S INTENT: do not get detected by the NTA until after meeting the contact! (OPTIONAL)", "Avoid Detection (OPTIONAL)", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // BLUFOR
 {
 	if (side(leader _x) == west) then {
 		_x setVariable ["zbe_cacheDisabled", true];
+		_x allowFleeing 0;
 	};
 } forEach allGroups;
 
 {
-	if (((_x isKindOf "Man") && {side _x == west}) OR {_x getVariable ["IP_EFVehicle", false]}) then {
+	if (_x getVariable ["IP_Wave", -1] >= 0) then {
 		[_x] call STAF_fnc_disable;
-		IP_EFObjects pushBack _x;
+		(IP_Waves select (_x getVariable ["IP_Wave", 0])) pushBack _x;
 	};
 } forEach (allMissionObjects "All");
 
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
-// Mission Flows
-[] spawn {
-	waitUntil {({alive _x} count [IP_Client, IP_Journalist] == 2) && {{(vehicle _x) inArea "mBaseArea"} count [IP_Client, IP_Journalist] == 2}};
-	["tFree", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	["tClients", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[] call IP_fnc_m_saveProgress;
-	sleep 5;
-	["PMC_Win"] call BIS_fnc_endMissionServer;
-};
-
+// Mission Flow
 [] spawn {
 	waitUntil {({alive _x} count [IP_Client, IP_Journalist] < 2)};
 	["tClients", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -116,21 +112,10 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 };
 
 [] spawn {
-	waitUntil {!(isNil "IP_MeetingDone") && {IP_MeetingDone}};
-	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	if !(triggerActivated trgDetected) then {["tDetect", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true]};
-	[independent, "tFree", ["Free the Journalist from the NTA-held <marker name=""mHostage"">President's Residence</marker> and bring him back to the <marker name=""mBase"">Base</marker>!", "Rescue Journalist", "Residence"], "mHostage", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	"mHostage" setMarkerAlpha 1;
-	[] call IP_fnc_m_saveProgress;
+	(15 * 60) setFog [0, 0, 0];
 };
 
-[] spawn {
-	waitUntil {triggerActivated trgDetected};
-	if (isNil "IP_MeetingDone") then {
-		["tDetect", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	};
-};
-
+/*
 [] spawn {
 	waitUntil {daytime > 19.75};
 	[(getMarkerPos "mFlyStart1"), (getMarkerPos "mFlyEnd1"), 150, "NORMAL", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", west] call BIS_fnc_ambientFlyBy;
