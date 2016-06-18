@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
 IP_EFObjects = [];
 
@@ -94,6 +94,7 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 
 {
 	if (((_x isKindOf "Man") && {side _x == west}) OR {_x getVariable ["IP_EFVehicle", false]}) then {
+		_x enableIRLasers true;
 		[_x] call STAF_fnc_disable;
 		IP_EFObjects pushBack _x;
 	};

@@ -5,25 +5,25 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=1;
+	toggles=129;
 	class ItemIDProvider
 	{
-		nextID=1163;
+		nextID=1167;
 	};
 	class MarkerIDProvider
 	{
-		nextID=9;
+		nextID=11;
 	};
 	class LayerIndexProvider
 	{
-		nextID=50;
+		nextID=56;
 	};
 	class Camera
 	{
-		pos[]={4426.2598,135.76331,4445.5532};
-		dir[]={-0.79979253,-0.25660652,-0.54277444};
-		up[]={-0.21238364,0.96649575,-0.14413308};
-		aside[]={-0.56157839,9.6508302e-007,0.82749993};
+		pos[]={4314.6719,18.37993,4253.4585};
+		dir[]={-0.96761966,-0.037633497,0.24980824};
+		up[]={-0.03647624,0.99927992,0.0094165793};
+		aside[]={0.24998191,8.5534703e-007,0.9682979};
 	};
 };
 binarizationWanted=0;
@@ -124,13 +124,14 @@ addons[]=
 	"alive_mil_opcom",
 	"alive_mil_placement",
 	"alive_mil_logistics",
-	"alive_mil_cqb"
+	"alive_mil_cqb",
+	"lop_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=80;
+		items=81;
 		class Item0
 		{
 			className="lop_faction_aa";
@@ -576,6 +577,11 @@ class AddonsMetaData
 			name="alive_mil_cqb";
 			author="ALiVE Mod Team";
 		};
+		class Item80
+		{
+			className="lop_main";
+			name="lop_main";
+		};
 	};
 };
 randomSeed=8222419;
@@ -614,6 +620,7 @@ class Mission
 {
 	class Intel
 	{
+		briefingName="STAF|Hostage Situation";
 		resistanceWest=0;
 		timeOfChanges=1800.0002;
 		startWeather=0.30000001;
@@ -633,7 +640,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=356;
+		items=359;
 		class Item0
 		{
 			dataType="Object";
@@ -5385,6 +5392,44 @@ class Mission
 					{
 						class Attribute0
 						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=1;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.98000002;
+								};
+							};
+						};
+						class Attribute2
+						{
 							property="ace_isSurrendered";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
 							class Value
@@ -5402,26 +5447,7 @@ class Mission
 								};
 							};
 						};
-						class Attribute1
-						{
-							property="ace_isHandcuffed";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=2;
+						nAttributes=3;
 					};
 				};
 			};
@@ -7250,7 +7276,7 @@ class Mission
 			dataType="Marker";
 			position[]={4105.0308,31.638212,4510.5664};
 			name="mOverwatch";
-			text="Overwatch";
+			text="OP Alpha";
 			type="hd_objective";
 			colorName="ColorGUER";
 			id=254;
@@ -7987,32 +8013,13 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=302;
 					type="LOP_Tak_Civ_Man_01";
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -8031,7 +8038,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.01;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -8052,39 +8097,20 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={4307.8916,16.60803,4244.9888};
-						angles[]={0,2.9676249,0};
+						position[]={4307.8921,16.608021,4244.9888};
+						angles[]={0,2.9676182,0};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=304;
 					type="LOP_Tak_Civ_Man_02";
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -8103,7 +8129,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.99000001;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -8130,7 +8194,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE""; this setUnitPos ""UP""; this allowDamage false; this stop true;}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 						name="IP_Contact";
 					};
 					id=306;
@@ -8255,39 +8319,21 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={4327.0718,16.745605,4254.2427};
-						angles[]={0,4.5775962,0};
+						position[]={4327.0718,16.745352,4254.2427};
+						angles[]={0,4.5775971,0};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=310;
 					type="LOP_Tak_Civ_Man_01";
+					atlOffset=0.11099815;
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -8306,7 +8352,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.98000002;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -8314,6 +8398,7 @@ class Mission
 			{
 			};
 			id=309;
+			atlOffset=0.11099815;
 		};
 		class Item148
 		{
@@ -8631,40 +8716,21 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={4313.3984,16.620831,4238.0425};
+						position[]={4313.3979,16.620947,4238.043};
 						angles[]={0,1.4309256,0};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=325;
 					type="LOP_Tak_Civ_Man_01";
-					atlOffset=0.0018749237;
+					atlOffset=0.0020008087;
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -8683,7 +8749,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.97000003;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -8691,7 +8795,7 @@ class Mission
 			{
 			};
 			id=324;
-			atlOffset=0.0018749237;
+			atlOffset=0.0020008087;
 		};
 		class Item159
 		{
@@ -8706,38 +8810,19 @@ class Mission
 					class PositionInfo
 					{
 						position[]={4314.7749,16.636299,4238.0146};
-						angles[]={0,4.5888586,0};
+						angles[]={0,4.5888543,0};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=327;
 					type="LOP_Tak_Civ_Man_01";
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -8756,7 +8841,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.03;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -9050,39 +9173,20 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={4309.4336,16.593531,4269.4785};
-						angles[]={0,3.231766,0};
+						position[]={4309.4341,16.593525,4269.479};
+						angles[]={0,3.2317739,0};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=348;
 					type="LOP_Tak_Civ_Man_01";
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -9101,7 +9205,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -9122,39 +9264,20 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={4309.0928,16.600275,4268.1445};
-						angles[]={0,0.1065135,0};
+						position[]={4309.0928,16.600273,4268.145};
+						angles[]={0,0.10651745,0};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						init="if (isServer) then {this disableAI ""MOVE"";}";
+						init="nul = this spawn { " \n " _pos = getPosATL _this; " \n " while {alive _this} do { " \n "  if (local _this) then { " \n "   _this allowFleeing 0; " \n "   _this disableAI ""MOVE"";  " \n "   _this setUnitPos ""UP"";  " \n "   _this allowDamage false;  " \n "   _this stop true;  " \n "   _this setPosATL _pos; " \n "   sleep 3; " \n "  }; " \n " }; " \n "}; " \n " " \n "(group this) setVariable [""zbe_cacheDisabled"", true];";
 					};
 					id=350;
 					type="LOP_Tak_Civ_Man_01";
 					class CustomAttributes
 					{
 						class Attribute0
-						{
-							property="ace_isSurrendered";
-							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						class Attribute1
 						{
 							property="ace_isHandcuffed";
 							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
@@ -9173,7 +9296,45 @@ class Mission
 								};
 							};
 						};
-						nAttributes=2;
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.01;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
 					};
 				};
 			};
@@ -24140,6 +24301,38 @@ class Mission
 			};
 			id=1161;
 			type="Land_PortableLight_double_F";
+		};
+		class Item356
+		{
+			dataType="Marker";
+			position[]={4604.4468,65.014542,5405.4785};
+			name="mOverwatch_1";
+			text="OP Bravo";
+			type="hd_objective";
+			colorName="ColorGUER";
+			id=1163;
+		};
+		class Item357
+		{
+			dataType="Marker";
+			position[]={4001.6973,158.5874,7633.2915};
+			name="marker_9";
+			type="IP_flag_EF";
+			a=3;
+			b=3;
+			id=1164;
+			atlOffset=-25.652863;
+		};
+		class Item358
+		{
+			dataType="Marker";
+			position[]={4581.3135,16.532227,3592.6655};
+			name="marker_11";
+			type="lop_flag_tak";
+			a=2;
+			b=2;
+			id=1166;
+			atlOffset=-1.2497883;
 		};
 	};
 	class Connections
