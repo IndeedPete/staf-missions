@@ -163,7 +163,7 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 // Tasks
 [independent, "tSecure", ["Secure the <marker name=""mFacility"">Underground Facility</marker>!", "Secure Facility", "Underground Facility"], "mFacility", false, 7, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tPlace", ["Move the Clients close to the <marker name=""mFacility"">Underground Facility</marker> so they can begin their investigation!", "Move Clients to Facility", "Underground Facility"], "mFacility", false, 4, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[independent, "tHold", ["Hold the <marker name=""mFacility"">Underground Facility</marker>!", "Hold Facility", "Underground Facility"], "mFacility", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[independent, "tHold", ["Hold the <marker name=""mFacility"">Underground Facility</marker> until the investigation is complete!", "Hold Facility", "Underground Facility"], "mFacility", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [independent, "tClients", ["The Clients must not die or the mission will fail!", "Protect Clients", ""], nil, false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // BLUFOR
@@ -194,6 +194,8 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 };
 
 [] spawn {
+	#define BREAK(N) sleep (N * 60);
+	#define BREAK_DEFAULT BREAK(1)
 	(15 * 60) setFog [0, 0, 0];
 	waitUntil {triggerActivated trgSecure};
 	["tSecure", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -211,11 +213,27 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 	["mDefences", 2000, 225, (selectRandom IP_BombDefenceTargets), 50] call IP_fnc_m_bombingRun;
 	sleep 15;
 	["mBombSpecialDefence", 2000, 0, "mBombSpecialDefence", 50] call IP_fnc_m_bombingRun;
-	sleep 60;
+	BREAK(1)
 	[0] call IP_fnc_m_wave;
+	BREAK_DEFAULT
+	[1] call IP_fnc_m_wave;
+	BREAK_DEFAULT
+	[2] call IP_fnc_m_wave;
+	BREAK_DEFAULT
+	["mDefences", 2000, 180, (selectRandom IP_BombDefenceTargets), 50] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mDefences", 2000, 90, (selectRandom IP_BombDefenceTargets), 50] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mDefences", 2000, 315, (selectRandom IP_BombDefenceTargets), 50] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mDefences", 2000, 0, (selectRandom IP_BombDefenceTargets), 50] call IP_fnc_m_bombingRun;
+	BREAK_DEFAULT
+	[3] call IP_fnc_m_wave;
 	
 	IP_Sandstorm = true;
 	publicVariable "IP_Sandstorm";
+	
+	waitUntil {false};
 	
 	["tHold", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	[] call IP_fnc_m_saveProgress;

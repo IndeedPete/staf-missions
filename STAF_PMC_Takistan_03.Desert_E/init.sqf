@@ -28,5 +28,6 @@ enableSentences false;
 // init the EFX scripts
 [] spawn {
 	waitUntil {!(isNil "IP_Sandstorm") && {IP_Sandstorm}};
+	MKY_arSandEFX = [0,"",true,false,true,true,true,1];
 	nul = [] execVM "MKY\MKY_Sand_Snow_Init.sqf";
 };
