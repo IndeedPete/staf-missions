@@ -46,6 +46,9 @@ IP_fnc_m_wave = {
 		"_objs"
 	];
 	
+	IP_SkipWave = false;
+	publicVariable "IP_SkipWave";
+	
 	_wave = IP_Waves select _id;
 	_objs = [];	
 	{
@@ -61,14 +64,20 @@ IP_fnc_m_wave = {
 	[_wave] call STAF_fnc_enable;
 	_win = floor((count _objs) * _ratio);
 	_time = time + _timeout;
+	
 	waitUntil {
-		_alive = {alive _x} count _objs;
+		_alive = {!(isNull _x) && {alive _x}} count _objs;
+		
+		IP_WaveTimeout = _time - time;
+		publicVariable "IP_WaveTimeout";
+		
 		if (IP_TESTMODE) then {
-			(format ["Wave: %4\nEnemies left: %1\nWin amount: %2\nTimeout in: %3", _alive, _win, (_time - time), _id]) remoteExec ["systemChat", 0, false];
+			(format ["Wave: %4\nEnemies left: %1\nWin amount: %2\nTimeout in: %3", _alive, _win, IP_WaveTimeout, _id]) remoteExec ["systemChat", 0, false];
 		};
 		sleep 3;
 		(_alive <= _win)
 		OR {time > _time}
+		OR {IP_SkipWave}
 	};
 	
 	true
@@ -94,11 +103,12 @@ IP_fnc_m_bombingRun = {
 	_startPos = [_anchorPos, _radius, _angle] call BIS_fnc_relPos;
 	_endPos = [_anchorPos, _radius, ((_angle + 180) mod 360)] call BIS_fnc_relPos;
 	_veh = [_startPos, _endPos, _height, _speed, _class, _side] call IP_fnc_m_ambientFlyBy;
+	_timeout = time + 60;
 	
 	if (typeName _veh == typeName ObjNull) then {
 		_expDist = (_endPos distance _anchorPos) - 500;
 		if (_expDist < 500) then {_expDist = 500};
-		waitUntil {(isNull _veh) OR {(_veh distance _endPos) <= _expDist} OR {!(alive _veh)}};
+		waitUntil {(isNull _veh) OR {(_veh distance _endPos) <= _expDist} OR {!(alive _veh)} OR {time > _timeout}};
 	};
 	
 	if (_fireAt != "") then {
@@ -229,11 +239,27 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 	["mDefences", 2000, 0, (selectRandom IP_BombDefenceTargets), 50] call IP_fnc_m_bombingRun;
 	BREAK_DEFAULT
 	[3] call IP_fnc_m_wave;
+	BREAK_DEFAULT
+	[4] call IP_fnc_m_wave;
+	BREAK_DEFAULT
+	[5] call IP_fnc_m_wave;	
 	
 	IP_Sandstorm = true;
 	publicVariable "IP_Sandstorm";
 	
-	waitUntil {false};
+	BREAK_DEFAULT
+	["mFacility", 2000, 315, (selectRandom IP_BombMainTargets), 50] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mFacility", 2000, 45, (selectRandom IP_BombMainTargets), 50] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mFacility", 2000, 270, (selectRandom IP_BombMainTargets), 50] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mFacility", 2000, 0, (selectRandom IP_BombMainTargets), 50] call IP_fnc_m_bombingRun;
+	BREAK_DEFAULT
+	[6] call IP_fnc_m_wave;
+	[7] call IP_fnc_m_wave;
+	[8] call IP_fnc_m_wave;	
+	BREAK_DEFAULT
 	
 	["tHold", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	[] call IP_fnc_m_saveProgress;
