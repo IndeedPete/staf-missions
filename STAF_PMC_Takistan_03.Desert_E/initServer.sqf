@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Vehicles = [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
 IP_Waves = [[],[],[],[],[],[],[],[],[],[],[]];
 IP_BombMainTargets = [];
@@ -150,7 +150,7 @@ _inidbi = ["new", "STAF_CMP_PMC_TAKISTAN"] call OO_INIDBI;
 			deleteVehicle _x;
 		};
 	};
-} forEach [IP_Car1, IP_Car2, IP_MRAP, IP_Heli];
+} forEach [IP_Car1, IP_Car2, IP_Car3, IP_MRAP, IP_Heli, IP_Heli2];
 
 // Hide Zhe Markerz
 {
