@@ -1,10 +1,10 @@
 player allowDamage false;	
-for "_i" from 1 to 8 do {player addItemToUniform "ACE_packingBandage";};
-for "_i" from 1 to 6 do {player addItemToUniform "ACE_elasticBandage";};
-player addItemToUniform "ACE_tourniquet";
-player addItemToUniform "ACE_morphine";
+for "_i" from 1 to 8 do {player addItem "ACE_packingBandage";};
+for "_i" from 1 to 6 do {player addItem "ACE_elasticBandage";};
+player addItem "ACE_tourniquet";
+player addItem "ACE_morphine";
 player unlinkItem "ItemGPS";
-//player addItemToUniform "ACE_EarPlugs";
+//player addItem "ACE_EarPlugs";
 	
 if ((getNumber(configFile >> "CfgVehicles" >> (typeOf player) >> "attendant")) == 1) then {
 	removeBackpack player;
