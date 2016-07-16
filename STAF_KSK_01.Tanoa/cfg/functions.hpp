@@ -23,12 +23,4 @@ class IP
 			file = "fnc\mission\loadLoadout.sqf";
 		};
 	};
-	
-	class thirdParty
-	{
-		class convoyDefend
-		{
-			file = "fnc\convoyDefend\convoyDefend_init.sqf";
-		};	
-	};
 };

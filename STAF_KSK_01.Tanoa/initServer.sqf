@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
 IP_CSATObjects = [];
 
 // Communicate dem vars
@@ -20,7 +20,7 @@ publicVariable "IP_TESTMODE";
 */
 // AAF
 {
-	if ((_x isKindOf "Man") && {!(isPlayer _x)} && {side _x == west}) then {
+	if ((_x isKindOf "Man") && {!(isPlayer _x)} && {_x hasWeapon "SMG_05_F"}) then {
 		_x addPrimaryWeaponItem "acc_flashlight";
 		_x enableGunLights "forceOn";
 	};
