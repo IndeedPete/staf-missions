@@ -1,6 +1,6 @@
 // Variables
 IP_TESTMODE = true;
-IP_CSATObjects = [];
+IP_CSAT_QRF = [[], []];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -12,23 +12,22 @@ publicVariable "IP_TESTMODE";
 	};
 } forEach allMapMarkers;
 
-/*/ Tasks
-[west, "tCache", ["Reach the <marker name=""mCache"">FIA Weapon Cache</marker> and rearm!", "Rearm", "FIA Weapon Cache"], "mCache", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tCommandPost", ["Attack the <marker name=""mCommandPost"">AAF Command Post</marker> and eliminate the officer!", "Attack Command Post", "AAF Command Post"], "mCommandPost", false, 5, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tConvoy", ["Use the satellite phone at the <marker name=""mCommandPost"">AAF Command Post</marker> to call in the CSAT QRF and destroy their APC!", "Ambush CSAT QRF", ""], nil, false, 3, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tExit", ["Reach the <marker name=""mExit"">Evac Point</marker>!", "Reach Evac", "Evac"], "mExit", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-*/
+// Tasks
+[true, "tLink", ["Link up with the Syndikat at the <marker name=""mMeet"">Forest Clearing</marker>!", "Link-Up", "Forest Clearing"], "mMeet", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[true, "tVTOL", ["Destroy the grounded <marker name=""mVTOL"">VTOL/marker>!", "Destroy VTOL", "VTOL"], "mVTOL", false, 5, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tExit", ["Reach the <marker name=""mKSK"">Exfiltration Point</marker>!", "Reach Exfil", "Exfil"], "mKSK", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", west, true];
+
 // AAF
 {
 	if ((_x isKindOf "Man") && {!(isPlayer _x)} && {_x hasWeapon "SMG_05_F"}) then {
 		_x addPrimaryWeaponItem "acc_flashlight";
 		_x enableGunLights "forceOn";
 	};
-	/*
-	if (_x getVariable ["IP_CSATConvoy", false]) then {
+	
+	if (_x getVariable ["IP_CSAT_QRF", -1] >= 0) then {
 		[_x] call STAF_fnc_disable;
-		IP_CSATObjects pushBack _x;
-	};*/
+		(IP_CSAT_QRF select (_x getVariable "IP_CSAT_QRF")) pushBack _x;
+	};
 } forEach (allMissionObjects "All");
 
 // Weapon Cache
@@ -40,33 +39,33 @@ publicVariable "IP_TESTMODE";
 // Weather
 [0.5, 0.01, 0] call BIS_fnc_setFog;
 
-/*/ Mission Flow
+// Mission Flow
 [] spawn {
-	waitUntil {triggerActivated trgCache};
-	["tCache", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	"respawn_west" setMarkerPos [5560.05,12580.6];
+	waitUntil {triggerActivated trgAlert};
+	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
+	sleep 60;
+	[(IP_CSAT_QRF select 0)] call STAF_fnc_enable;
+	if (IP_TESTMODE) then {
+		systemChat "QRF deployed.";
+	};
 	
-	waitUntil {!(alive IP_Officer)};
-	["tCommandPost", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	"respawn_west" setMarkerPos [3874.19,12011.6];
+	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
+	sleep 60;	
+	[(IP_CSAT_QRF select 1)] call STAF_fnc_enable;
+	if (IP_TESTMODE) then {
+		systemChat "Reinforcements deployed.";
+	};
+};
+
+[] spawn {
+	waitUntil {(triggerActivated trgMeet) OR {!(isNil "IP_Meeting")}};
+	["tLink", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
-	[IP_SatPhone, ["<img size='1' shadow='1' image='\a3\ui_f\data\igui\cfg\Actions\talk_ca.paa'/> Call CSAT QRF", {
-		IP_SatPhone remoteExec ["removeAllActions", 0, true];
-		(format ["%1 has called the CSAT QRF!", (name player)]) remoteExec ["systemChat", 0, false];
-		IP_ConvoyCalled = true;
-		publicVariable "IP_ConvoyCalled";
-	}, [], 1.5, false, true, "", "(_this distance _target < 3)"]] remoteExec ["addAction", 0, true];
+	waitUntil {!(alive IP_VTOL)};
+	["tVTOL", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
-	waitUntil {!(isNil "IP_ConvoyCalled")};
-	{deleteVehicle _x} forEach ((crew IP_PatrolCar) + [IP_PatrolCar]);
-	[IP_CSATObjects] call STAF_fnc_enable;
-	[["mConvoy1", "mConvoy2", "mConvoy3", "mConvoy4", "mConvoy5"], IP_ConvoyVehicles, true] spawn IP_fnc_convoyDefend;
-	
-	waitUntil {!(alive IP_ConvoyAPC)};
-	["tConvoy", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	
-	waitUntil {{isPlayer _x} count (list trgExit) == count (allPlayers - entities "HeadlessClient_F")};
-	["tExit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	waitUntil {triggerActivated trgExit};
+	["tExit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", west, true];
 	sleep 5;
-	["FIA_Win"] call BIS_fnc_endMissionServer;
-};*/
+	["KSK_Win"] call BIS_fnc_endMissionServer;
+};
