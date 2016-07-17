@@ -2,6 +2,10 @@ class IP
 {	
 	class base
 	{
+		class launchFlare
+		{
+			file = "fnc\base\launchFlare.sqf";
+		};
 		class track
 		{
 			file = "fnc\base\track.sqf";
