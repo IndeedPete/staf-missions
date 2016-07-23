@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_CSAT_QRF = [[], []];
 
 // Communicate dem vars
@@ -43,14 +43,18 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	waitUntil {triggerActivated trgAlert};
 	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
-	sleep 60;
+	
+	sleep 600;
+	
 	[(IP_CSAT_QRF select 0)] call STAF_fnc_enable;
 	if (IP_TESTMODE) then {
 		systemChat "QRF deployed.";
 	};
 	
 	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
-	sleep 60;	
+	
+	sleep 600;	
+	
 	[(IP_CSAT_QRF select 1)] call STAF_fnc_enable;
 	if (IP_TESTMODE) then {
 		systemChat "Reinforcements deployed.";

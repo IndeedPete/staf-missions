@@ -5,10 +5,10 @@ class EditorData
 	angleGridStep=1.5707964;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=130;
+	toggles=2;
 	class ItemIDProvider
 	{
-		nextID=387;
+		nextID=390;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={13212.645,15.011246,4051.29};
-		dir[]={0.3996754,-0.18498553,0.89780724};
-		up[]={0.075235464,0.98273879,0.16900511};
-		aside[]={0.91357559,3.4447294e-007,-0.40669298};
+		pos[]={12831.733,11.228755,4887.2075};
+		dir[]={-0.19948298,-0.23988917,-0.95008665};
+		up[]={-0.049293358,0.97079819,-0.23477107};
+		aside[]={-0.97866154,5.9706508e-008,0.20548229};
 	};
 };
 binarizationWanted=0;
@@ -556,6 +556,8 @@ class Mission
 {
 	class Intel
 	{
+		briefingName="STAF|Take-Off Denied";
+		resistanceWest=0;
 		timeOfChanges=1800.0002;
 		startWeather=1;
 		startWind=0.1;
@@ -579,7 +581,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=164;
+		items=167;
 		class Item0
 		{
 			dataType="Logic";
@@ -4133,7 +4135,7 @@ class Mission
 								isBackpack=0;
 								class MagazineCargo
 								{
-									items=4;
+									items=5;
 									class Item0
 									{
 										name="30Rnd_65x39_caseless_green";
@@ -4157,6 +4159,12 @@ class Mission
 										name="SmokeShell";
 										count=1;
 										ammoLeft=1;
+									};
+									class Item4
+									{
+										name="10Rnd_50BW_Mag_F";
+										count=2;
+										ammoLeft=10;
 									};
 								};
 								class ItemCargo
@@ -10933,6 +10941,43 @@ class Mission
 			id=385;
 			type="EmptyDetectorAreaR50";
 			atlOffset=-0.89599991;
+		};
+		class Item164
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={13381.066,-7.2459545,4217.4312};
+			};
+			name="IP_HC1";
+			isPlayable=1;
+			id=387;
+			type="HeadlessClient_F";
+		};
+		class Item165
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={13383.41,-7.4886179,4217.3838};
+			};
+			name="IP_HC2";
+			isPlayable=1;
+			id=388;
+			type="HeadlessClient_F";
+		};
+		class Item166
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={13385.59,-7.6788044,4217.3838};
+			};
+			name="IP_HC3";
+			isPlayable=1;
+			id=389;
+			type="HeadlessClient_F";
+			atlOffset=-4.7683716e-007;
 		};
 	};
 };

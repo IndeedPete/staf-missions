@@ -27,10 +27,22 @@ if !(hasInterface) exitWith {};
 // Identity
 [] spawn {
 	waitUntil {time > 0};
-	if (player == IP_Commander) then {
+	if (player == missionNamespace getVariable ["IP_Commander", ObjNull]) then {
 		player setIdentity "Syndikat_Boss_F";
 	};
 }; 
+
+// Player Ladout Restore After Respawn
+[] spawn {
+	waitUntil {(time > 0) && {!(isNull player)}};
+	player addEventHandler ["Respawn", {
+		[(_this select 1), [missionNamespace, "IP_Inventory"]] call BIS_fnc_saveInventory;
+		[(_this select 0), [missionNamespace, "IP_Inventory"]] call BIS_fnc_loadInventory;
+		if ({_x == "ACE_EarPlugs"} count (items player) == 0) then {
+			player addItem "ACE_EarPlugs"; 
+		};
+	}];
+};
 
 // Ostereier
 IP_Toilet addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\ico_cpt_thtl_idl_ca.paa'/> Take a Piss", {
