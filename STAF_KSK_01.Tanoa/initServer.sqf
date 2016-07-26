@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
 IP_CSAT_QRF = [[], []];
 
 // Communicate dem vars
@@ -36,8 +36,17 @@ publicVariable "IP_TESTMODE";
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
 [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
+// Respawn
+[west, "mKSK", "KSK Insertion"] call BIS_fnc_addRespawnPosition;
+[independent, "mSyndikat", "Syndikat Hideout"] call BIS_fnc_addRespawnPosition;
+
 // Weather
 [0.5, 0.01, 0] call BIS_fnc_setFog;
+[] spawn {
+	(60 * 60) setRain 0;
+	waitUntil {dayTime > 6};
+	(60 * 60) setFog [0, 0, 0];
+};
 
 // Mission Flow
 [] spawn {
@@ -62,8 +71,20 @@ publicVariable "IP_TESTMODE";
 };
 
 [] spawn {
+	waitUntil {daytime > 7};
+	if (alive IP_VTOL) then {
+		["tVTOL", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+		sleep 5;
+		["KSK_Fail"] call BIS_fnc_endMissionServer;
+	};
+};
+
+[] spawn {
 	waitUntil {(triggerActivated trgMeet) OR {!(isNil "IP_Meeting")}};
 	["tLink", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[missionNamespace, "mMeet", "Forest Clearing"] call BIS_fnc_addRespawnPosition;
+	[independent, "mKSK", "KSK Insertion"] call BIS_fnc_addRespawnPosition;
+	[west, "mSyndikat", "Syndikat Hideout"] call BIS_fnc_addRespawnPosition;
 	
 	waitUntil {!(alive IP_VTOL)};
 	["tVTOL", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];

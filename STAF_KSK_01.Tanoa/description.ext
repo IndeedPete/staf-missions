@@ -2,15 +2,16 @@
 
 author = "STAF|IndeedPete";
 OnLoadName = "STAF|Take-Off Denied";
-briefingName = "STAF|Take-Off Denied";
+//briefingName = "STAF|Take-Off Denied";
 onLoadMission = "South-East Tanoa...";
 overviewText = "Covert KSK units move out to support Syndikat guerillas in order to take out a grounded CSAT VTOL.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
 disabledAI = 1;
 
-respawn = "BASE";
-respawnDelay = 0;
+respawn = "INSTANT";
+respawnTemplates[] = {"Tickets", "MenuPosition", "Wave", "EndMission"};
+respawnDelay = 30;
 respawnDialog = 0;
 respawnOnStart = 0;
 
@@ -49,10 +50,19 @@ class CfgDebriefing
 {  
 	class KSK_Win
 	{
-		picture = "n_inf";
+		picture = "n_recon";
 		pictureBackground = "img\Overview.paa";
-		pictureColor[] = {"(profileNamespace getVariable ['Map_BLUFOR_R',0])","(profileNamespace getVariable ['Map_BLUFOR_G',1])","(profileNamespace getVariable ['Map_BLUFOR_B',1])","(profileNamespace getVariable ['Map_BLUFOR_A',0.8])"};
+		pictureColor[] = {"(profilenamespace getvariable ['Map_Independent_R',0])","(profilenamespace getvariable ['Map_Independent_G',1])","(profilenamespace getvariable ['Map_Independent_B',1])","(profilenamespace getvariable ['Map_Independent_A',0.8])"};
 		title = "Mission Accomplished!";
+		subtitle = "";
+	};
+	
+	class KSK_Fail
+	{
+		picture = "n_recon";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_OPFOR_R',0])","(profilenamespace getvariable ['Map_OPFOR_G',1])","(profilenamespace getvariable ['Map_OPFOR_B',1])","(profilenamespace getvariable ['Map_OPFOR_A',0.8])"};
+		title = "Mission Failed!";
 		subtitle = "";
 	};
 };

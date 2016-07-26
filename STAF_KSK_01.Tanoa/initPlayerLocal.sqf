@@ -24,15 +24,8 @@ if !(hasInterface) exitWith {};
 	};
 };
 
-// Identity
-[] spawn {
-	waitUntil {time > 0};
-	if (player == missionNamespace getVariable ["IP_Commander", ObjNull]) then {
-		player setIdentity "Syndikat_Boss_F";
-	};
-}; 
-
-// Player Ladout Restore After Respawn
+// Player Loadout Restore and Respawn
+[player, 3] call BIS_fnc_respawnTickets;
 [] spawn {
 	waitUntil {(time > 0) && {!(isNull player)}};
 	player addEventHandler ["Respawn", {
