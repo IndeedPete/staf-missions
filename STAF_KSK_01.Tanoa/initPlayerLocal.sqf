@@ -25,12 +25,12 @@ if !(hasInterface) exitWith {};
 };
 
 // Player Loadout Restore and Respawn
-[player, 3] call BIS_fnc_respawnTickets;
+[player, 4] call BIS_fnc_respawnTickets;
 [] spawn {
 	waitUntil {(time > 0) && {!(isNull player)}};
 	player addEventHandler ["Respawn", {
-		[(_this select 1), [missionNamespace, "IP_Inventory"]] call BIS_fnc_saveInventory;
-		[(_this select 0), [missionNamespace, "IP_Inventory"]] call BIS_fnc_loadInventory;
+		//[(_this select 1), [missionNamespace, "IP_Inventory"]] call BIS_fnc_saveInventory;
+		//[(_this select 0), [missionNamespace, "IP_Inventory"]] call BIS_fnc_loadInventory;
 		if ({_x == "ACE_EarPlugs"} count (items player) == 0) then {
 			player addItem "ACE_EarPlugs"; 
 		};
