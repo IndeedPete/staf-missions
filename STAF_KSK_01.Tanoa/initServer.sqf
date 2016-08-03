@@ -48,6 +48,12 @@ publicVariable "IP_TESTMODE";
 	(60 * 60) setFog [0, 0, 0];
 };
 
+// Solomon Maru
+[] spawn {
+	waitUntil {(time > 0) && {!(isNull IP_Commander)}};
+	[IP_Commander, "Syndikat_Boss_F"] remoteExec ["setIdentity", 0, true];
+}; 
+
 // Mission Flow
 [] spawn {
 	waitUntil {triggerActivated trgAlert};
