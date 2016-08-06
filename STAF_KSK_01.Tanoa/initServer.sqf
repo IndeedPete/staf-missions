@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_CSAT_QRF = [[], []];
 
 // Communicate dem vars
@@ -50,7 +50,7 @@ publicVariable "IP_TESTMODE";
 
 // Solomon Maru
 [] spawn {
-	waitUntil {(time > 0) && {!(isNull IP_Commander)}};
+	waitUntil {(time > 0) && {isPlayer IP_Commander}};
 	[IP_Commander, "Syndikat_Boss_F"] remoteExec ["setIdentity", 0, true];
 }; 
 
@@ -59,7 +59,7 @@ publicVariable "IP_TESTMODE";
 	waitUntil {triggerActivated trgAlert};
 	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
 	
-	sleep 600;
+	sleep 300;
 	
 	[(IP_CSAT_QRF select 0)] call STAF_fnc_enable;
 	if (IP_TESTMODE) then {
@@ -68,7 +68,7 @@ publicVariable "IP_TESTMODE";
 	
 	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
 	
-	sleep 600;	
+	sleep 300;	
 	
 	[(IP_CSAT_QRF select 1)] call STAF_fnc_enable;
 	if (IP_TESTMODE) then {
