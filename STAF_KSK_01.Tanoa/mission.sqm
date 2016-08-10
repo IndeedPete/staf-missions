@@ -8,7 +8,7 @@ class EditorData
 	toggles=130;
 	class ItemIDProvider
 	{
-		nextID=394;
+		nextID=396;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={11696.321,248.37694,4011.6826};
-		dir[]={0.47136682,-0.47966814,0.74010813};
-		up[]={0.2576758,0.8774482,0.40458503};
-		aside[]={0.84347552,1.2479722e-007,-0.53719926};
+		pos[]={11666.357,166.87317,4087.2166};
+		dir[]={0.94502807,-0.12973896,0.30022883};
+		up[]={0.12366851,0.99154466,0.039289039};
+		aside[]={0.30278945,6.1324681e-007,-0.95308304};
 	};
 };
 binarizationWanted=0;
@@ -4046,7 +4046,7 @@ class Mission
 			side="Independent";
 			class Entities
 			{
-				items=6;
+				items=7;
 				class Item0
 				{
 					dataType="Object";
@@ -4634,6 +4634,85 @@ class Mission
 										};
 									};
 									value=0.98000002;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
+					};
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11670.803,165.23526,4088.1111};
+					};
+					side="Independent";
+					flags=1;
+					class Attributes
+					{
+						name="IP_MG2";
+						isPlayable=1;
+					};
+					id=395;
+					type="I_C_Soldier_Bandit_3_F";
+					atlOffset=0.57299805;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1;
 								};
 							};
 						};
