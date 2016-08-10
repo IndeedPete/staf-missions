@@ -1,0 +1,68 @@
+//__________________________________________
+
+author = "STAF|IndeedPete";
+//OnLoadName = "STAF|Take-Off Denied";
+//briefingName = "STAF|Take-Off Denied";
+onLoadMission = "North-West Sahrani...";
+//overviewText = "Covert KSK units move out to support Syndikat guerillas in order to take out a grounded CSAT VTOL.";
+onLoadIntroTime = false;
+onLoadMissionTime = false;
+disabledAI = 1;
+
+respawn = "INSTANT";
+respawnTemplates[] = {"Tickets", "MenuPosition", "Wave", "EndMission"};
+respawnDelay = 30;
+respawnDialog = 0;
+respawnOnStart = 0;
+
+showGPS = 1;
+loadScreen = "img\Overview.paa";
+overviewPicture = "img\Overview.paa";
+enableDebugConsole = 1;
+joinUnassigned = false;
+//disableChannels[] = {1,2,3,4,5};
+enableItemsDropping = 0;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 61;
+};
+
+corpseManagerMode = 1;
+corpseLimit = 30;
+corpseRemovalMinTime = 360;
+corpseRemovalMaxTime = 1200;
+
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 360;
+wreckRemovalMaxTime = 1200;
+
+//__________________________________________
+class CfgFunctions
+{
+	#include "cfg\functions.hpp"
+};
+
+class CfgDebriefing
+{  
+	class Win
+	{
+		picture = "n_recon";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_Independent_R',0])","(profilenamespace getvariable ['Map_Independent_G',1])","(profilenamespace getvariable ['Map_Independent_B',1])","(profilenamespace getvariable ['Map_Independent_A',0.8])"};
+		title = "Mission Accomplished!";
+		subtitle = "";
+	};
+	
+	class Fail
+	{
+		picture = "n_recon";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_OPFOR_R',0])","(profilenamespace getvariable ['Map_OPFOR_G',1])","(profilenamespace getvariable ['Map_OPFOR_B',1])","(profilenamespace getvariable ['Map_OPFOR_A',0.8])"};
+		title = "Mission Failed!";
+		subtitle = "";
+	};
+};
