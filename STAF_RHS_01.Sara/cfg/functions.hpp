@@ -2,6 +2,10 @@ class IP
 {	
 	class base
 	{
+		class arty
+		{
+			file = "fnc\base\arty.sqf";
+		};
 		class launchFlare
 		{
 			file = "fnc\base\launchFlare.sqf";
@@ -26,5 +30,13 @@ class IP
 		{
 			file = "fnc\mission\loadLoadout.sqf";
 		};
+	};
+	
+	class thirdParty
+	{
+		class SHKPos
+		{
+			file = "fnc\SHK_pos\SHKPos.sqf";
+		};	
 	};
 };

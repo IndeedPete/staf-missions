@@ -1,10 +1,10 @@
 //__________________________________________
 
 author = "STAF|IndeedPete";
-//OnLoadName = "STAF|Take-Off Denied";
-//briefingName = "STAF|Take-Off Denied";
+OnLoadName = "STAF|Operation Pointflash";
+//briefingName = "STAF|Operation Pointflash";
 onLoadMission = "North-West Sahrani...";
-//overviewText = "Covert KSK units move out to support Syndikat guerillas in order to take out a grounded CSAT VTOL.";
+overviewText = "A USMC platoon deploys on the north-western Sahrani coastline as part of Operation Pointflash in order to hold and seize three SLA-held villages.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
 disabledAI = 1;
@@ -50,19 +50,31 @@ class CfgDebriefing
 {  
 	class Win
 	{
-		picture = "n_recon";
+		picture = "b_inf";
 		pictureBackground = "img\Overview.paa";
-		pictureColor[] = {"(profilenamespace getvariable ['Map_Independent_R',0])","(profilenamespace getvariable ['Map_Independent_G',1])","(profilenamespace getvariable ['Map_Independent_B',1])","(profilenamespace getvariable ['Map_Independent_A',0.8])"};
+		pictureColor[] = {"(profilenamespace getvariable ['Map_BLUFOR_R',0])","(profilenamespace getvariable ['Map_BLUFOR_G',1])","(profilenamespace getvariable ['Map_BLUFOR_B',1])","(profilenamespace getvariable ['Map_BLUFOR_A',0.8])"};
 		title = "Mission Accomplished!";
 		subtitle = "";
 	};
 	
 	class Fail
 	{
-		picture = "n_recon";
+		picture = "b_inf";
 		pictureBackground = "img\Overview.paa";
 		pictureColor[] = {"(profilenamespace getvariable ['Map_OPFOR_R',0])","(profilenamespace getvariable ['Map_OPFOR_G',1])","(profilenamespace getvariable ['Map_OPFOR_B',1])","(profilenamespace getvariable ['Map_OPFOR_A',0.8])"};
 		title = "Mission Failed!";
 		subtitle = "";
+	};
+};
+
+class CfgRemoteExec
+{ 
+	class Commands
+	{
+		class systemChat
+		{ 
+			allowedTargets = 0;
+			jip = 1;
+		};
 	};
 };

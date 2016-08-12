@@ -49,3 +49,9 @@ IP_Toilet addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Act
 	sleep 1.5;
 	["IP_BlackScreen", true] call IP_fnc_blackIn;
 }, [], 1.5, false, true, "", "(_this distance _target < 3)"];
+
+// Post Start
+[] spawn {
+	waitUntil {serverTime > 0};
+	player addItem "ACE_EarPlugs";
+};

@@ -1,39 +1,35 @@
 // Variables
 IP_TESTMODE = true;
+IP_HiddenUnits = [[], [], [], []];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
 
 // Hide Zhe Markerz
 {
-	if ((markerType _x == "mil_dot") OR {_x find "mMCC_Zone" >= 0} OR {_x find "mTAOR" >= 0}) then {
+	if ((markerType _x == "mil_dot") OR {_x find "mMCCZone" >= 0} OR {_x find "mTAOR" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
 
-/*/ Tasks
-[true, "tLink", ["Link up with the Syndikat at the <marker name=""mMeet"">Forest Clearing</marker>!", "Link-Up", "Forest Clearing"], "mMeet", true, 1, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[true, "tVTOL", ["Destroy the grounded <marker name=""mVTOL"">VTOL/marker>!", "Destroy VTOL", "VTOL"], "mVTOL", false, 5, false] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tExit", ["Reach the <marker name=""mKSK"">Exfiltration Point</marker>!", "Reach Exfil", "Exfil"], "mKSK", false, 1, false] remoteExecCall ["BIS_fnc_taskCreate", west, true];
+// Tasks
+[west, "tAlpha", ["Seize the SLA-held <marker name=""mAlpha"">Objective Alpha</marker>!", "Seize Alpha", (markerText "mAlpha")], "mAlpha", true, 1, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
-// AAF
+// Units
 {
-	if ((_x isKindOf "Man") && {!(isPlayer _x)} && {_x hasWeapon "SMG_05_F"}) then {
+	/*if ((_x isKindOf "Man") && {!(isPlayer _x)} && {_x hasWeapon "SMG_05_F"}) then {
 		_x addPrimaryWeaponItem "acc_flashlight";
 		_x enableGunLights "forceOn";
-	};
+	};*/
 	
-	if (_x getVariable ["IP_CSAT_QRF", -1] >= 0) then {
+	if (_x getVariable ["IP_HiddenUnits", -1] >= 0) then {
 		[_x] call STAF_fnc_disable;
-		(IP_CSAT_QRF select (_x getVariable "IP_CSAT_QRF")) pushBack _x;
+		(IP_HiddenUnits select (_x getVariable "IP_HiddenUnits")) pushBack _x;
 	};
 } forEach (allMissionObjects "All");
 
-// Weapon Cache
-#include "weaponCache.hpp"*/
-
 // [AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance] execVM "zbe_cache\main.sqf";
-[2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
+//[2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
 // Respawn
 [west, "mStart", (markerText "mStart")] call BIS_fnc_addRespawnPosition;
@@ -45,56 +41,45 @@ publicVariable "IP_TESTMODE";
 	waitUntil {dayTime > 6};
 	(60 * 60) setFog [0, 0, 0];
 };
-
-// Solomon Maru
-[] spawn {
-	waitUntil {(time > 0) && {isPlayer IP_Commander}};
-	[IP_Commander, "Syndikat_Boss_F"] remoteExec ["setIdentity", 0, true];
-}; 
+*/
 
 // Mission Flow
 [] spawn {
-	waitUntil {triggerActivated trgAlert};
-	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
+	waitUntil {triggerActivated trgAlphaClear};
+	["tAlpha", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[west, "mHQAlpha", (markerText "mHQAlpha")] call BIS_fnc_addRespawnPosition;
+	[west, "tDefendAlpha", ["An armoured SLA unit just departed at <marker name=""mBravo"">Objective Bravo</marker> and is on the way to <marker name=""mAlpha"">Objective Alpha</marker>. Defend <marker name=""mAlpha"">Objective Alpha</marker>!", "Defend Alpha", (markerText "mAlpha")], "mAlpha", true, 1, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
-	sleep 300;
+	sleep 60;
 	
-	[(IP_CSAT_QRF select 0)] call STAF_fnc_enable;
+	[(IP_HiddenUnits select 0)] call STAF_fnc_enable;
+	//IP_BackupGo = true;
 	if (IP_TESTMODE) then {
-		systemChat "QRF deployed.";
+		"Backup Alpha deployed." remoteExec ["systemChat", 0, false];
 	};
 	
-	[(getMarkerPos "mVTOL"), "F_40mm_Red"] call IP_fnc_launchFlare;
+	waitUntil {{(_x isKindOf "MAN") && {alive _x}} count (units(group((IP_HiddenUnits select 0) select 0))) == 0};
+	["tDefendAlpha", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[west, "tBravo", ["A friendly unit encountered a T-80 MBT at <marker name=""mBravo"">Objective Bravo</marker> and is on hold until your arrival. Help them to seize the SLA-held <marker name=""mBravo"">Objective Bravo</marker>!", "Seize Bravo", (markerText "mBravo")], "mBravo", true, 1, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_HiddenUnits select 1)] call STAF_fnc_enable;
 	
-	sleep 300;	
+	waitUntil {triggerActivated trgBravoClear};
+	["tBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[west, "tDefendBravo", ["The SLA deployed an armoured convoy in an attempt to re-take <marker name=""mBravo"">Objective Bravo</marker>. It's coming through the mountain pass to the east. Repel the attack!", "Defend Bravo", (markerText "mBravo")], "mBravo", true, 1, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
-	[(IP_CSAT_QRF select 1)] call STAF_fnc_enable;
+	sleep 60;
+	IP_AmbientArty = true;
+	["mBravoArea", {IP_AmbientArty}, 0, 0, [5, 10]] spawn IP_fnc_arty;
+	sleep 120;
+	IP_AmbientArty = false;
+	
+	[(IP_HiddenUnits select 3)] call STAF_fnc_enable;
 	if (IP_TESTMODE) then {
-		systemChat "Reinforcements deployed.";
+		"Backup Bravo deployed." remoteExec ["systemChat", 0, false];
 	};
-};
-
-[] spawn {
-	waitUntil {daytime > 7};
-	if (alive IP_VTOL) then {
-		["tVTOL", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-		sleep 5;
-		["KSK_Fail"] call BIS_fnc_endMissionServer;
-	};
-};
-
-[] spawn {
-	waitUntil {(triggerActivated trgMeet) OR {!(isNil "IP_Meeting")}};
-	["tLink", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[missionNamespace, "mMeet", "Forest Clearing"] call BIS_fnc_addRespawnPosition;
-	[independent, "mKSK", "KSK Insertion"] call BIS_fnc_addRespawnPosition;
-	[west, "mSyndikat", "Syndikat Hideout"] call BIS_fnc_addRespawnPosition;
 	
-	waitUntil {!(alive IP_VTOL)};
-	["tVTOL", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	
-	waitUntil {triggerActivated trgExit};
-	["tExit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", west, true];
+	waitUntil {{(_x isKindOf "MAN") && {alive _x}} count ((units(group((IP_HiddenUnits select 3) select 0))) + (units(group((IP_HiddenUnits select 3) select 1)))) == 0};
+	["tDefendBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];	
 	sleep 5;
-	["KSK_Win"] call BIS_fnc_endMissionServer;
+	["Win"] call BIS_fnc_endMissionServer;
 };
