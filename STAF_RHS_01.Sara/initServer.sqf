@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_HiddenUnits = [[], [], [], []];
 
 // Communicate dem vars
@@ -65,6 +65,7 @@ publicVariable "IP_TESTMODE";
 	
 	waitUntil {triggerActivated trgBravoClear};
 	["tBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[west, "mHQBravo", (markerText "mHQBravo")] call BIS_fnc_addRespawnPosition;
 	[west, "tDefendBravo", ["The SLA deployed an armoured convoy in an attempt to re-take <marker name=""mBravo"">Objective Bravo</marker>. It's coming through the mountain pass to the east. Repel the attack!", "Defend Bravo", (markerText "mBravo")], "mBravo", true, 1, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	sleep 60;
