@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=412;
+		nextID=432;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={10731.121,325.54849,14091.65};
-		dir[]={-0.89603508,-0.42461041,-0.12977794};
-		up[]={-0.42022896,0.9053762,-0.060864232};
-		aside[]={-0.14334141,4.0773011e-007,0.9896844};
+		pos[]={9882.4707,78.722626,14579.512};
+		dir[]={-0.39980575,-0.17733786,0.89929026};
+		up[]={-0.072043188,0.9841488,0.16204791};
+		aside[]={0.91377211,3.5041012e-008,0.40624452};
 	};
 };
 binarizationWanted=0;
@@ -455,7 +455,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=153;
+		items=155;
 		class Item0
 		{
 			dataType="Group";
@@ -10845,6 +10845,470 @@ class Mission
 			angle=267.61771;
 			id=411;
 			atlOffset=1.8866471e+024;
+		};
+		class Item153
+		{
+			dataType="Group";
+			side="East";
+			class Entities
+			{
+				items=9;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7706.3628,21.352686,15744.718};
+					};
+					side="East";
+					flags=7;
+					class Attributes
+					{
+						rank="SERGEANT";
+						init="(group this) setVariable [""GAIA_ZONE_INTEND"", [""mMCCZone1"",""MOVE""]];";
+					};
+					id=413;
+					type="LOP_SLA_Infantry_TL";
+					atlOffset=-0.0090103149;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.03;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
+					};
+				};
+				class Item1
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7709.3633,21.405573,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+					};
+					id=414;
+					type="LOP_SLA_Infantry_SL";
+					atlOffset=-0.0056324005;
+				};
+				class Item2
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7711.3633,21.374081,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+					};
+					id=415;
+					type="LOP_SLA_Infantry_Corpsman";
+					atlOffset=-0.0056228638;
+				};
+				class Item3
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7713.3633,21.342579,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+					};
+					id=416;
+					type="LOP_SLA_Infantry_Rifleman";
+					atlOffset=-0.0056228638;
+				};
+				class Item4
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7715.3633,21.311077,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=417;
+					type="LOP_SLA_Infantry_AT";
+					atlOffset=-0.0056324005;
+				};
+				class Item5
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7717.3633,21.279575,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=418;
+					type="LOP_SLA_Infantry_AT_Asst";
+					atlOffset=-0.0056324005;
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7719.3633,21.248074,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=419;
+					type="LOP_SLA_Infantry_GL";
+					atlOffset=-0.0056324005;
+				};
+				class Item7
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7721.3633,21.221798,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=420;
+					type="LOP_SLA_Infantry_MG";
+					atlOffset=0.04842186;
+				};
+				class Item8
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7723.3633,21.217299,15739.718};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=421;
+					type="LOP_SLA_Infantry_MG_Asst";
+					atlOffset=0.048423767;
+				};
+			};
+			class Attributes
+			{
+			};
+			id=412;
+			atlOffset=-0.0090103149;
+		};
+		class Item154
+		{
+			dataType="Group";
+			side="East";
+			class Entities
+			{
+				items=9;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9881.7646,77.288162,14584.585};
+					};
+					side="East";
+					flags=7;
+					class Attributes
+					{
+						rank="SERGEANT";
+						init="(group this) setVariable [""GAIA_ZONE_INTEND"", [""mMCCZone2"",""MOVE""]]; {_x setVariable [""IP_HiddenUnits"", 1];} forEach (units(group this));";
+					};
+					id=423;
+					type="LOP_SLA_Infantry_TL";
+					atlOffset=0.059997559;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isHandcuffed";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleHandcuffed}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.03;
+								};
+							};
+						};
+						class Attribute2
+						{
+							property="ace_isSurrendered";
+							expression="if (_value) then {[objNull,[_this],true] call ace_captives_fnc_moduleSurrender}";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"BOOL"
+										};
+									};
+									value=0;
+								};
+							};
+						};
+						nAttributes=3;
+					};
+				};
+				class Item1
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9884.7637,77.375389,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+					};
+					id=424;
+					type="LOP_SLA_Infantry_SL";
+					atlOffset=0.047409058;
+				};
+				class Item2
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9886.7637,77.801979,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+					};
+					id=425;
+					type="LOP_SLA_Infantry_Corpsman";
+					atlOffset=0.047271729;
+				};
+				class Item3
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9888.7637,78.228745,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+					};
+					id=426;
+					type="LOP_SLA_Infantry_Rifleman";
+					atlOffset=0.047317505;
+				};
+				class Item4
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9890.7637,78.686897,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=427;
+					type="LOP_SLA_Infantry_AT";
+					atlOffset=0.031295776;
+				};
+				class Item5
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9892.7637,79.142204,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=428;
+					type="LOP_SLA_Infantry_AT_Asst";
+					atlOffset=0.031272888;
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9894.7637,79.597527,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=429;
+					type="LOP_SLA_Infantry_GL";
+					atlOffset=0.031272888;
+				};
+				class Item7
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9896.7637,80.052711,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=430;
+					type="LOP_SLA_Infantry_MG";
+					atlOffset=0.03112793;
+				};
+				class Item8
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={9898.7637,80.508064,14579.585};
+					};
+					side="East";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+					};
+					id=431;
+					type="LOP_SLA_Infantry_MG_Asst";
+					atlOffset=0.031150818;
+				};
+			};
+			class Attributes
+			{
+			};
+			id=422;
+			atlOffset=0.059997559;
 		};
 	};
 };
