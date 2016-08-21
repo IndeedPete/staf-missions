@@ -1,6 +1,7 @@
 // Variables
 IP_TESTMODE = true;
-IP_HiddenUnits = [[], [], [], []];
+IP_Wounded = [IP_Wounded1, IP_Wounded2, IP_Wounded3];
+IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -22,7 +23,7 @@ East setFriend [West, 1];
 [west, "tSecure", ["Secure the immediate area around <marker name=""mTank"">Victor-2-2's position</marker>! Provide first aid to wounded crew members if required!", "Secure Victor-2-2", (markerText "mTank")], "mTank", false, 7, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tAA", ["Secure a ~300 metre radius around <marker name=""mLZ"">LZ Iron</marker>! Make sure no AA threats are in the area!", "Sweep for AA Threats", (markerText "mLZ")], "mLZ", false, 6, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tEvac", ["Call in Starforce-2-1 MEDEVAC on <marker name=""mLZ"">LZ Iron</marker> and evacuate wounded crew members if required!", "MEDEVAC Victor-2-2's Crew", (markerText "mLZ")], "mLZ", false, 5, false, "heal"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tRepair", ["Repair <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "Repair Victor-2-2's MBT", (markerText "mTank")], "mTank", false, 4, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tRecover", ["Recover <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "Recover Victor-2-2's MBT", (markerText "mTank")], "mTank", false, 4, false, "repair"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tRTB", ["Return to <marker name=""mFOB"">FOB Snow Leopard</marker>! If possible, bring <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "RTB to FOB Snow Leopard", (markerText "mFOB")], "mFOB", false, 3, false, "exit"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tTank", ["Protect <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "Protect Victor-2-2's MBT", (markerText "mTank")], "mTank", false, 1, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tCrew", ["Protect <marker name=""mTank"">Victor-2-2's M1A1FEP crew</marker>!", "Protect Victor-2-2's Crew", (markerText "mTank")], "mTank", false, 1, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
@@ -34,9 +35,12 @@ East setFriend [West, 1];
 		_x enableGunLights "forceOn";
 	};*/
 	
-	if (_x getVariable ["IP_HiddenUnits", -1] >= 0) then {
+	_key = _x getVariable ["IP_HiddenUnits", ""];
+	if (_key != "") then {
+		_objs = IP_HiddenUnits getVariable [_key, []];
+		_objs pushBack _x;
+		IP_HiddenUnits setVariable [_key, _objs];
 		[_x] call STAF_fnc_disable;
-		(IP_HiddenUnits select (_x getVariable "IP_HiddenUnits")) pushBack _x;
 	};
 } forEach (allMissionObjects "All");
 
@@ -68,8 +72,31 @@ East setFriend [West, 1];
 };
 
 [] spawn {
+	#define CHECK ({alive _x} count IP_Wounded == 0)
+	#define FAIL ["tCrew", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true]; ["tEvac", "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true]; {deleteVehicle _x} forEach ((crew IP_MEDEVACHeli) + (crew IP_CASHeli) + [IP_MEDEVACHeli, IP_CASHeli])
 	waitUntil {({alive _x} count (units IP_AAGroup1) == 0) && {{alive _x} count (units IP_AAGroup2) == 0}};
 	["tAA", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[(IP_HiddenUnits getVariable ["W01", []])] call STAF_fnc_enable;
+	
+	waitUntil {(triggerActivated trgTankClear) OR CHECK};
+	if CHECK exitWith {FAIL};
+	
+	IP_MEDEVAC_TakeOff = true;
+	
+	waitUntil {({(alive _x) && {_x in IP_MEDEVACHeli}} count IP_Wounded == {alive _x} count IP_Wounded) OR CHECK};
+	
+	IP_MEDEVACHeli lock 2;
+	IP_MEDEVAC_RTB = true;
+	if CHECK exitWith {
+		["tCrew", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+		["tEvac", "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
+	["tEvac", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	waitUntil {isNull IP_MEDEVACHeli};
+	
+	["tCrew", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
 	/*[west, "tDefendAlpha", ["An armoured SLA unit just departed at <marker name=""mBravo"">Objective Bravo</marker> and is on the way to <marker name=""mAlpha"">Objective Alpha</marker>. Defend <marker name=""mAlpha"">Objective Alpha</marker>!", "Defend Alpha", (markerText "mAlpha")], "mAlpha", true, 1, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	sleep 60;
