@@ -13,9 +13,13 @@ East setFriend [West, 1];
 // Hide Zhe Markerz
 {
 	//if ((markerType _x == "mil_dot") OR {_x find "mMCCZone" >= 0} OR {_x find "mTAOR" >= 0}) then {
-	if ((_x find "mMCCZone" >= 0) OR {_x find "mTAOR" >= 0}) then {
+	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mIED" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
+	/*
+	if (markerType _x == "hd_dot") then {
+		_x setMarkerAlpha 0.5;
+	};*/
 } forEach allMapMarkers;
 
 // Tasks
@@ -26,7 +30,7 @@ East setFriend [West, 1];
 [west, "tRecover", ["Recover <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "Recover Victor-2-2's MBT", (markerText "mTank")], "mTank", false, 4, false, "repair"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tRTB", ["Return to <marker name=""mFOB"">FOB Snow Leopard</marker>! If possible, bring <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "RTB to FOB Snow Leopard", (markerText "mFOB")], "mFOB", false, 3, false, "exit"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tTank", ["Protect <marker name=""mTank"">Victor-2-2's M1A1FEP MBT</marker>!", "Protect Victor-2-2's MBT", (markerText "mTank")], "mTank", false, 1, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tCrew", ["Protect <marker name=""mTank"">Victor-2-2's M1A1FEP crew</marker>!", "Protect Victor-2-2's Crew", (markerText "mTank")], "mTank", false, 1, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tCrew", ["Protect <marker name=""mTank"">Victor-2-2's M1A1FEP crew</marker>!", "Protect Victor-2-2's Crew", (markerText "mTank")], "mTank", false, 1, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true]; //*/
 
 // Units
 {
@@ -81,12 +85,25 @@ East setFriend [West, 1];
 	waitUntil {(triggerActivated trgTankClear) OR CHECK};
 	if CHECK exitWith {FAIL};
 	
+	_incoming = call(compile(preprocessFileLineNumbers "dta\incoming.sqf"));
+	_hovering = call(compile(preprocessFileLineNumbers "dta\hovering.sqf"));
+	_outgoing = call(compile(preprocessFileLineNumbers "dta\outgoing.sqf"));
 	IP_MEDEVAC_TakeOff = true;
+	sleep 3;
+	[IP_MEDEVACHeli, _incoming] call IP_fnc_unitPlayMP;
+	[(IP_HiddenUnits getVariable ["W02", []])] call STAF_fnc_enable;
 	
-	waitUntil {({(alive _x) && {_x in IP_MEDEVACHeli}} count IP_Wounded == {alive _x} count IP_Wounded) OR CHECK};
+	while {({(alive _x) && {_x in IP_MEDEVACHeli}} count IP_Wounded != {alive _x} count IP_Wounded) && !CHECK} do {
+		[IP_MEDEVACHeli, _hovering] call IP_fnc_unitPlayMP;
+	};
 	
 	IP_MEDEVACHeli lock 2;
 	IP_MEDEVAC_RTB = true;
+	_handle = [IP_MEDEVACHeli, _outgoing] spawn {
+		_this call IP_fnc_unitPlayMP;
+		{deleteVehicle _x} forEach ((crew IP_MEDEVACHeli) + [IP_MEDEVACHeli]);
+	};
+	
 	if CHECK exitWith {
 		["tCrew", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 		["tEvac", "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];

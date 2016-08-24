@@ -16,19 +16,11 @@ class IP
 		};
 	};
 	
-	class mission
+	class UnitPlay
 	{
-		class blackIn
+		class unitPlayMP
 		{
-			file = "fnc\mission\blackIn.sqf";
-		};
-		class blackOut
-		{
-			file = "fnc\mission\blackOut.sqf";
-		};
-		class loadLoadout
-		{
-			file = "fnc\mission\loadLoadout.sqf";
+			file = "fnc\UnitPlay\unitPlayMP.sqf";
 		};
 	};
 	

@@ -1,10 +1,10 @@
 //__________________________________________
 
 author = "STAF|IndeedPete";
-OnLoadName = "STAF|CSAR";
-//briefingName = "STAF|Operation Pointflash";
+OnLoadName = "STAF|CSAR-2-2";
+// briefingName = "STAF|Operation Pointflash";
 onLoadMission = "Central Takistan...";
-//overviewText = "A USMC platoon deploys on the north-western Sahrani coastline as part of Operation Pointflash in order to hold and seize three SLA-held villages.";
+overviewText = "One hour ago, after patrolling the Islamic State (IS) held north-west Takistan, the armoured platoon Victor-2 was ambushed on grid 011070, between the villages of Khushab and Mulladost. Met with incoming RPG fire from all directions, Victor-2 quickly retreated south while returning fire. During the attack, Victor-2-2's M1A1FEP MBT was hit and immobilised, and as a result left behind in enemy territory. The communication with the crew was lost and it is unknown if any of them survived the ambush.";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
 disabledAI = 1;
@@ -44,6 +44,7 @@ wreckRemovalMaxTime = 1200;
 class CfgFunctions
 {
 	#include "cfg\functions.hpp"
+	#include "EPD\EPDcfgFunctions.hpp"
 };
 
 class CfgDebriefing
