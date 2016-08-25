@@ -1,21 +1,5 @@
 class IP
 {	
-	class base
-	{
-		class arty
-		{
-			file = "fnc\base\arty.sqf";
-		};
-		class launchFlare
-		{
-			file = "fnc\base\launchFlare.sqf";
-		};
-		class track
-		{
-			file = "fnc\base\track.sqf";
-		};
-	};
-	
 	class UnitPlay
 	{
 		class unitPlayMP

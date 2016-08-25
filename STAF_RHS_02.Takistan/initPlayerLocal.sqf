@@ -16,7 +16,7 @@ if !(hasInterface) exitWith {};
 		};
 		
 		{
-			[(leader _x)] call IP_fnc_track;
+			[(leader _x)] call STAF_fnc_track;
 		} forEach allGroups;
 	} else {
 		// Restrict 3rd Person

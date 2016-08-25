@@ -33,12 +33,7 @@ East setFriend [West, 1];
 [west, "tCrew", ["Protect <marker name=""mTank"">Victor-2-2's M1A1FEP crew</marker>!", "Protect Victor-2-2's Crew", (markerText "mTank")], "mTank", false, 1, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true]; //*/
 
 // Units
-{
-	/*if ((_x isKindOf "Man") && {!(isPlayer _x)} && {_x hasWeapon "SMG_05_F"}) then {
-		_x addPrimaryWeaponItem "acc_flashlight";
-		_x enableGunLights "forceOn";
-	};*/
-	
+{	
 	_key = _x getVariable ["IP_HiddenUnits", ""];
 	if (_key != "") then {
 		_objs = IP_HiddenUnits getVariable [_key, []];
@@ -54,15 +49,6 @@ East setFriend [West, 1];
 // Respawn
 [west, "mFOB", (markerText "mFOB")] call BIS_fnc_addRespawnPosition;
 
-// Weather
-//[0.5, 0.05, 0] call BIS_fnc_setFog;
-/*[] spawn {
-	(60 * 60) setRain 0;
-	waitUntil {dayTime > 6};
-	(60 * 60) setFog [0, 0, 0];
-};
-*/
-
 // Mission Flow
 [] spawn {
 	waitUntil {triggerActivated trgFARP};
@@ -73,11 +59,6 @@ East setFriend [West, 1];
 [] spawn {
 	waitUntil {triggerActivated trgTankClear};
 	["tSecure", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-};
-
-[] spawn {
-	waitUntil {!(alive IP_Tank)};
-	["tTank", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
 
 [] spawn {
@@ -118,57 +99,26 @@ East setFriend [West, 1];
 	waitUntil {isNull IP_MEDEVACHeli};
 	
 	["tCrew", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	
-	/*[west, "tDefendAlpha", ["An armoured SLA unit just departed at <marker name=""mBravo"">Objective Bravo</marker> and is on the way to <marker name=""mAlpha"">Objective Alpha</marker>. Defend <marker name=""mAlpha"">Objective Alpha</marker>!", "Defend Alpha", (markerText "mAlpha")], "mAlpha", true, 1, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	
-	sleep 60;
-	
-	[(IP_HiddenUnits select 0)] call STAF_fnc_enable;
-	//IP_BackupGo = true;
-	if (IP_TESTMODE) then {
-		"Backup Alpha deployed." remoteExec ["systemChat", 0, false];
-	};
-	
-	waitUntil {{(_x isKindOf "MAN") && {alive _x}} count (units(group((IP_HiddenUnits select 0) select 0))) == 0};
-	["tDefendAlpha", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[west, "tBravo", ["A friendly unit encountered a T-80 MBT at <marker name=""mBravo"">Objective Bravo</marker> and is on hold until your arrival. Help them to seize the SLA-held <marker name=""mBravo"">Objective Bravo</marker>!", "Seize Bravo", (markerText "mBravo")], "mBravo", true, 1, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[(IP_HiddenUnits select 1)] call STAF_fnc_enable;
-	
-	waitUntil {triggerActivated trgBravoClear};
-	["tBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[west, "mHQBravo", (markerText "mHQBravo")] call BIS_fnc_addRespawnPosition;
-	[west, "tDefendBravo", ["The SLA deployed an armoured convoy in an attempt to re-take <marker name=""mBravo"">Objective Bravo</marker>. It's coming through the mountain pass to the east. Repel the attack!", "Defend Bravo", (markerText "mBravo")], "mBravo", true, 1, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	
-	sleep 60;
-	IP_AmbientArty = true;
-	["mBravoArea", {IP_AmbientArty}, 0, 0, [5, 10]] spawn IP_fnc_arty;
-	sleep 120;
-	IP_AmbientArty = false;
-	
-	[(IP_HiddenUnits select 3)] call STAF_fnc_enable;
-	if (IP_TESTMODE) then {
-		"Backup Bravo deployed." remoteExec ["systemChat", 0, false];
-	};
-	
-	waitUntil {{(_x isKindOf "MAN") && {alive _x}} count ((units(group((IP_HiddenUnits select 3) select 0))) + (units(group((IP_HiddenUnits select 3) select 1)))) == 0};
-	["tDefendBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];	
-	sleep 5;
-	["Win"] call BIS_fnc_endMissionServer;*/
 };
 
 [] spawn {
 	waitUntil {(isNull IP_MEDEVACHeli) && {triggerActivated trgAOClear}};
+	[west, "tRegroup1", ["Regroup around <marker name=""mTank"">Victor-2-2's position</marker>!", "Regroup", (markerText "mTank")], "mTank", true, 6, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	waitUntil {{(_x distance (getMarkerPos "mTank")) > 50} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	["tRegroup1", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
 	["IP_BlackScreen", true, 1] remoteExecCall ["STAF_fnc_blackOut", 0, false];
 	sleep 1;
+	{[_x] call STAF_fnc_ACEHeal} forEach (allPlayers - (entities "HeadlessClient_F"));
 	skipTime 6;
 	sleep 1;
-	["IP_BlackScreen", true, 1] remoteExecCall ["STAF_fnc_blackIn", 0, false];
+	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackIn", 0, false];
 	sleep 5;
-	[["Six Hours Later"]] remoteExecCall ["BIS_fnc_EXP_camp_SITREP", 0, false];
+	[["Six Hours Later"]] remoteExec ["BIS_fnc_EXP_camp_SITREP", 0, false];
 	[(IP_HiddenUnits getVariable ["W02", []])] call STAF_fnc_enable;
 	sleep 30;
 	[(IP_HiddenUnits getVariable ["W03", []])] call STAF_fnc_enable;
-	[(getMarkerPos "mTank"), "F_40mm_White", 300] call IP_fnc_launchFlare;
+	[(getMarkerPos "mTank"), "F_40mm_White", 300] call STAF_fnc_launchFlare;
 	sleep 30;
 	
 	[] spawn {
@@ -185,16 +135,59 @@ East setFriend [West, 1];
 		sleep 10;
 		while {IP_Flares} do {
 			_pos = [IP_Tank, 100] call IP_fnc_SHKPos;
-			[_pos] call IP_fnc_launchFlare;
+			[_pos] call STAF_fnc_launchFlare;
 			sleep 30;
 		};
 	};
 	
-	sleep 30;
-	[west, "tArty", ["Locate and neutralise the enemy artillery likely present in <marker name=""mEnemyVillage"">Mulladost</marker>!", "Neutralise Artillery", "Mulladost"], "mEnemyVillage", true, 5, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	sleep 60;
+	[west, "tArty", ["Locate and neutralise the enemy artillery likely present in <marker name=""mEnemyVillage"">Mulladost</marker>!", "Neutralise Artillery", "Mulladost"], "mEnemyVillage", true, 5, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	sleep 60;
 	[(IP_HiddenUnits getVariable ["W04", []])] call STAF_fnc_enable;
 	
 	waitUntil {triggerActivated trgArtyClear};
 	["tArty", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	sleep 180;
+	
+	[(IP_HiddenUnits getVariable ["W05", []])] call STAF_fnc_enable;
+	
+	sleep 180;
+	
+	[(IP_HiddenUnits getVariable ["W06", []])] call STAF_fnc_enable;
+	
+	sleep 180;
+	waitUntil {triggerActivated trgAOClear};
+	IP_Flares = false;
+	
+	[west, "tRegroup2", ["Regroup around <marker name=""mTank"">Victor-2-2's position</marker>!", "Regroup", (markerText "mTank")], "mTank", true, 6, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	waitUntil {{(_x distance (getMarkerPos "mTank")) > 50} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	["tRegroup2", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackOut", 0, false];
+	sleep 1;
+	{[_x] call STAF_fnc_ACEHeal} forEach (allPlayers - (entities "HeadlessClient_F"));
+	skipTime 5;
+	sleep 1;
+	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackIn", 0, false];
+	sleep 5;
+	[["Five Hours Later"]] remoteExec ["BIS_fnc_EXP_camp_SITREP", 0, false];
+	sleep 30;
+	
+	IP_Tank setDamage 0;
+	IP_Tank allowDamage true;
+	["tRecover", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	[] spawn {
+		waitUntil {!(alive IP_Tank)};
+		["tTank", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
+	
+	waitUntil {{(_x distance (getMarkerPos "mFOB")) > 100} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	
+	["tRTB", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	waitUntil {(alive IP_Tank) && {(_x distance (getMarkerPos "mFOB")) < 100}};
+	
+	["tTank", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
