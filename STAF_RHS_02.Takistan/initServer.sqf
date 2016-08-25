@@ -76,6 +76,11 @@ East setFriend [West, 1];
 };
 
 [] spawn {
+	waitUntil {!(alive IP_Tank)};
+	["tTank", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+[] spawn {
 	#define CHECK ({alive _x} count IP_Wounded == 0)
 	#define FAIL ["tCrew", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true]; ["tEvac", "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true]; {deleteVehicle _x} forEach ((crew IP_MEDEVACHeli) + (crew IP_CASHeli) + [IP_MEDEVACHeli, IP_CASHeli])
 	waitUntil {({alive _x} count (units IP_AAGroup1) == 0) && {{alive _x} count (units IP_AAGroup2) == 0}};
@@ -149,4 +154,47 @@ East setFriend [West, 1];
 	["tDefendBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];	
 	sleep 5;
 	["Win"] call BIS_fnc_endMissionServer;*/
+};
+
+[] spawn {
+	waitUntil {(isNull IP_MEDEVACHeli) && {triggerActivated trgAOClear}};
+	["IP_BlackScreen", true, 1] remoteExecCall ["STAF_fnc_blackOut", 0, false];
+	sleep 1;
+	skipTime 6;
+	sleep 1;
+	["IP_BlackScreen", true, 1] remoteExecCall ["STAF_fnc_blackIn", 0, false];
+	sleep 5;
+	[["Six Hours Later"]] remoteExecCall ["BIS_fnc_EXP_camp_SITREP", 0, false];
+	[(IP_HiddenUnits getVariable ["W02", []])] call STAF_fnc_enable;
+	sleep 30;
+	[(IP_HiddenUnits getVariable ["W03", []])] call STAF_fnc_enable;
+	[(getMarkerPos "mTank"), "F_40mm_White", 300] call IP_fnc_launchFlare;
+	sleep 30;
+	
+	[] spawn {
+		while {(alive (gunner IP_Arty)) && !(isNull(gunner IP_Arty))} do {
+			_pos = [IP_Tank, 150] call IP_fnc_SHKPos;
+			(gunner IP_Arty) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Arty]) select 0), 1];
+			sleep 40;
+			IP_Arty setVehicleAmmo 1;
+		};
+	};
+	
+	[] spawn {
+		IP_Flares = true;
+		sleep 10;
+		while {IP_Flares} do {
+			_pos = [IP_Tank, 100] call IP_fnc_SHKPos;
+			[_pos] call IP_fnc_launchFlare;
+			sleep 30;
+		};
+	};
+	
+	sleep 30;
+	[west, "tArty", ["Locate and neutralise the enemy artillery likely present in <marker name=""mEnemyVillage"">Mulladost</marker>!", "Neutralise Artillery", "Mulladost"], "mEnemyVillage", true, 5, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	sleep 60;
+	[(IP_HiddenUnits getVariable ["W04", []])] call STAF_fnc_enable;
+	
+	waitUntil {triggerActivated trgArtyClear};
+	["tArty", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
