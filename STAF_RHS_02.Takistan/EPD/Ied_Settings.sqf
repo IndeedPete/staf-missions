@@ -68,7 +68,7 @@ allowExplosiveToTriggerIEDs = true;
 
 iedInitialArray = [
 	["mIED1", 1, [50, 50, 0, 0], ["West"]],
-	["mIED2", (2 + round(random 3)), [25, 40, 25, 10], ["West"]]
+	["mIED2", (1 + round(random 1)), [25, 40, 25, 10], ["West"]]
 	/*["AllCities","West"],
 	["AllVillages","West"],
 	/*["AltisRandom1",6,"West"],

@@ -172,6 +172,7 @@ East setFriend [West, 1];
 	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackIn", 0, false];
 	sleep 5;
 	[["Five Hours Later"]] remoteExec ["BIS_fnc_EXP_camp_SITREP", 0, false];
+	[(IP_HiddenUnits getVariable ["W07", []])] call STAF_fnc_enable;
 	sleep 30;
 	
 	IP_Tank setDamage 0;
@@ -187,7 +188,7 @@ East setFriend [West, 1];
 	
 	["tRTB", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
-	waitUntil {(alive IP_Tank) && {(_x distance (getMarkerPos "mFOB")) < 100}};
+	waitUntil {(alive IP_Tank) && {(IP_Tank distance (getMarkerPos "mFOB")) < 100}};
 	
 	["tTank", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
