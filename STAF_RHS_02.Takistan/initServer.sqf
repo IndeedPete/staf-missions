@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Wounded = [IP_Wounded1, IP_Wounded2, IP_Wounded3];
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
@@ -123,9 +123,9 @@ East setFriend [West, 1];
 	
 	[] spawn {
 		while {(alive (gunner IP_Arty)) && !(isNull(gunner IP_Arty))} do {
-			_pos = [IP_Tank, 150] call IP_fnc_SHKPos;
+			_pos = [IP_Tank, 100] call IP_fnc_SHKPos;
 			(gunner IP_Arty) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Arty]) select 0), 1];
-			sleep 40;
+			sleep 30;
 			IP_Arty setVehicleAmmo 1;
 		};
 	};
@@ -136,7 +136,7 @@ East setFriend [West, 1];
 		while {IP_Flares} do {
 			_pos = [IP_Tank, 100] call IP_fnc_SHKPos;
 			[_pos] call STAF_fnc_launchFlare;
-			sleep 30;
+			sleep 20;
 		};
 	};
 	
@@ -176,7 +176,8 @@ East setFriend [West, 1];
 	sleep 30;
 	
 	IP_Tank setDamage 0;
-	IP_Tank allowDamage true;
+	[IP_Tank, 1] remoteExec ["setFuel", 0, true];
+	[IP_Tank, true] remoteExec ["allowDamage", 0, true];
 	["tRecover", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
 	[] spawn {

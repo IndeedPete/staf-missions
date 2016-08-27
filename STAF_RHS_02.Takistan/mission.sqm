@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={5202.6782,238.80452,5996.8101};
-		dir[]={0.58755302,-0.64459932,0.48936138};
-		up[]={0.49533784,0.7644847,0.41255513};
-		aside[]={0.64004195,4.1374005e-007,-0.76846945};
+		pos[]={5154.4019,156.32915,6034.5449};
+		dir[]={0.86041367,-0.23780601,0.45095378};
+		up[]={0.21073352,0.97127813,0.11044709};
+		aside[]={0.46427017,1.7299317e-007,-0.88581699};
 	};
 };
 binarizationWanted=0;
@@ -3551,6 +3551,7 @@ class Mission
 						rank="SERGEANT";
 						init="(group this) setGroupID [""Charlie-3-2""];";
 						name="IP_SL";
+						isPlayer=1;
 						isPlayable=1;
 						class Inventory
 						{
@@ -3737,8 +3738,121 @@ class Mission
 					{
 						rank="SERGEANT";
 						name="IP_TL";
-						isPlayer=1;
 						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="rhs_weap_m4_m203";
+								optics="rhsusf_acc_ACOG2_USMC";
+								flashlight="rhsusf_acc_anpeq15side";
+								class primaryMuzzleMag
+								{
+									name="rhs_mag_30Rnd_556x45_Mk318_Stanag";
+									ammoLeft=30;
+								};
+							};
+							class binocular
+							{
+								name="Binocular";
+							};
+							class uniform
+							{
+								typeName="rhs_uniform_FROG01_d";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="rhs_mag_30Rnd_556x45_Mk318_Stanag";
+										count=1;
+										ammoLeft=30;
+									};
+								};
+								class ItemCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+									class Item1
+									{
+										name="rhsusf_ANPVS_14";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="rhsusf_spc_teamleader";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=5;
+									class Item0
+									{
+										name="rhs_mag_30Rnd_556x45_Mk318_Stanag";
+										count=7;
+										ammoLeft=30;
+									};
+									class Item1
+									{
+										name="rhs_mag_M441_HE";
+										count=5;
+										ammoLeft=1;
+									};
+									class Item2
+									{
+										name="rhs_mag_m18_yellow";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item3
+									{
+										name="rhs_mag_m18_purple";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item4
+									{
+										name="rhs_mag_m67";
+										count=2;
+										ammoLeft=1;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="rhsusf_falconii_coy_gr";
+								isBackpack=1;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="rhs_mag_M441_HE";
+										count=20;
+										ammoLeft=1;
+									};
+									class Item1
+									{
+										name="rhs_mag_M585_white";
+										count=10;
+										ammoLeft=1;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="ItemRadio";
+							gps="ItemGPS";
+							goggles="rhs_googles_clear";
+							headgear="rhsusf_lwh_helmet_marpatd_ess";
+						};
 					};
 					id=39;
 					type="rhsusf_usmc_marpat_d_teamleader";
@@ -4052,6 +4166,120 @@ class Mission
 						rank="SERGEANT";
 						name="IP_TL2";
 						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="rhs_weap_m4_m203";
+								optics="rhsusf_acc_ACOG2_USMC";
+								flashlight="rhsusf_acc_anpeq15side";
+								class primaryMuzzleMag
+								{
+									name="rhs_mag_30Rnd_556x45_Mk318_Stanag";
+									ammoLeft=30;
+								};
+							};
+							class binocular
+							{
+								name="Binocular";
+							};
+							class uniform
+							{
+								typeName="rhs_uniform_FROG01_d";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="rhs_mag_30Rnd_556x45_Mk318_Stanag";
+										count=1;
+										ammoLeft=30;
+									};
+								};
+								class ItemCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+									class Item1
+									{
+										name="rhsusf_ANPVS_14";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="rhsusf_spc_teamleader";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=5;
+									class Item0
+									{
+										name="rhs_mag_30Rnd_556x45_Mk318_Stanag";
+										count=7;
+										ammoLeft=30;
+									};
+									class Item1
+									{
+										name="rhs_mag_M441_HE";
+										count=5;
+										ammoLeft=1;
+									};
+									class Item2
+									{
+										name="rhs_mag_m18_yellow";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item3
+									{
+										name="rhs_mag_m18_purple";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item4
+									{
+										name="rhs_mag_m67";
+										count=2;
+										ammoLeft=1;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="rhsusf_falconii_coy_gr";
+								isBackpack=1;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="rhs_mag_M441_HE";
+										count=20;
+										ammoLeft=1;
+									};
+									class Item1
+									{
+										name="rhs_mag_M585_white";
+										count=10;
+										ammoLeft=1;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="ItemRadio";
+							gps="ItemGPS";
+							goggles="rhs_googles_black";
+							headgear="rhsusf_lwh_helmet_marpatd_ess";
+						};
 					};
 					id=50;
 					type="rhsusf_usmc_marpat_d_teamleader";
@@ -5574,6 +5802,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
+				fuel=0;
 				init="if (isServer) then {this setHit [""motor"", 1]}; this allowDamage false;";
 				name="IP_Tank";
 			};
@@ -5836,7 +6065,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""rhs_weap_M136""],[5]],[[""Laserbatteries"",""ACE_10Rnd_762x51_M118LR_Mag"",""ACE_10Rnd_762x51_Mk316_Mod_0_Mag"",""ACE_10Rnd_762x51_Mk319_Mod_0_Mag"",""ACE_10Rnd_762x51_M993_AP_Mag"",""ACE_SpareBarrel"",""Chemlight_blue"",""Chemlight_green"",""Chemlight_red"",""Chemlight_yellow"",""B_IR_Grenade""],[5,4,4,4,4,2,20,20,20,20,20]],[[""acc_flashlight"",""muzzle_snds_H_SW"",""ACE_MapTools"",""ACE_IR_Strobe_Item"",""rhsusf_ANPVS_14"",""ACE_Flashlight_XL50""],[20,2,3,20,20,20]],[[],[]]],false]";
+							value="[[[[""rhs_weap_M136""],[5]],[[""Laserbatteries"",""ACE_10Rnd_762x51_M118LR_Mag"",""ACE_10Rnd_762x51_Mk316_Mod_0_Mag"",""ACE_10Rnd_762x51_Mk319_Mod_0_Mag"",""ACE_10Rnd_762x51_M993_AP_Mag"",""ACE_SpareBarrel"",""Chemlight_blue"",""Chemlight_green"",""Chemlight_red"",""Chemlight_yellow"",""B_IR_Grenade"",""rhs_200rnd_556x45_M_SAW"",""rhsusf_100Rnd_762x51"",""rhsusf_20Rnd_762x51_m118_special_Mag""],[5,4,4,4,4,2,20,20,20,20,20,10,20,10]],[[""acc_flashlight"",""muzzle_snds_H_SW"",""ACE_MapTools"",""ACE_IR_Strobe_Item"",""rhsusf_ANPVS_14"",""ACE_Flashlight_XL50""],[20,2,3,20,20,20]],[[],[]]],false]";
 						};
 					};
 				};
@@ -20939,7 +21168,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="60";
+							value="100";
 						};
 					};
 				};
