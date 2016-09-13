@@ -21,7 +21,9 @@ IP_fnc_m_wave = {
 	_wave = IP_HiddenUnits getVariable [_id, []];
 	_objs = [];	
 	{
+		_x allowDamage true;
 		if (_x isKindOf "Man") then {
+			_x allowFleeing 0;
 			_objs pushBackUnique _x;			
 		} else {
 			{
@@ -55,20 +57,20 @@ IP_fnc_m_wave = {
 
 // Hide Zhe Markerz
 {
-	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0}) then {
+	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0} OR {_x find "mMeet" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
 
-/*/ Tasks
-[west, "tAA", ["Destroy the <marker name=""mAA"">Enemy Shilka</marker>!", "Destroy Shilka", (markerText "mAA")], "mAA", true, 6, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tRadar", ["Destroy the enemy air radar!", "Destroy Air Radar", ""], nil, false, 5, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tHostage", ["Secure the hostage and return to the <marker name=""mBase"">USS Khe Sanh</marker>!", "Secure Hostage", ""], nil, false, 4, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true]; //*/
+// Tasks
+[west, "tDefend", ["Defend <marker name=""mDva"">Position Dva</marker>! The enemy must not break through to <marker name=""mBase"">FOB Kuna</marker>.", "Hold the Line", (markerText "mDva")], "mDva", true, 6, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+//[west, "tHostage", ["Secure the hostage and return to the <marker name=""mBase"">USS Khe Sanh</marker>!", "Secure Hostage", ""], nil, false, 4, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true]; //*/
 
 // Units
 {	
 	_key = _x getVariable ["IP_HiddenUnits", ""];
 	if (_key != "") then {
+		_x allowDamage false;
 		_objs = IP_HiddenUnits getVariable [_key, []];
 		_objs pushBack _x;
 		IP_HiddenUnits setVariable [_key, _objs];
@@ -125,16 +127,30 @@ IP_fnc_m_wave = {
 
 [] spawn {
 	#define BREAK(N) sleep (N * 60);
-	#define BREAK_DEFAULT BREAK(1)
+	#define BREAK_DEFAULT BREAK(5)
 	waitUntil {triggerActivated trgInAO};
 	
-	BREAK(2)
+	if !(IP_TESTMODE) then {BREAK(2)};
 	
 	["mArty2", {IP_ArtyFire}, 0, 0, [5, 10]] spawn STAF_fnc_arty;
 	
-	BREAK(3)
+	if !(IP_TESTMODE) then {BREAK(3)};
 	
 	["W01"] call IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {BREAK_DEFAULT};
+	
+	["W02"] call IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {BREAK_DEFAULT};
+	
+	["W03"] call IP_fnc_m_wave;
+	
+	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	IP_ArtyFire = false;
+	[west, "mDva", (markerText "mDva")] call BIS_fnc_addRespawnPosition;
+	"mMeet" setMarkerAlpha 1;
+	[west, "tMeet", ["Link-up with the rest of the forces at the <marker name=""mMeet"">Meeting Point</marker> for a counter attack!", "Link-Up", (markerText "mMeet")], nil, true, 5, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 };
 
 /*
