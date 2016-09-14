@@ -64,7 +64,6 @@ IP_fnc_m_wave = {
 
 // Tasks
 [west, "tDefend", ["Defend <marker name=""mDva"">Position Dva</marker>! The enemy must not break through to <marker name=""mBase"">FOB Kuna</marker>.", "Hold the Line", (markerText "mDva")], "mDva", true, 6, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-//[west, "tHostage", ["Secure the hostage and return to the <marker name=""mBase"">USS Khe Sanh</marker>!", "Secure Hostage", ""], nil, false, 4, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true]; //*/
 
 // Units
 {	
@@ -149,28 +148,17 @@ IP_fnc_m_wave = {
 	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	IP_ArtyFire = false;
 	[west, "mDva", (markerText "mDva")] call BIS_fnc_addRespawnPosition;
+	
+	BREAK_DEFAULT BREAK(5)
+	
 	"mMeet" setMarkerAlpha 1;
-	[west, "tMeet", ["Link-up with the rest of the forces at the <marker name=""mMeet"">Meeting Point</marker> for a counter attack!", "Link-Up", (markerText "mMeet")], nil, true, 5, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, "tMeet", ["Link-up with the rest of the forces at the <marker name=""mMeet"">Meeting Point</marker> for a counter attack!", "Link-Up", (markerText "mMeet")], "mMeet", true, 5, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	waitUntil {triggerActivated trgMeet};
+	[(IP_HiddenUnits getVariable ["B01", []])] call STAF_fnc_enable;
+	
+	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	IP_ArtyFire = true;
+	[west, "mMeet", (markerText "mMeet")] call BIS_fnc_addRespawnPosition;
+	[west, "tRadar", ["Capture the <marker name=""mEnemyRadar"">Enemy Radar</marker>!", "Capture Radar", (markerText "mEnemyRadar")], "mEnemyRadar", true, 5, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, "tBase", ["Seize the <marker name=""mEnemyBase"">Enemy Base</marker>!", "Capture Radar", (markerText "mEnemyBase")], "mEnemyBase", false, 5, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 };
-
-/*
-[] spawn {
-	waitUntil {!(alive IP_Hostage)};
-	["tHostage", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-};
-
-[] spawn {
-	waitUntil {IP_Hostage distance (getMarkerPos "mBase") <= 100};
-	["tHostage", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-};
-
-[] spawn {
-	waitUntil {!(alive IP_AA)};
-	["tAA", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-};
-
-[] spawn {
-	waitUntil {!(alive IP_Radar)};
-	["tRadar", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-};
-//*/
