@@ -36,3 +36,15 @@ if !(hasInterface) exitWith {};
 		};
 	}];
 };
+
+[] spawn {
+	IP_AddTicket = false;
+	waitUntil {IP_AddTicket};
+	IP_AddTicket = false;
+	
+	[player, 1] call BIS_fnc_respawnTickets;
+	waitUntil {IP_AddTicket};
+	IP_AddTicket = false;
+	
+	[player, 1] call BIS_fnc_respawnTickets;
+};
