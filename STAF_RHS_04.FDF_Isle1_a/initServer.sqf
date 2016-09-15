@@ -157,8 +157,23 @@ IP_fnc_m_wave = {
 	[(IP_HiddenUnits getVariable ["B01", []])] call STAF_fnc_enable;
 	
 	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	IP_ArtyFire = true;
 	[west, "mMeet", (markerText "mMeet")] call BIS_fnc_addRespawnPosition;
 	[west, "tRadar", ["Capture the <marker name=""mEnemyRadar"">Enemy Radar</marker>!", "Capture Radar", (markerText "mEnemyRadar")], "mEnemyRadar", true, 5, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[west, "tBase", ["Seize the <marker name=""mEnemyBase"">Enemy Base</marker>!", "Capture Radar", (markerText "mEnemyBase")], "mEnemyBase", false, 5, false, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	
+	[] spawn {
+		waitUntil {triggerActivated trgDetected};
+		IP_ArtyFire = true;
+		
+		while {IP_ArtyFire && {alive(gunner IP_Arty3)} && !(isNull(gunner IP_Arty3))} do {
+			_pos = "mArty3" call STAF_fnc_SHKPos;
+			(gunner IP_Arty3) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Arty3]) select 0), 1];
+			sleep 10;
+			IP_Arty3 setVehicleAmmo 1;
+		};
+	};
+	
+	waitUntil {triggerActivated trgRadaClear};
+	["tRadar", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
 };
