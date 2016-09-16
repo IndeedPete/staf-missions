@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_ArtyFire = true;
 
 // Communicate dem vars
@@ -213,5 +213,5 @@ IP_fnc_m_wave = {
 	waitUntil {triggerActivated trgTrainClear};
 	["tTrain", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	sleep 5;
-	["Win"] call BIS_fnc_endMissionServer;
+	["STAF_Win"] call BIS_fnc_endMissionServer;
 };
