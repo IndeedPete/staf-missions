@@ -129,11 +129,11 @@ IP_fnc_m_wave = {
 	#define BREAK_DEFAULT BREAK(5)
 	waitUntil {triggerActivated trgInAO};
 	
-	if !(IP_TESTMODE) then {BREAK(2)};
+	if !(IP_TESTMODE) then {BREAK(1)};
 	
 	["mArty2", {IP_ArtyFire}, 0, 0, [5, 10]] spawn STAF_fnc_arty;
 	
-	if !(IP_TESTMODE) then {BREAK(3)};
+	if !(IP_TESTMODE) then {BREAK(1)};
 	
 	["W01"] call IP_fnc_m_wave;
 	
@@ -160,6 +160,8 @@ IP_fnc_m_wave = {
 	{_x allowDamage true} forEach (IP_HiddenUnits getVariable ["P01", []]);
 	
 	waitUntil {triggerActivated trgMeet};
+	IP_AddTicket = true;
+	publicVariable "IP_AddTicket";
 	
 	[(IP_HiddenUnits getVariable ["E01", []])] call STAF_fnc_enable;
 	{
@@ -184,6 +186,8 @@ IP_fnc_m_wave = {
 	};
 	
 	waitUntil {triggerActivated trgRadarClear};
+	IP_AddTicket = true;
+	publicVariable "IP_AddTicket";
 	["tRadar", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
 	waitUntil {triggerActivated trgBaseClear};

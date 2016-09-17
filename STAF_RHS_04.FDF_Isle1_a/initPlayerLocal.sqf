@@ -20,7 +20,7 @@ if !(hasInterface) exitWith {};
 		} forEach allGroups;
 	} else {
 		// Restrict 3rd Person
-		//[] spawn STAF_fnc_viewRestrictions;
+		[] spawn STAF_fnc_viewRestrictions;
 	};
 };
 
@@ -39,6 +39,14 @@ if !(hasInterface) exitWith {};
 
 [] spawn {
 	IP_AddTicket = false;
+	waitUntil {IP_AddTicket};
+	IP_AddTicket = false;
+	
+	[player, 1] call BIS_fnc_respawnTickets;
+	waitUntil {IP_AddTicket};
+	IP_AddTicket = false;
+	
+	[player, 1] call BIS_fnc_respawnTickets;
 	waitUntil {IP_AddTicket};
 	IP_AddTicket = false;
 	
