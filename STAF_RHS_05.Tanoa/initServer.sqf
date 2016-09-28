@@ -1,6 +1,7 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_ArtyFire = true;
+IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -49,7 +50,7 @@ publicVariable "IP_TESTMODE";
 // [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
 // Respawn
-[west, "mBase", (markerText "mBase")] call BIS_fnc_addRespawnPosition;
+[west, [9388.47,895.411,17.3102], (markerText "mBase")] call BIS_fnc_addRespawnPosition;
 
 // Weather
 // [1, 0.1, 0] call BIS_fnc_setFog;
@@ -58,6 +59,7 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	while {IP_ArtyFire && {alive(gunner IP_ArtyTruck1)} && !(isNull(gunner IP_ArtyTruck1))} do {
 		_pos = "mArty" call STAF_fnc_SHKPos;
+		enableEngineArtillery true;
 		(gunner IP_ArtyTruck1) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_ArtyTruck1]) select 0), 40];
 		sleep 60;
 		IP_ArtyTruck1 setVehicleAmmo 1;
@@ -68,6 +70,7 @@ publicVariable "IP_TESTMODE";
 	sleep 20;
 	while {IP_ArtyFire && {alive(gunner IP_ArtyTruck2)} && !(isNull(gunner IP_ArtyTruck2))} do {
 		_pos = "mArty" call STAF_fnc_SHKPos;
+		enableEngineArtillery true;
 		(gunner IP_ArtyTruck2) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_ArtyTruck2]) select 0), 40];
 		sleep 60;
 		IP_ArtyTruck2 setVehicleAmmo 1;
@@ -78,6 +81,7 @@ publicVariable "IP_TESTMODE";
 	sleep 40;
 	while {IP_ArtyFire && {alive(gunner IP_ArtyTruck3)} && !(isNull(gunner IP_ArtyTruck3))} do {
 		_pos = "mArty" call STAF_fnc_SHKPos;
+		enableEngineArtillery true;
 		(gunner IP_ArtyTruck3) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_ArtyTruck3]) select 0), 40];
 		sleep 60;
 		IP_ArtyTruck3 setVehicleAmmo 1;
@@ -85,16 +89,6 @@ publicVariable "IP_TESTMODE";
 };
 
 /*
-[] spawn {
-	sleep 10;
-	while {IP_ArtyFire && {alive(gunner IP_Arty2)} && !(isNull(gunner IP_Arty2))} do {
-		_pos = "mArty" call STAF_fnc_SHKPos;
-		(gunner IP_Arty2) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Arty2]) select 0), 1];
-		sleep 20;
-		IP_Arty2 setVehicleAmmo 1;
-	};
-};
-
 [] spawn {
 	#define BREAK(N) sleep (N * 60);
 	#define BREAK_DEFAULT BREAK(5)
