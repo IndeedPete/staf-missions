@@ -16,3 +16,8 @@ enableSentences false;
 
 // Interior Light
 [] spawn STAF_fnc_intLight;
+
+// Weather
+[] spawn {
+	((120 * 60) - serverTime) setOvercast 0.25;
+};

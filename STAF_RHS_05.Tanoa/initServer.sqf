@@ -1,5 +1,7 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
+IP_AidWorkers = [IP_AidWorker1, IP_AidWorker2, IP_AidWorker3];
+IP_Centre = [9388.47,895.411,17.3102];
 IP_ArtyFire = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
@@ -8,13 +10,14 @@ publicVariable "IP_TESTMODE";
 
 // Hide Zhe Markerz
 {
-	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0} OR {_x find "mMeet" >= 0}) then {
+	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
 
 // Tasks
-//[west, "tDefend", ["Defend <marker name=""mDva"">Position Dva</marker>! The enemy must not break through to <marker name=""mBase"">FOB Kuna</marker>.", "Hold the Line", (markerText "mDva")], "mDva", true, 6, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tAidWorkers", ["Locate and evacuate the <marker name=""mAidWorkers"">Aid Workers</marker> in Katkoula!", "Evacuate Aid Workers", (markerText "mAidWorkers")], "mAidWorkers", true, 6, false, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tAgent", ["Locate and evacuate code name 'Horizon'!", "Evacuate Horizon", ""], nil, false, 6, false, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -50,10 +53,12 @@ publicVariable "IP_TESTMODE";
 // [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
 // Respawn
-[west, [9388.47,895.411,17.3102], (markerText "mBase")] call BIS_fnc_addRespawnPosition;
+[west, IP_Centre, (markerText "mBase")] call BIS_fnc_addRespawnPosition;
 
 // Weather
-// [1, 0.1, 0] call BIS_fnc_setFog;
+[] spawn {
+	(90 * 60) setFog [0, 0, 0];
+};
 
 // Mission Flow
 [] spawn {
@@ -86,6 +91,34 @@ publicVariable "IP_TESTMODE";
 		sleep 60;
 		IP_ArtyTruck3 setVehicleAmmo 1;
 	};
+};
+
+[] spawn {
+	waitUntil {{alive _x} count IP_AidWorkers == 0};
+	["tAidWorkers", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	sleep 5;
+	["STAF_Fail"] call BIS_fnc_endMissionServer;
+};
+
+[] spawn {
+	waitUntil {{(alive _x) && {_x distance IP_Centre <= 250}} count IP_AidWorkers == {alive _x} count IP_AidWorkers};
+	["tAidWorkers", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	IP_HintFound = true;
+	publicVariable "IP_HintFound";
+	[(IP_HiddenUnits getVariable ["Russians", []])] call STAF_fnc_enable;
+	
+	// Garbage Collection
+	[] spawn STAF_fnc_repetitiveCleanup;
+};
+
+[] spawn {
+	waitUntil {!(alive IP_Agent)};
+	["tAgent", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+[] spawn {
+	waitUntil {(alive IP_Agent) && {IP_Agent distance IP_Centre <= 250}};
+	["tAgent", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
 
 /*

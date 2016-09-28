@@ -20,7 +20,7 @@ if !(hasInterface) exitWith {};
 		} forEach allGroups;
 	} else {
 		// Restrict 3rd Person
-		// [] spawn STAF_fnc_viewRestrictions;
+		[] spawn STAF_fnc_viewRestrictions;
 	};
 };
 
@@ -35,4 +35,11 @@ if !(hasInterface) exitWith {};
 			player addItem "ACE_EarPlugs"; 
 		};
 	}];
+};
+
+// Hint
+[] spawn {
+	waitUntil {!(isNil "IP_HintFound")};
+	hint "Briefing Updated!";
+	player createDiaryRecord ["Diary", ["Aid Worker Report", "'The other guy, blue shirt? Yeah, the Syndikat paramilitary took him away by Offroad. My French is really bad but I think they talked about Russians. And about an airfield or so.'"]];
 };
