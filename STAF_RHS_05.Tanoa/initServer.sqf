@@ -1,9 +1,10 @@
 // Variables
 IP_TESTMODE = true;
 IP_AidWorkers = [IP_AidWorker1, IP_AidWorker2, IP_AidWorker3];
-IP_Centre = [9388.47,895.411,17.3102];
+IP_Centre = [9388.47,895.406,72.1035];
 IP_ArtyFire = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
+IP_SafehouseObjs = [];
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
@@ -23,15 +24,19 @@ publicVariable "IP_TESTMODE";
 {	
 	_key = _x getVariable ["IP_HiddenUnits", ""];
 	if (_key != "") then {
-		_x allowDamage false;
+		//_x allowDamage false;
 		_objs = IP_HiddenUnits getVariable [_key, []];
 		_objs pushBack _x;
 		IP_HiddenUnits setVariable [_key, _objs];
 		[_x] call STAF_fnc_disable;
 	};//*/
 	
+	if (_x getVariable ["IP_SafeHouse", false]) then {
+		IP_SafehouseObjs pushBack _x;
+	};
+	
 	if ((_x isKindOf "Man") && {side _x == independent}) then {
-		_x addPrimaryWeaponItem "acc_flashlight";//"rhs_acc_2dpZenit";
+		_x addPrimaryWeaponItem "acc_flashlight"; // "rhs_acc_2dpZenit";
 		_x enableGunLights "forceOn";
 	};
 } forEach (allMissionObjects "All");
@@ -114,106 +119,20 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	waitUntil {!(alive IP_Agent)};
 	["tAgent", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	["STAF_Fail"] call BIS_fnc_endMissionServer;
 };
 
 [] spawn {
 	waitUntil {(alive IP_Agent) && {IP_Agent distance IP_Centre <= 250}};
 	["tAgent", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[west, "tSafehouse", ["Destroy Horizon's Safehouse on grid 036106!", "Destroy Safehouse", ""], nil, false, 6, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	IP_HintFound = true;
+	publicVariable "IP_HintFound";
+	[(IP_HiddenUnits getVariable ["Safehouse", []])] call STAF_fnc_enable;
 };
 
-/*
 [] spawn {
-	#define BREAK(N) sleep (N * 60);
-	#define BREAK_DEFAULT BREAK(5)
-	waitUntil {triggerActivated trgInAO};
-	
-	if !(IP_TESTMODE) then {BREAK(1)};
-	
-	["mArty2", {IP_ArtyFire}, 0, 0, [5, 10]] spawn STAF_fnc_arty;
-	
-	if !(IP_TESTMODE) then {BREAK(1)};
-	
-	["W01"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {BREAK_DEFAULT};
-	
-	["W02"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {BREAK_DEFAULT};
-	
-	["W03"] call IP_fnc_m_wave;
-	
-	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	IP_ArtyFire = false;
-	IP_AddTicket = true;
-	publicVariable "IP_AddTicket";
-	[west, "mDva", (markerText "mDva")] call BIS_fnc_addRespawnPosition;
-	
-	if !(IP_TESTMODE) then {BREAK_DEFAULT};
-	
-	"mMeet" setMarkerAlpha 1;
-	[west, "tMeet", ["Link-up with the rest of the forces at the <marker name=""mMeet"">Meeting Point</marker> for a counter attack!", "Link-Up", (markerText "mMeet")], "mMeet", true, 5, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[(IP_HiddenUnits getVariable ["B01", []])] call STAF_fnc_enable;
-	[(IP_HiddenUnits getVariable ["P01", []])] call STAF_fnc_enable;
-	{_x allowDamage true} forEach (IP_HiddenUnits getVariable ["P01", []]);
-	
-	waitUntil {triggerActivated trgMeet};
-	IP_AddTicket = true;
-	publicVariable "IP_AddTicket";
-	
-	[(IP_HiddenUnits getVariable ["E01", []])] call STAF_fnc_enable;
-	{
-		_x allowDamage true;
-		_x allowFleeing 0;
-	} forEach ((IP_HiddenUnits getVariable ["B01", []]) + (IP_HiddenUnits getVariable ["E01", []]));	
-	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[west, "mMeet", (markerText "mMeet")] call BIS_fnc_addRespawnPosition;
-	[west, "tRadar", ["Capture the <marker name=""mEnemyRadar"">Enemy Radar</marker>!", "Capture Radar", (markerText "mEnemyRadar")], "mEnemyRadar", true, 5, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[west, "tBase", ["Seize the <marker name=""mEnemyBase"">Enemy Base</marker>!", "Capture Enemy Base", (markerText "mEnemyBase")], "mEnemyBase", false, 5, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	
-	[] spawn {
-		waitUntil {triggerActivated trgDetected};
-		IP_ArtyFire = true;
-		
-		while {IP_ArtyFire && {alive(gunner IP_Arty3)} && !(isNull(gunner IP_Arty3))} do {
-			_pos = "mArty3" call STAF_fnc_SHKPos;
-			(gunner IP_Arty3) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Arty3]) select 0), 1];
-			sleep 10;
-			IP_Arty3 setVehicleAmmo 1;
-		};
-	};
-	
-	waitUntil {triggerActivated trgRadarClear};
-	IP_AddTicket = true;
-	publicVariable "IP_AddTicket";
-	["tRadar", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	
-	waitUntil {triggerActivated trgBaseClear};
-	IP_ArtyFire = false;
-	["tBase", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	IP_AddTicket = true;
-	publicVariable "IP_AddTicket";
-	[west, "mEnemyBase", (markerText "mEnemyBase")] call BIS_fnc_addRespawnPosition;
-	[west, "tTrain", ["If you still can, scout the <marker name=""mTrain"">Train Station</marker>! If possible, take action against any enemy encountered there.", "Scout Train Station (OPTIONAL)", (markerText "mTrain")], "mTrain", true, 5, true, "scout"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[(IP_HiddenUnits getVariable ["E02", []])] call STAF_fnc_enable;
-	{
-		_x allowDamage true;
-	} forEach (IP_HiddenUnits getVariable ["E02", []]);
-	
-	[] spawn {
-		waitUntil {triggerActivated trgRockets};
-		IP_ArtyFire = true;
-		
-		while {IP_ArtyFire && {alive(gunner IP_Arty4)} && !(isNull(gunner IP_Arty4))} do {
-			_pos = "mArty2" call STAF_fnc_SHKPos;
-			(gunner IP_Arty4) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Arty4]) select 0), 40];
-			sleep 30;
-			IP_Arty4 setVehicleAmmo 1;
-		};
-	};
-	
-	waitUntil {triggerActivated trgTrainClear};
-	["tTrain", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	sleep 5;
-	["STAF_Win"] call BIS_fnc_endMissionServer;
-};*/
+	waitUntil {!(alive IP_AmmoBox)};
+	{deleteVehicle _x} forEach IP_SafehouseObjs;
+	["tSafehouse", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
