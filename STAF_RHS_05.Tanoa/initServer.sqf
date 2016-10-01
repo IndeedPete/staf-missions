@@ -1,7 +1,6 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_AidWorkers = [IP_AidWorker1, IP_AidWorker2, IP_AidWorker3];
-IP_Centre = [9388.47,895.406,72.1035];
 IP_ArtyFire = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 IP_SafehouseObjs = [];
@@ -125,7 +124,7 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	waitUntil {(alive IP_Agent) && {IP_Agent distance IP_Centre <= 250}};
 	["tAgent", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[west, "tSafehouse", ["Destroy Horizon's Safehouse on grid 036106!", "Destroy Safehouse", ""], nil, false, 6, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, "tSafehouse", ["Destroy Horizon's Safehouse on grid 036106!", "Destroy Safehouse", ""], nil, true, 6, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	IP_HintFound = true;
 	publicVariable "IP_HintFound";
 	[(IP_HiddenUnits getVariable ["Safehouse", []])] call STAF_fnc_enable;
@@ -134,5 +133,6 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	waitUntil {!(alive IP_AmmoBox)};
 	{deleteVehicle _x} forEach IP_SafehouseObjs;
+	[(getPos IP_SafeHouse), "FIRE_BIG"] remoteExec ["STAF_fnc_createFireEffect", 0, true];
 	["tSafehouse", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
