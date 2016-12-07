@@ -28,6 +28,10 @@ publicVariable "IP_TESTMODE";
 	};//*/
 } forEach (allMissionObjects "All");
 
+{
+	_x setCaptive true;
+} forEach allUnits;
+
 // AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance
 // [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
