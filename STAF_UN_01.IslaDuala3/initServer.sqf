@@ -24,7 +24,10 @@ publicVariable "IP_TESTMODE";
 		_objs = IP_HiddenUnits getVariable [_key, []];
 		_objs pushBack _x;
 		IP_HiddenUnits setVariable [_key, _objs];
-		[_x] call STAF_fnc_disable;
+		
+		if (_key != "threat") then {
+			[_x] call STAF_fnc_disable;
+		}
 	};//*/
 } forEach (allMissionObjects "All");
 
@@ -51,6 +54,18 @@ publicVariable "IP_TESTMODE";
 	[west, "mBase", (markerText "mBase")] call BIS_fnc_addRespawnPosition; 
 	["tArrive", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];	
 	
-	sleep 5;
+	if !(IP_TESTMODE) then {
+		sleep 300;
+	} else {
+		sleep 5;
+	};
 	
+	[(IP_HiddenUnits getVariable ["threat", []])] call STAF_fnc_disable;
+	[(IP_HiddenUnits getVariable ["scout", []])] call STAF_fnc_enable;
+	
+	waitUntil {!(isNil "IP_StartAttack") && {IP_StartAttack}};
+	
+	{
+		_x setCaptive false;
+	} forEach allUnits;
 };//*/

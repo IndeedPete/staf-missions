@@ -33,16 +33,8 @@ if !(hasInterface) exitWith {};
 			player addItem "ACE_EarPlugs"; 
 		};
 	}];
-};
-
-/*/ Hint
-[] spawn {
-	waitUntil {!(isNil "IP_HintFound")};
-	hint "Briefing Updated!";
-	player createDiaryRecord ["Diary", ["Aid Worker Report", "'Thanks for your help! We thought we wouldn't make it. The other guy, blue shirt? Yeah, the Syndikat paramilitary took him away by Offroad. My French is really bad but I think they talked about Russians. And about an airfield or so.'"]];
-	IP_HintFound = false;
 	
-	waitUntil {IP_HintFound};
-	hint "Briefing Updated!";
-	player createDiaryRecord ["Diary", ["Horizon Report", "'Good job getting me out of there. God damn Ivan! I knew they were supporting the Syndikat forces. But we've got another problem. I had a safehouse on the south-eastern island, in the jungle. Grid 036106. There's all kinds of compromising evidence in there Ivan must not get his hands on. Do Uncle Sam a favour and blow it up, will you? There should be plenty of explosives inside the house.'"]];
+	if ((isNil "IP_StartAttack") OR {!IP_StartAttack}) then {
+		player setCaptive true;
+	};
 };
