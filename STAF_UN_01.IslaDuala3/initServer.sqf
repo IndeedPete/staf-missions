@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Communicate dem vars
@@ -91,6 +91,24 @@ IP_fnc_m_ambientFlyBy = {
 };
 ["IP_fnc_m_ambientFlyBy"] call STAF_fnc_compileFinal;
 
+IP_fnc_m_killRemainers = {
+	params [
+		["_wave", "", [""]]
+	];
+	
+	{
+		if (_x isKindOf "MAN") then {
+			_x setDamage 1;
+		} else {
+			_crew = crew _x;
+			if (count _crew > 0) then {
+				{_x setDamage 1} forEach _crew;
+			};
+		};
+	} forEach (IP_HiddenUnits getVariable [_wave, []]);
+};
+["IP_fnc_m_killRemainers"] call STAF_fnc_compileFinal;
+
 // Hide Zhe Markerz
 {
 	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0}) then {
@@ -125,18 +143,9 @@ IP_fnc_m_ambientFlyBy = {
 // AiCacheDistance(players), TargetFPS(-1 for Auto), Debug, CarCacheDistance, AirCacheDistance, BoatCacheDistance
 // [2000, -1, IP_TESTMODE, 100, 1000, 1000] spawn ZBE_fnc_main;
 
-// Respawn
-//
-
-/*/ Mission Flow
 [] spawn {
-	waitUntil {{alive _x} count IP_Trucks < 3};
-	["tTrucks", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	sleep 5;
-	["STAF_Fail"] call BIS_fnc_endMissionServer;
-};*/
-
-[] spawn {
+	#define HEAL_PLAYERS {[_x] call STAF_fnc_ACEHeal} forEach (allPlayers - (entities "HeadlessClient_F"));
+	
 	waitUntil {triggerActivated trgArrive};
 	[west, "mBase", (markerText "mBase")] call BIS_fnc_addRespawnPosition; 
 	["tArrive", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];	
@@ -169,13 +178,8 @@ IP_fnc_m_ambientFlyBy = {
 	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackOut", 0, false];
 	sleep 1;
 	
-	{
-		if (_x isKindOf "MAN") then {
-			_x setDamage 1;
-		};
-	} forEach (IP_HiddenUnits getVariable ["wave1", []]);
-	
-	{[_x] call STAF_fnc_ACEHeal} forEach (allPlayers - (entities "HeadlessClient_F"));
+	["wave1"] call IP_fnc_m_killRemainers;	
+	HEAL_PLAYERS
 	skipTime 12;
 	[1] call BIS_fnc_setOvercast;
 	
@@ -196,8 +200,53 @@ IP_fnc_m_ambientFlyBy = {
 	
 	IP_Arty = true;
 	["mMCC_Zone1", {IP_Arty}, 0, 0, [0.5, 1], "ARTY"] spawn STAF_fnc_arty;
+	_wave = ["wave2"] spawn IP_fnc_m_wave;
 	
-	sleep 30;
+	sleep 90;
 	
 	IP_Arty = false;
+	IP_Flares = true;
+	[] spawn {
+		while {IP_Flares} do {
+			_pos = "mMCC_Zone1" call STAF_fnc_SHKPos;
+			[_pos] call STAF_fnc_launchFlare; 
+			sleep 20;
+		};
+	};
+	waitUntil {scriptDone _wave};
+	
+	if !(IP_TESTMODE) then {
+		sleep 120;
+	} else {
+		sleep 5;
+	};
+	
+	["wave3"] call IP_fnc_m_wave;
+	IP_Flares = false;
+	
+	if !(IP_TESTMODE) then {
+		sleep 300;
+	} else {
+		sleep 5;
+	};
+	
+	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackOut", 0, false];
+	sleep 1;
+	
+	["wave3"] call IP_fnc_m_killRemainers;	
+	HEAL_PLAYERS
+	skipTime 5;
+	[0.3] call BIS_fnc_setOvercast;
+	[0.25, 0, 0.1] call BIS_fnc_setFog;
+	
+	sleep 1;
+	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackIn", 0, false];
+	sleep 5;
+	[["Five Hours Later"]] remoteExec ["BIS_fnc_EXP_camp_SITREP", 0, false];
+	
+	if !(IP_TESTMODE) then {
+		sleep 120;
+	} else {
+		sleep 5;
+	};
 };//*/

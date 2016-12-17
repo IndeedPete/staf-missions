@@ -29,8 +29,14 @@ if !(hasInterface) exitWith {};
 [] spawn {
 	waitUntil {(time > 0) && {!(isNull player)}};
 	player addEventHandler ["Respawn", {
+		player allowDamage false;
 		if ({_x == "ACE_EarPlugs"} count (items player) == 0) then {
 			player addItem "ACE_EarPlugs"; 
+		};
+		
+		[] spawn {
+			sleep 30;
+			player allowDamage true;
 		};
 	}];
 	
