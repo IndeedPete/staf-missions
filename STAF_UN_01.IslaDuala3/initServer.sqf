@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Communicate dem vars
@@ -58,7 +58,7 @@ IP_fnc_m_bombingRun = {
 		["_anchor", [0, 0, 0], [[], ""]],
 		["_radius", 500, [0]],
 		["_angle", 0, [0]],
-		["_fireAt", [], [[]]],
+		["_fireAt", "", [""]],
 		["_height", 100, [0]],
 		["_speed", "FULL", [""]],
 		["_class", "IP_I_Plane_Fighter_03_CAS_F_EFSnow", [""]],
@@ -80,7 +80,7 @@ IP_fnc_m_bombingRun = {
 		waitUntil {(isNull _veh) OR {(_veh distance _endPos) <= _expDist} OR {!(alive _veh)} OR {time > _timeout}};
 	};
 	
-	if (count _fireAt > 0) then {
+	if (_fireAt != "") then {
 		"Bo_GBU12_LGB_MI10" createVehicle (getMarkerPos _fireAt);
 	};
 };
@@ -118,7 +118,6 @@ IP_fnc_m_killRemainers = {
 
 // Tasks
 [west, "tArrive", ["Arrive at <marker name=""mBase"">Fort Koofra</marker> and take over command!", "Arrive at Fort Koofra", "Fort Koofra"], "mBase", true, 6, false, "move"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tDefend", ["Defend <marker name=""mBase"">Fort Koofra</marker> against any attacker!", "Defend Fort Koofra", "Fort Koofra"], "mBase", false, 6, false, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -151,7 +150,7 @@ IP_fnc_m_killRemainers = {
 	["tArrive", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];	
 	
 	if !(IP_TESTMODE) then {
-		sleep 300;
+		sleep 600;
 	} else {
 		sleep 5;
 	};
@@ -160,6 +159,7 @@ IP_fnc_m_killRemainers = {
 	[(IP_HiddenUnits getVariable ["scout", []])] call STAF_fnc_enable;
 	
 	waitUntil {!(isNil "IP_StartAttack") && {IP_StartAttack}};
+	[west, "tDefend", ["Defend <marker name=""mBase"">Fort Koofra</marker> against any attacker!", "Defend Fort Koofra", "Fort Koofra"], "mBase", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	{
 		_x setCaptive false;
@@ -180,8 +180,9 @@ IP_fnc_m_killRemainers = {
 	
 	["wave1"] call IP_fnc_m_killRemainers;	
 	HEAL_PLAYERS
-	skipTime 12;
 	[1] call BIS_fnc_setOvercast;
+	//0 setRain 1;
+	skipTime 12;
 	
 	sleep 1;
 	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackIn", 0, false];
@@ -249,4 +250,14 @@ IP_fnc_m_killRemainers = {
 	} else {
 		sleep 5;
 	};
+	
+	["mBomb", 3000, 180, "", 100, "FULL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;	
+	sleep 15;	
+	["mBomb", 3000, 90, "mBomb", 50, "FULL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;
+	sleep 15;
+	["mBomb", 3000, 0, "", 100, "NORMAL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;
+	
+	["wave4"] call IP_fnc_m_wave;
+	
+	
 };//*/
