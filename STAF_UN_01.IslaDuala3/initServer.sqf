@@ -1,9 +1,11 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
+RscSpectator_allowFreeCam = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Communicate dem vars
 publicVariable "IP_TESTMODE";
+publicVariable "RscSpectator_allowFreeCam";
 
 // Funtions
 IP_fnc_m_wave = {
@@ -159,7 +161,6 @@ IP_fnc_m_killRemainers = {
 	[(IP_HiddenUnits getVariable ["scout", []])] call STAF_fnc_enable;
 	
 	waitUntil {!(isNil "IP_StartAttack") && {IP_StartAttack}};
-	[west, "tDefend", ["Defend <marker name=""mBase"">Fort Koofra</marker> against any attacker!", "Defend Fort Koofra", "Fort Koofra"], "mBase", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	{
 		_x setCaptive false;
@@ -167,6 +168,7 @@ IP_fnc_m_killRemainers = {
 	
 	sleep 60;
 	
+	[west, "tDefend", ["Defend <marker name=""mBase"">Fort Koofra</marker> against any attacker!", "Defend Fort Koofra", "Fort Koofra"], "mBase", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	["wave1"] call IP_fnc_m_wave;
 	
 	if !(IP_TESTMODE) then {
@@ -251,13 +253,27 @@ IP_fnc_m_killRemainers = {
 		sleep 5;
 	};
 	
-	["mBomb", 3000, 180, "", 100, "FULL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;	
+	["mBomb", 2000, 180, "", 100, "FULL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;	
 	sleep 15;	
-	["mBomb", 3000, 90, "mBomb", 50, "FULL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;
+	["mBomb", 2000, 90, "mBomb", 50, "FULL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;
 	sleep 15;
-	["mBomb", 3000, 0, "", 100, "NORMAL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;
+	["mBomb", 2000, 0, "", 100, "NORMAL", "RHS_Su25SM_CAS_vvsc", east] call IP_fnc_m_bombingRun;
 	
 	["wave4"] call IP_fnc_m_wave;
 	
+	if !(IP_TESTMODE) then {
+		sleep 60;
+	} else {
+		sleep 5;
+	};
 	
+	["wave5", 0.1] call IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {
+		sleep 60;
+	} else {
+		sleep 5;
+	};
+	
+	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };//*/
