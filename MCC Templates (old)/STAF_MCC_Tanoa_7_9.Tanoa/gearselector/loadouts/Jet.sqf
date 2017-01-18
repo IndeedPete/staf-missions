@@ -1,0 +1,42 @@
+removeAllWeapons player;
+removeAllItems player;
+removeAllAssignedItems player;
+removeUniform player;
+removeVest player;
+removeBackpack player;
+removeHeadgear player;
+removeGoggles player;
+
+player forceAddUniform "JS_JC_FA18_PilotCoveralls";
+player addItemToUniform "H_Watchcap_camo";
+player addItemToUniform "NVGoggles";
+for "_i" from 1 to 4 do {player addItemToUniform "30Rnd_9x21_Mag_SMG_02";};
+player addItemToUniform "SmokeShellOrange";
+for "_i" from 1 to 2 do {player addItemToUniform "Chemlight_green";};
+player addVest "V_TacVest_blk";
+for "_i" from 1 to 3 do {player addItemToVest "ACE_elasticBandage";};
+player addItemToVest "ACE_EarPlugs";
+player addItemToVest "ACE_epinephrine";
+player addItemToVest "ACE_IR_Strobe_Item";
+for "_i" from 1 to 2 do {player addItemToVest "ACE_morphine";};
+player addItemToVest "ACE_personalAidKit";
+for "_i" from 1 to 3 do {player addItemToVest "ACE_packingBandage";};
+player addItemToVest "ACE_tourniquet";
+for "_i" from 1 to 2 do {player addItemToVest "ACE_fieldDressing";};
+player addItemToVest "B_IR_Grenade";
+player addItemToVest "ACE_HandFlare_Green";
+for "_i" from 1 to 2 do {player addItemToVest "SmokeShell";};
+player addItemToVest "SmokeShellGreen";
+player addBackpack "B_Parachute";
+player addHeadgear "JS_JC_FA18_PilotHelmet";
+
+player addWeapon "SMG_02_F";
+player addPrimaryWeaponItem "ACE_muzzle_mzls_smg_02";
+player addPrimaryWeaponItem "acc_pointer_IR";
+player addPrimaryWeaponItem "optic_Aco_smg";
+
+player linkItem "ItemMap";
+player linkItem "ItemCompass";
+player linkItem "ItemWatch";
+player linkItem "tf_anprc152_8";
+player linkItem "ItemAndroid";

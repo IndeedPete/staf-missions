@@ -1,0 +1,33 @@
+#include "\z\ace\addons\medical\script_component.hpp"
+
+player setVariable [QGVAR(pain), 0, true];
+player setVariable [QGVAR(morphine), 0, true];
+player setVariable [QGVAR(bloodVolume), 100, true];
+player setVariable ["ACE_isUnconscious", false, true];
+player setVariable [QGVAR(tourniquets), [0,0,0,0,0,0], true];
+player setVariable [QGVAR(openWounds), [], true];
+player setVariable [QGVAR(bandagedWounds), [], true];
+player setVariable [QGVAR(internalWounds), [], true];
+player setVariable [QGVAR(lastUniqueWoundID), 1, true];
+player setVariable [QGVAR(heartRate), 80];
+player setVariable [QGVAR(heartRateAdjustments), []];
+player setVariable [QGVAR(bloodPressure), [80, 120]];
+player setVariable [QGVAR(peripheralResistance), 100];
+player setVariable [QGVAR(fractures), [], true];
+player setVariable [QGVAR(triageLevel), 0, true];
+player setVariable [QGVAR(triageCard), [], true];
+player setVariable [QGVAR(salineIVVolume), 0, true];
+player setVariable [QGVAR(plasmaIVVolume), 0, true];
+player setVariable [QGVAR(bloodIVVolume), 0, true];
+player setVariable [QGVAR(bodyPartStatus), [0,0,0,0,0,0], true];
+player setVariable [QGVAR(airwayStatus), 100];
+player setVariable [QGVAR(airwayOccluded), false];
+player setVariable [QGVAR(airwayCollapsed), false];
+player setVariable [QGVAR(addedToUnitLoop), false, true];
+player setVariable [QGVAR(inCardiacArrest), false, true];
+player setVariable [QGVAR(hasLostBlood), 0, true];
+player setVariable [QGVAR(isBleeding), false, true];
+player setVariable [QGVAR(hasPain), false, true];
+player setVariable [QGVAR(amountOfReviveLives), GVAR(amountOfReviveLives), true];
+player setVariable [QGVAR(painSuppress), 0, true];
+player setDamage 0;

@@ -1,0 +1,41 @@
+removeAllWeapons Player;
+removeAllItems Player;
+removeAllAssignedItems Player;
+removeUniform Player;
+removeVest Player;
+removeBackpack Player;
+removeHeadgear Player;
+removeGoggles Player;
+
+Player forceAddUniform "IP_U_B_CombatUniform_Flecktarn_Woodland_Wolf";
+Player addItemToUniform "B_IR_Grenade";
+Player addVest "IP_V_PlateCarrier1_rgrEF";
+Player addItemToVest "muzzle_snds_B";
+Player addItemToVest "muzzle_snds_acp";
+for "_i" from 1 to 3 do {Player addItemToVest "ACE_elasticBandage";};
+Player addItemToVest "ACE_EarPlugs";
+Player addItemToVest "ACE_morphine";
+Player addItemToVest "ACE_personalAidKit";
+for "_i" from 1 to 3 do {Player addItemToVest "ACE_packingBandage";};
+Player addItemToVest "ACE_MapTools";
+player addItemToBackpack "ACE_Kestrel4500";
+Player addItemToBackpack "ACE_ATragMX";
+for "_i" from 1 to 4 do {Player addItemToVest "ACE_tourniquet";};
+for "_i" from 1 to 7 do {Player addItemToVest "20Rnd_762x51_Mag";};
+Player addItemToVest "SmokeShellGreen";
+for "_i" from 1 to 2 do {Player addItemToVest "SmokeShell";};
+Player addHeadgear "IP_H_HelmetSpecB_Green";
+
+Player addWeapon "srifle_DMR_03_woodland_F";
+Player addPrimaryWeaponItem "acc_pointer_IR";
+Player addPrimaryWeaponItem "optic_DMS";
+Player addPrimaryWeaponItem "bipod_01_F_blk";
+Player addWeapon "hgun_Pistol_heavy_01_F";
+Player addWeapon "Rangefinder";
+
+Player linkItem "ItemMap";
+Player linkItem "ItemCompass";
+Player linkItem "ItemWatch";
+Player linkItem "tf_rf7800str_2";
+Player linkItem "ItemAndroid";
+Player linkItem "NVGoggles_INDEP";
