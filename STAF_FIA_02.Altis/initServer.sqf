@@ -1,5 +1,6 @@
 // Variables
 IP_TESTMODE = true;
+IP_Convoy = [IP_Convoy_MRAP, IP_Convoy_Ammo, IP_Convoy_Fuel, IP_Convoy_APC];
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Communicate dem vars
@@ -21,7 +22,7 @@ publicVariable "IP_TESTMODE";
 
 // Tasks
 [west, "tConvoy", ["Ambush and destroy the <marker name=""mConvoy_Start"">Supply Vehicles of the AAF Convoy coming from Panochori</marker>!", "Ambush AAF Convoy", "AAF Convoy"], "mConvoy_Start", true, 6, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tOfficer", ["Locate and capture the AAF Officer, code name 'Solomon'! He is either in the <marker name=""mAAF_South"">AAF Outpost South</marker> or in the <marker name=""mAAF_East"">AAF Outpost East</marker>. Bring Solomon to the <marker name=""mMeet"">CTRG Meeting Point</marker> after.", "Capture Solomon", ""], nil, false, 6, true, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tOfficer", ["Locate and capture the AAF Officer, code name 'Solomon'! He is either in the <marker name=""mAAF_South"">AAF Outpost South</marker> or in the <marker name=""mAAF_East"">AAF Outpost East</marker>. Bring Solomon to the <marker name=""mMeet"">CTRG Meeting Point</marker> after.", "Capture Solomon", ""], nil, false, 6, false, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -40,7 +41,7 @@ publicVariable "IP_TESTMODE";
 
 [] spawn {
 	waitUntil {!(isNil "IP_StartConvoy") && {IP_StartConvoy}};
-	_convoy = IP_HiddenUnits getVariable ["convoy", []];
+	_convoy = IP_Convoy;//IP_HiddenUnits getVariable ["convoy", []];
 	[_convoy] call STAF_fnc_enable;
 	
 	[["mConvoy7","mConvoy8","mConvoy9","mConvoy1","mConvoy2","mConvoy3","mConvoy4","mConvoy5","mConvoy6","mConvoy_End"], _convoy, true] spawn STAF_fnc_convoyDefend;
@@ -48,3 +49,8 @@ publicVariable "IP_TESTMODE";
 	waitUntil {{alive _x} count [IP_Convoy_Ammo, IP_Convoy_Fuel] == 0};	
 	["tConvoy", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };//*/
+
+[] spawn {
+	waitUntil {!(isNil "IP_CTRG") && {IP_CTRG}};
+	[(IP_HiddenUnits getVariable ["CTRG", []])] call STAF_fnc_enable;
+};
