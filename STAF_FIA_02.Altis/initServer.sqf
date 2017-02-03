@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Convoy = [IP_Convoy_MRAP, IP_Convoy_Ammo, IP_Convoy_Fuel, IP_Convoy_APC];
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
@@ -53,4 +53,11 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	waitUntil {!(isNil "IP_CTRG") && {IP_CTRG}};
 	[(IP_HiddenUnits getVariable ["CTRG", []])] call STAF_fnc_enable;
+};
+
+[] spawn {
+	waitUntil {!(isNil "IP_AtCTRG") && {IP_AtCTRG}};
+	["tOfficer", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	sleep 5;
+	["STAF_WIN"] call BIS_fnc_endMissionServer;
 };

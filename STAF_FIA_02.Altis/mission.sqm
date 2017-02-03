@@ -5,7 +5,7 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=129;
+	toggles=1;
 	class ItemIDProvider
 	{
 		nextID=833;
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=36;
+		nextID=42;
 	};
 	class Camera
 	{
-		pos[]={5435.2544,305.97339,10974.282};
-		dir[]={0.87010878,-0.43454826,0.23289144};
-		up[]={0.41983604,0.90060872,0.11237098};
-		aside[]={0.25858214,3.1176387e-007,-0.9660778};
+		pos[]={7220.5942,13.968222,11006.158};
+		dir[]={-0.013711563,-0.23433413,0.97215194};
+		up[]={-0.0033052498,0.97212017,0.23440763};
+		aside[]={0.99999595,1.2891087e-006,0.01410808};
 	};
 };
 binarizationWanted=0;
@@ -20537,7 +20537,26 @@ class Mission
 						};
 					};
 				};
-				nAttributes=8;
+				class Attribute8
+				{
+					property="ALiVE_sys_profile_virtualcombat_speedmodifier";
+					expression="_this setVariable ['virtualcombat_speedmodifier',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="1";
+						};
+					};
+				};
+				nAttributes=9;
 			};
 		};
 		class Item354
