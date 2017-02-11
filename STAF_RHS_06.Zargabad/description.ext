@@ -1,0 +1,63 @@
+//__________________________________________
+
+author = "IndeedPete";
+OnLoadName = "Hopeless Endeavour";
+// briefingName = "Delivery Dogs";
+onLoadMission = "September 2013, Zargabad, T-Stan...";
+overviewText = "";
+disabledAI = 1;
+
+respawn = "INSTANT";
+respawnTemplates[] = {"Tickets", "MenuPosition", "Wave", "ace_spectator"};
+respawnDelay = 60;
+respawnDialog = 0;
+respawnOnStart = 0;
+
+loadScreen = "img\Overview.paa";
+overviewPicture = "img\Overview.paa";
+enableDebugConsole = 1;
+joinUnassigned = 0;
+enableItemsDropping = 0;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 64;
+};
+
+corpseManagerMode = 1;
+corpseLimit = 30;
+corpseRemovalMinTime = 360;
+corpseRemovalMaxTime = 1200;
+
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 360;
+wreckRemovalMaxTime = 1200;
+
+class CfgFunctions
+{
+	#include "EPD\EPDcfgFunctions.hpp"
+};
+
+class CfgDebriefing
+{  
+	class STAF_Win
+	{
+		picture = "b_inf";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_BLUFOR_R',0])","(profilenamespace getvariable ['Map_BLUFOR_G',1])","(profilenamespace getvariable ['Map_BLUFOR_B',1])","(profilenamespace getvariable ['Map_BLUFOR_A',0.8])"};
+		title = "Mission Accomplished!";
+		subtitle = "";
+	};
+	
+	class STAF_Fail
+	{
+		picture = "b_inf";
+		pictureBackground = "img\Overview.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_OPFOR_R',0])","(profilenamespace getvariable ['Map_OPFOR_G',1])","(profilenamespace getvariable ['Map_OPFOR_B',1])","(profilenamespace getvariable ['Map_OPFOR_A',0.8])"};
+		title = "Mission Failed!";
+		subtitle = "";
+	};
+};
