@@ -8,6 +8,7 @@ publicVariable "IP_TESTMODE";
 publicVariable "IP_Pilots";
 
 // Hide zhe Markerz
+"mCrash_Real" setMarkerAlpha 0;
 {
 	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0}) then {
 		_x setMarkerAlpha 0;
@@ -18,7 +19,7 @@ publicVariable "IP_Pilots";
 [west, "mBase", (markerText "mBase")] call BIS_fnc_addRespawnPosition;
 
 // Tasks
-[west, "tLocate", ["Locate the <marker name=""mCrash"">Crash Site in Zargabad</marker>!", "Locate the Crash Site", "Crash Site"], "mCrash", true, 6, false, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tLocate", ["Locate the <marker name=""mCrash"">Crash Site in Zargabad</marker>!", "Locate the Crash Site", "Possible Crash Site"], "mCrash", true, 6, false, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -44,4 +45,6 @@ publicVariable "IP_Pilots";
 [] spawn {
 	waitUntil {triggerActivated trgLocate};	
 	["tLocate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	"mCrash_Real" setMarkerAlpha 1;
+	[west, "tDefend", ["Defend the <marker name=""mCrash_Real"">Crash Site in Zargabad</marker> until the pioneers arrive!", "Defend the Crash Site", "Crash Site"], "mCrash_Real", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 };
