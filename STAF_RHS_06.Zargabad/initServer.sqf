@@ -7,6 +7,73 @@ IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 publicVariable "IP_TESTMODE";
 publicVariable "IP_Pilots";
 
+// Funtions
+IP_fnc_m_wave = {
+	params [
+		["_id", "", [""]],
+		["_ratio", 0.25, [0]],
+		["_timeout", (30 * 60), [0]],
+		["_handleAllowDamage", true, [false]],
+		"_wave",
+		"_objs"
+	];
+	
+	IP_SkipWave = false;
+	publicVariable "IP_SkipWave";
+	
+	_wave = IP_HiddenUnits getVariable [_id, []];
+	_objs = [];
+	{
+		if (_x isKindOf "Man") then {
+			_objs pushBackUnique _x;			
+		} else {
+			{
+				_objs pushBackUnique _x;
+			} forEach (crew _x);
+		};
+	} forEach _wave;
+	
+	[_wave, _handleAllowDamage] call STAF_fnc_enable;
+	_win = floor((count _objs) * _ratio);
+	_time = time + _timeout;
+	
+	waitUntil {
+		_alive = {!(isNull _x) && {alive _x}} count _objs;
+		
+		IP_WaveTimeout = _time - time;
+		publicVariable "IP_WaveTimeout";
+		
+		if (IP_TESTMODE) then {
+			(format ["Wave: %4\nEnemies left: %1\nWin amount: %2\nTimeout in: %3", _alive, _win, IP_WaveTimeout, _id]) remoteExec ["systemChat", 0, false];
+		};
+		sleep 3;
+		(_alive <= _win)
+		OR {time > _time}
+		OR {IP_SkipWave}
+	};
+	
+	true
+};
+["IP_fnc_m_wave"] call STAF_fnc_compileFinal;
+
+IP_fnc_m_killRemainers = {
+	params [
+		["_wave", "", [""]]
+	];
+	
+	{
+		if (_x isKindOf "MAN") then {
+			_x setDamage 1;
+		} else {
+			_crew = crew _x;
+			if (count _crew > 0) then {
+				{_x setDamage 1} forEach _crew;
+			};
+		};
+	} forEach (IP_HiddenUnits getVariable [_wave, []]);
+};
+["IP_fnc_m_killRemainers"] call STAF_fnc_compileFinal;
+
 // Hide zhe Markerz
 "mCrash_Real" setMarkerAlpha 0;
 {
@@ -47,4 +114,20 @@ publicVariable "IP_Pilots";
 	["tLocate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	"mCrash_Real" setMarkerAlpha 1;
 	[west, "tDefend", ["Defend the <marker name=""mCrash_Real"">Crash Site in Zargabad</marker> until the pioneers arrive!", "Defend the Crash Site", "Crash Site"], "mCrash_Real", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	
+	if !(IP_TESTMODE) then {
+		sleep 120;
+	} else {
+		sleep 5;
+	};
+	
+	["wave1"] call IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {
+		sleep 180;
+	} else {
+		sleep 5;
+	};
+	
+	["wave2"] call IP_fnc_m_wave;
 };
