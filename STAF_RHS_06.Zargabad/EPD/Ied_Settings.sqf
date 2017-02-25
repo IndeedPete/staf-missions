@@ -73,7 +73,9 @@ iedInitialArray = [
 	["mIED2", [0,75,25,0], ["West"]],
 	["mIED3", [25,50,25,0], ["West"]],
 	["mIED4", [0,0,50,50], ["West"]],
-	["mIED5", [25,25,25,25], ["West"]]
+	["mIED5", [25,25,25,25], ["West"]],
+	["mIED6", [25,25,25,25], ["West"]],
+	["mIED7", [0,75,25,0], ["West"]]
 	/*["AllCities","West"],
 	["AllVillages","West"],
 	/*["AltisRandom1",6,"West"],

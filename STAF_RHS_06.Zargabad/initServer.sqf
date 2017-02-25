@@ -108,7 +108,7 @@ IP_fnc_m_killRemainers = {
 // Le PPEffect
 ["STAF_RealIsBrown"] call BIS_fnc_setPPeffectTemplate;
 
-// Le Mission Flow
+/*/ Le Mission Flow
 [] spawn {
 	waitUntil {triggerActivated trgLocate};	
 	["tLocate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -130,4 +130,40 @@ IP_fnc_m_killRemainers = {
 	};
 	
 	["wave2"] call IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {
+		sleep 300;
+	} else {
+		sleep 5;
+	};
+	
+	_wave = ["wave3"] spawn IP_fnc_m_wave;
+	
+	[] spawn {
+		while {(alive (gunner IP_Wave3Mortar)) && !(isNull(gunner IP_Wave3Mortar))} do {
+			_pos = "mMCC_Zone3" call IP_fnc_SHKPos;
+			(gunner IP_Wave3Mortar) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Wave3Mortar]) select 0), 1];
+			sleep 10;
+			IP_Wave3Mortar setVehicleAmmo 1;
+		};
+	};
+	
+	waitUntil {scriptDone _wave};
+	
+	if !(IP_TESTMODE) then {
+		sleep 180;
+	} else {
+		sleep 5;
+	};
+	
+	["wave4"] call IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {
+		sleep 180;
+	} else {
+		sleep 5;
+	};
+	
+	["wave5", 0.1] call IP_fnc_m_wave;
+	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
