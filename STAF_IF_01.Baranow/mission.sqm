@@ -1,0 +1,1206 @@
+version=52;
+class EditorData
+{
+	moveGridStep=1;
+	angleGridStep=0.2617994;
+	scaleGridStep=1;
+	autoGroupingDist=10;
+	toggles=1;
+	class ItemIDProvider
+	{
+		nextID=56;
+	};
+	class Camera
+	{
+		pos[]={912.89276,81.416817,8053.8281};
+		dir[]={-0.63990557,-0.31099373,-0.7028687};
+		up[]={-0.2093951,0.95038331,-0.22999932};
+		aside[]={-0.73954076,-1.5565602e-006,0.67330182};
+	};
+};
+binarizationWanted=0;
+addons[]=
+{
+	"fow_characters_c",
+	"LEN_IFA3_WP",
+	"WW2_Assets_c_Weapons_InfantryWeapons_c",
+	"WW2_Assets_c_Weapons_Recoil_c",
+	"IFA3_COMP_ACE_main",
+	"WW2_Assets_s_Megagoth1702_Sounds_Config_CfgWeapons",
+	"A3_Weapons_F",
+	"ace_hearing",
+	"GEISTL_ASSETS_C_GER_CAP",
+	"A3_Weapons_F_Items",
+	"ace_medical",
+	"WW2_Core_c_Core_c_Eventhandlers",
+	"IFA3_FOW_Compat",
+	"tfar_handhelds",
+	"fow_weapons_c",
+	"hlcweapons_MG3s"
+};
+class AddonsMetaData
+{
+	class List
+	{
+		items=15;
+		class Item0
+		{
+			className="fow_characters_c";
+			name="fow_characters_c";
+		};
+		class Item1
+		{
+			className="LEN_IFA3_WP";
+			name="LEN_IFA3_WP";
+		};
+		class Item2
+		{
+			className="WW2_Assets_c_Weapons_InfantryWeapons_c";
+			name="WW2_Assets_c_Weapons_InfantryWeapons_c";
+		};
+		class Item3
+		{
+			className="WW2_Assets_c_Weapons_Recoil_c";
+			name="WW2_Assets_c_Weapons_Recoil_c";
+		};
+		class Item4
+		{
+			className="IFA3_COMP_ACE_main";
+			name="IFA3_COMP_ACE_main";
+		};
+		class Item5
+		{
+			className="WW2_Assets_s_Megagoth1702_Sounds_Config_CfgWeapons";
+			name="WW2_Assets_s_Megagoth1702_Sounds_Config_CfgWeapons";
+		};
+		class Item6
+		{
+			className="A3_Weapons_F";
+			name="Arma 3 Alpha - Weapons and Accessories";
+			author="Bohemia Interactive";
+			url="http://www.arma3.com";
+		};
+		class Item7
+		{
+			className="ace_hearing";
+			name="ACE3 - Hearing";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item8
+		{
+			className="GEISTL_MAIN";
+			name="GEIST-A3 for IFA3 Lite";
+			author="Joarius";
+		};
+		class Item9
+		{
+			className="ace_medical";
+			name="ACE3 - Medical";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item10
+		{
+			className="WW2_Core_c_Core_c_Eventhandlers";
+			name="WW2_Core_c_Core_c_Eventhandlers";
+		};
+		class Item11
+		{
+			className="IFA3_FOW_Compat";
+			name="IFA3_FOW_Compat";
+		};
+		class Item12
+		{
+			className="tfar_handhelds";
+			name="tfar_handhelds";
+			url="https://github.com/michail-nikolaev/task-force-arma-3-radio";
+		};
+		class Item13
+		{
+			className="fow_weapons_c";
+			name="fow_weapons_c";
+		};
+		class Item14
+		{
+			className="hlcweapons_MG3s";
+			name="hlcweapons_MG3s";
+			author="toadie";
+		};
+	};
+};
+randomSeed=12470329;
+class ScenarioData
+{
+	author="IndeedPete";
+};
+class Mission
+{
+	class Intel
+	{
+		timeOfChanges=1800.0002;
+		startWeather=0;
+		startWind=0.1;
+		startWaves=0.1;
+		forecastWeather=0;
+		forecastWind=0.1;
+		forecastWaves=0.1;
+		forecastLightnings=0.1;
+		rainForced=1;
+		lightningsForced=1;
+		wavesForced=1;
+		windForced=1;
+		year=1944;
+		month=7;
+		day=14;
+		hour=6;
+		minute=45;
+		startFogDecay=0;
+		forecastFogDecay=0;
+	};
+	class Entities
+	{
+		items=2;
+		class Item0
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=5;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={915.40503,79.119217,8053.0957};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						rank="SERGEANT";
+						name="IP_TL1";
+						description="Truppführer";
+						isPlayer=1;
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LEN_MP44";
+								class primaryMuzzleMag
+								{
+									name="LIB_30Rnd_792x33";
+									ammoLeft=30;
+								};
+							};
+							class handgun
+							{
+								name="LIB_P38";
+								class primaryMuzzleMag
+								{
+									name="lib_8Rnd_9x19";
+									ammoLeft=8;
+								};
+							};
+							class binocular
+							{
+								name="LIB_Binocular_GER";
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_corporal";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="lib_8Rnd_9x19";
+										count=1;
+										ammoLeft=8;
+									};
+									class Item1
+									{
+										name="LIB_nb39";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="ACE_EarPlugs";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_mp40_nco";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_30Rnd_792x33";
+										count=4;
+										ammoLeft=30;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_A_frameWSS03_Vide";
+								isBackpack=1;
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="N_LIB_GER_Cap_Earphone";
+										count=1;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=28;
+					type="fow_s_ger_heer_nco_mp40";
+					atlOffset=-7.6293945e-006;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.04;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item1
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={925.40503,78.302452,8043.0957};
+					};
+					side="West";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+						rank="CORPORAL";
+						name="IP_S1";
+						description="Schütze (Gewehr 43)";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LIB_G43";
+								class primaryMuzzleMag
+								{
+									name="lib_10Rnd_792x57";
+									ammoLeft=10;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_corporal";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_shg24";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_k98";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_10Rnd_792x57";
+										count=18;
+										ammoLeft=10;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_A_frameWSS03_Vide";
+								isBackpack=1;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_10Rnd_792x57";
+										count=1;
+										ammoLeft=10;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=5;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=33;
+					type="fow_s_ger_heer_rifleman";
+					atlOffset=-7.6293945e-006;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item2
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={930.40503,77.983803,8038.0957};
+					};
+					side="West";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+						name="IP_S2";
+						description="Schütze";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LIB_K98";
+								class primaryMuzzleMag
+								{
+									name="lib_5Rnd_792x57";
+									ammoLeft=5;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_private";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_shg24";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_k98";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_5Rnd_792x57";
+										count=29;
+										ammoLeft=5;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_A_frameWSS03_Vide";
+								isBackpack=1;
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=34;
+					type="fow_s_ger_heer_rifleman";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.04;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item3
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={935.40503,77.796295,8033.0957};
+					};
+					side="West";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+						name="IP_S3";
+						description="Schütze";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LIB_K98";
+								class primaryMuzzleMag
+								{
+									name="lib_5Rnd_792x57";
+									ammoLeft=5;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_private";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_shg24";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_k98";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_5Rnd_792x57";
+										count=29;
+										ammoLeft=5;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_A_frameWSS03_Vide";
+								isBackpack=1;
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=35;
+					type="fow_s_ger_heer_rifleman";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.97000003;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item4
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={920.40503,78.726997,8048.0957};
+					};
+					side="West";
+					flags=4;
+					class Attributes
+					{
+						skill=0.62455672;
+						rank="CORPORAL";
+						name="IP_Radio1";
+						description="Funker";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LIB_K98";
+								class primaryMuzzleMag
+								{
+									name="lib_5Rnd_792x57";
+									ammoLeft=5;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_private";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_nb39";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_k98";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_5Rnd_792x57";
+										count=19;
+										ammoLeft=5;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_Radio";
+								isBackpack=1;
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="TFAR_anprc152";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=44;
+					type="fow_s_ger_heer_rifleman";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.98000002;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+			};
+			class Attributes
+			{
+			};
+			id=27;
+			atlOffset=-7.6293945e-006;
+		};
+		class Item1
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=4;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={910.40503,78.819977,8048.0957};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+						name="IP_TL2";
+						description="Truppführer";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="fow_w_mp40";
+								class primaryMuzzleMag
+								{
+									name="fow_32Rnd_9x19_mp40";
+									ammoLeft=32;
+								};
+							};
+							class handgun
+							{
+								name="LIB_P38";
+								class primaryMuzzleMag
+								{
+									name="lib_8Rnd_9x19";
+									ammoLeft=8;
+								};
+							};
+							class binocular
+							{
+								name="LIB_Binocular_GER";
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_lance_corporal";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="lib_8Rnd_9x19";
+										count=1;
+										ammoLeft=8;
+									};
+									class Item1
+									{
+										name="LIB_nb39";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_mp40";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="fow_32Rnd_9x19_mp40";
+										count=7;
+										ammoLeft=32;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_A_frameWSS03_Vide";
+								isBackpack=1;
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=29;
+					type="fow_s_ger_heer_tl_mp40";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.02;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item1
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={905.40503,78.396652,8043.0957};
+					};
+					side="West";
+					flags=5;
+					class Attributes
+					{
+						skill=0.44999999;
+						rank="CORPORAL";
+						name="IP_MG";
+						description="Maschinengewehrschütze";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="hlc_lmg_MG3";
+								class primaryMuzzleMag
+								{
+									name="hlc_50Rnd_762x51_B_MG3";
+									ammoLeft=50;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_corporal";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_nb39";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_mg";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="hlc_50Rnd_762x51_M_MG3";
+										count=4;
+										ammoLeft=50;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_Rucksack_Vide";
+								isBackpack=1;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="hlc_100Rnd_762x51_M_MG3";
+										count=2;
+										ammoLeft=100;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=30;
+					type="fow_s_ger_heer_mg42_gunner";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.04;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item2
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={900.40503,78.007202,8038.0957};
+					};
+					side="West";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+						name="IP_MGA";
+						description="Maschinengewehrschützeassistent";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LIB_K98";
+								class primaryMuzzleMag
+								{
+									name="lib_5Rnd_792x57";
+									ammoLeft=5;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_corporal";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_shg24";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_mg";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_5Rnd_792x57";
+										count=19;
+										ammoLeft=5;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_Rucksack_Vide";
+								isBackpack=1;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="hlc_100Rnd_762x51_M_MG3";
+										count=2;
+										ammoLeft=100;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=31;
+					type="fow_s_ger_heer_mg42_asst";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.97000003;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item3
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={908.828,78.488792,8043.8418};
+					};
+					side="West";
+					flags=5;
+					class Attributes
+					{
+						skill=0.40000001;
+						name="IP_Radio2";
+						description="Funker";
+						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="LIB_K98";
+								class primaryMuzzleMag
+								{
+									name="lib_5Rnd_792x57";
+									ammoLeft=5;
+								};
+							};
+							class uniform
+							{
+								typeName="fow_u_ger_m43_01_private";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="LIB_nb39";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="fow_v_heer_k98";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="lib_5Rnd_792x57";
+										count=19;
+										ammoLeft=5;
+									};
+								};
+							};
+							class backpack
+							{
+								typeName="B_LIB_GER_Radio";
+								isBackpack=1;
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="TFAR_anprc152";
+							headgear="fow_h_ger_m40_heer_01";
+						};
+					};
+					id=36;
+					type="fow_s_ger_heer_rifleman";
+					atlOffset=7.6293945e-006;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+			};
+			class Attributes
+			{
+			};
+			id=37;
+		};
+	};
+};
