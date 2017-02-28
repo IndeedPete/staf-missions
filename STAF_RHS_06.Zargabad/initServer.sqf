@@ -25,6 +25,7 @@ IP_fnc_m_wave = {
 	_objs = [];
 	{
 		if (_x isKindOf "Man") then {
+			_x allowFleeing 0;
 			_objs pushBackUnique _x;			
 		} else {
 			{
@@ -44,7 +45,7 @@ IP_fnc_m_wave = {
 		publicVariable "IP_WaveTimeout";
 		
 		if (IP_TESTMODE) then {
-			(format ["Wave: %4\nEnemies left: %1\nWin amount: %2\nTimeout in: %3", _alive, _win, IP_WaveTimeout, _id]) remoteExec ["systemChat", 0, false];
+			(format ["Wave: %4 Enemies left: %1 Win amount: %2 Timeout in: %3", _alive, _win, (IP_WaveTimeout / 60), _id]) remoteExec ["systemChat", 0, false];
 		};
 		sleep 3;
 		(_alive <= _win)
@@ -56,7 +57,7 @@ IP_fnc_m_wave = {
 };
 ["IP_fnc_m_wave"] call STAF_fnc_compileFinal;
 
-IP_fnc_m_killRemainers = {
+IP_fnc_m_killRemainders = {
 	params [
 		["_wave", "", [""]]
 	];
@@ -72,7 +73,7 @@ IP_fnc_m_killRemainers = {
 		};
 	} forEach (IP_HiddenUnits getVariable [_wave, []]);
 };
-["IP_fnc_m_killRemainers"] call STAF_fnc_compileFinal;
+["IP_fnc_m_killRemainders"] call STAF_fnc_compileFinal;
 
 // Hide zhe Markerz
 "mCrash_Real" setMarkerAlpha 0;
@@ -108,7 +109,7 @@ IP_fnc_m_killRemainers = {
 // Le PPEffect
 ["STAF_RealIsBrown"] call BIS_fnc_setPPeffectTemplate;
 
-/*/ Le Mission Flow
+// Le Mission Flow
 [] spawn {
 	waitUntil {triggerActivated trgLocate};	
 	["tLocate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -124,7 +125,7 @@ IP_fnc_m_killRemainers = {
 	["wave1"] call IP_fnc_m_wave;
 	
 	if !(IP_TESTMODE) then {
-		sleep 180;
+		sleep 60;
 	} else {
 		sleep 5;
 	};
@@ -132,7 +133,7 @@ IP_fnc_m_killRemainers = {
 	["wave2"] call IP_fnc_m_wave;
 	
 	if !(IP_TESTMODE) then {
-		sleep 300;
+		sleep 60;
 	} else {
 		sleep 5;
 	};
@@ -141,7 +142,7 @@ IP_fnc_m_killRemainers = {
 	
 	[] spawn {
 		while {(alive (gunner IP_Wave3Mortar)) && !(isNull(gunner IP_Wave3Mortar))} do {
-			_pos = "mMCC_Zone3" call IP_fnc_SHKPos;
+			_pos = "mMCC_Zone3" call STAF_fnc_SHKPos;
 			(gunner IP_Wave3Mortar) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Wave3Mortar]) select 0), 1];
 			sleep 10;
 			IP_Wave3Mortar setVehicleAmmo 1;
@@ -151,7 +152,7 @@ IP_fnc_m_killRemainers = {
 	waitUntil {scriptDone _wave};
 	
 	if !(IP_TESTMODE) then {
-		sleep 180;
+		sleep 120;
 	} else {
 		sleep 5;
 	};
@@ -164,6 +165,17 @@ IP_fnc_m_killRemainers = {
 		sleep 5;
 	};
 	
-	["wave5", 0.1] call IP_fnc_m_wave;
+	_wave = ["wave5", 0.1] spawn IP_fnc_m_wave;
+	
+	if !(IP_TESTMODE) then {
+		sleep (10 * 60);
+	} else {
+		sleep 5;
+	};
+	
+	[(IP_HiddenUnits getVariable ["end", []]), false] call STAF_fnc_enable;	
+	waitUntil {scriptDone _wave};
 	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	sleep 5;
+	["STAF_Win"] call BIS_fnc_endMissionServer;
 };
