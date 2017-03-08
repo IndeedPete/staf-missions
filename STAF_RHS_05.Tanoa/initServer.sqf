@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = false;
+IP_TESTMODE = true;
 IP_AidWorkers = [IP_AidWorker1, IP_AidWorker2, IP_AidWorker3];
 IP_ArtyFire = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
