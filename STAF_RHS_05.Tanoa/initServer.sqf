@@ -64,7 +64,7 @@ publicVariable "IP_TESTMODE";
 	(90 * 60) setFog [0, 0, 0];
 };
 
-// Mission Flow
+/*/ Mission Flow
 [] spawn {
 	while {IP_ArtyFire && {alive(gunner IP_ArtyTruck1)} && !(isNull(gunner IP_ArtyTruck1))} do {
 		_pos = "mArty" call STAF_fnc_SHKPos;
@@ -96,7 +96,7 @@ publicVariable "IP_TESTMODE";
 		IP_ArtyTruck3 setVehicleAmmo 1;
 	};
 };
-
+*/
 [] spawn {
 	waitUntil {{alive _x} count IP_AidWorkers == 0};
 	["tAidWorkers", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
