@@ -124,7 +124,7 @@ publicVariable "IP_TESTMODE";
 [] spawn {
 	waitUntil {(alive IP_Agent) && {IP_Agent distance IP_Centre <= 250}};
 	["tAgent", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[west, "tSafehouse", ["Destroy Horizon's Safehouse on grid 036106!", "Destroy Safehouse", ""], nil, true, 6, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, "tSafehouse", ["Destroy Horizon's Safehouse on grid 106036!", "Destroy Safehouse", ""], nil, true, 6, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	IP_HintFound = true;
 	publicVariable "IP_HintFound";
 	[(IP_HiddenUnits getVariable ["Safehouse", []])] call STAF_fnc_enable;
