@@ -25,7 +25,7 @@ if !(hasInterface) exitWith {};
 };
 
 // Player Loadout Restore and Respawn
-[player, 4] call BIS_fnc_respawnTickets;
+[player, 7] call BIS_fnc_respawnTickets;
 [] spawn {
 	waitUntil {(time > 0) && {!(isNull player)}};
 	

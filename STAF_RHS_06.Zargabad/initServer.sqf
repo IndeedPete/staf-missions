@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_Pilots = [IP_Pilot1, IP_Pilot2, IP_Pilot3, IP_Pilot4];
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
