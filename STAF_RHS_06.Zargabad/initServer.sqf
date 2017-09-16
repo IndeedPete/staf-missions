@@ -144,7 +144,7 @@ IP_fnc_m_killRemainders = {
 		while {(alive (gunner IP_Wave3Mortar)) && !(isNull(gunner IP_Wave3Mortar))} do {
 			_pos = "mMCC_Zone3" call STAF_fnc_SHKPos;
 			(gunner IP_Wave3Mortar) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Wave3Mortar]) select 0), 1];
-			sleep 10;
+			sleep 20;
 			IP_Wave3Mortar setVehicleAmmo 1;
 		};
 	};

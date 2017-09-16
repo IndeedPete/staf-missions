@@ -69,10 +69,10 @@ allowExplosiveToTriggerIEDs = true;
 iedInitialArray = [
 	["mSearch", (3 + round(random 3)), ["West"]],
 	//["mMCC_Zone31", (5 + round(random 5)), ["West"]],
-	["mIED1", [75,25,0,0], ["West"]],
-	["mIED2", [0,75,25,0], ["West"]],
+	["mIED1", [100,0,0,0], ["West"]],
+	["mIED2", [0,100,0,0], ["West"]],
 	["mIED3", [25,50,25,0], ["West"]],
-	["mIED4", [0,0,50,50], ["West"]],
+	["mIED4", [0,75,25,0], ["West"]],
 	["mIED5", [25,25,25,25], ["West"]],
 	["mIED6", [25,25,25,25], ["West"]],
 	["mIED7", [0,75,25,0], ["West"]]
