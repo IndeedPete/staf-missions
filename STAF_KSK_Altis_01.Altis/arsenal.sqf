@@ -52,7 +52,17 @@ _vests = [
 	"IP_V_Chestrig_KSK_Fleck_Arid",
 	"IP_V_TacVest_KSK_Arid",
 	"IP_V_HarnessO_KSK_Arid",
-	"IP_V_HarnessOGL_KSK_Arid"
+	"IP_V_HarnessOGL_KSK_Arid",
+	"IP_V_6094_KSK_1_Sage_Arid",
+	"IP_V_6094_KSK_2_Sage_Arid",
+	"IP_V_6094_KSK_3_Sage_Arid",
+	"IP_V_6094_KSK_4_Sage_Arid",
+	"IP_V_6094_KSK_5_Sage_Arid",
+	"IP_V_6094_KSK_6_Sage_Arid",
+	"IP_V_6094_KSK_7_Sage_Arid",
+	"IP_V_6094_KSK_8_Sage_Arid",
+	"IP_V_6094_KSK_9_Sage_Arid",
+	"IP_V_6094_KSK_10_Sage_Arid"
 ];
 
 _items = [

@@ -15,7 +15,7 @@
 	Example(s):
 	[this, helo_1, true, true] call COB_fnc_paradrop
 */
-if (!isServer || isDedicated) exitWith {};
+//if (!isServer || isDedicated) exitWith {};
 
 //Parameters
 private ["_unit", "_vehicle", "_alt", "_saveLoadOut", "_chemLight"]; 

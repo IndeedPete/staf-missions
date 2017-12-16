@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 IP_LeaderJumped = false;
 IP_DropMarker = "mLZ_Area";
@@ -135,8 +135,8 @@ _chk = {
 [] spawn {
 	waitUntil {
 		((({alive _x} count [IP_Device1, IP_Device2, IP_Device3, IP_Device4] == 0)) &&
-		({(alive _x) && {(_x distance (getMarkerPos "mEnd")) <= 350}} count allPlayers > 0) &&
-		({(alive _x) && {(_x distance (getMarkerPos "mEnd")) <= 350}} count allPlayers == {alive _x} count allPlayers)) ||
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd")) <= 350}} count (allPlayers - entities "HeadlessClient_F") > 0) &&
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd")) <= 350}} count (allPlayers - entities "HeadlessClient_F") == {alive _x} count (allPlayers - entities "HeadlessClient_F"))) ||
 		!(isNil "IP_AtRefuge")
 	};
 	
@@ -159,8 +159,8 @@ _chk = {
 	} forEach _units;
 	
 	waitUntil {
-		({(alive _x) && {(_x distance (getMarkerPos "mEnd2")) <= 15}} count allPlayers > 0) &&
-		({(alive _x) && {(_x distance (getMarkerPos "mEnd2")) <= 15}} count allPlayers == {alive _x} count allPlayers)
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd2")) <= 15}} count (allPlayers - entities "HeadlessClient_F") > 0) &&
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd2")) <= 15}} count (allPlayers - entities "HeadlessClient_F") == {alive _x} count (allPlayers - entities "HeadlessClient_F"))
 	};	
 	
 	["tRetreat2", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
