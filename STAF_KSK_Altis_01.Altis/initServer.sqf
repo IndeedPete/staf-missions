@@ -14,6 +14,8 @@ IP_DropMarker = "mLZ_Area";
 	};
 } forEach allMapMarkers;
 "mLZ_Area2" setMarkerAlpha 0;
+"mLZ_Area3" setMarkerAlpha 0;
+"mEnd2" setMarkerAlpha 0;
 
 // Force Lights On
 {
@@ -41,7 +43,9 @@ IP_DropMarker = "mLZ_Area";
 [west, (getPosASL IP_Can), "USS Freedom"] call BIS_fnc_addRespawnPosition;
 
 // Arsenal
-[IP_Arsenal] call(compile(preprocessFileLineNumbers "arsenal.sqf"));
+_arsenal = compile(preprocessFileLineNumbers "arsenal.sqf");
+[IP_Arsenal] call _arsenal;
+[IP_Arsenal2] call _arsenal;
 
 // Tasks
 [west, "tDeploy", ["Deploy into the <marker name=""mDrop"">AO</marker> by parajump!", "Deploy", "Parajump"], (getPosASL IP_Pilot), true, 7, false, "takeoff"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
@@ -122,7 +126,7 @@ _chk = {
 	
 	{
 		_grp = group _x;
-		((_x isKindOf "Man") && {_x == (leader _grp)}) then {
+		if ((_x isKindOf "Man") && {_x == (leader _grp)}) then {
 			_grp setVariable ["GAIA_ZONE_INTEND", ["mMCC_Zone7", "NOFOLLOW"]];
 		};
 	} forEach _units;
@@ -130,83 +134,36 @@ _chk = {
 
 [] spawn {
 	waitUntil {
-		(({alive _x} count [IP_Device1, IP_Device2, IP_Device3, IP_Device4] == 0)) &&
-		({(alive _x) && {_x distance (getMarkerPos "mEnd")}} count allPlayers > 0) &&
-		({(alive _x) && {_x distance (getMarkerPos "mEnd")}} count allPlayers == {alive _x} count allPlayers)
+		((({alive _x} count [IP_Device1, IP_Device2, IP_Device3, IP_Device4] == 0)) &&
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd")) <= 350}} count allPlayers > 0) &&
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd")) <= 350}} count allPlayers == {alive _x} count allPlayers)) ||
+		!(isNil "IP_AtRefuge")
 	};
 	
-	["tRetreat", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	["tRetreat", "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	sleep 5;
+	
+	"mEnd2" setMarkerAlpha 1;
+	[west, "tRetreat2", ["<marker name=""mEnd"">Point Refuge</marker> has been compromised. For ex-filtration, link-up with an <marker name=""mEnd2"">FIA Contact</marker> to the west instead.", "Meet FIA", "FIA"], "mEnd2", true, 3, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	IP_DropMarker = "mLZ_Area3";
+	publicVariable "IP_DropMarker";
+	[(IP_HiddenUnits getVariable ["FIA_End", []]), false] call STAF_fnc_enable;
+	
+	_units = IP_HiddenUnits getVariable ["End_Pats2", []];
+	[_units, false] call STAF_fnc_enable;	
+	{
+		_grp = group _x;
+		if ((_x isKindOf "Man") && {_x == (leader _grp)}) then {
+			_grp setVariable ["GAIA_ZONE_INTEND", ["mMCC_Zone9", "NOFOLLOW"]];
+		};
+	} forEach _units;
+	
+	waitUntil {
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd2")) <= 15}} count allPlayers > 0) &&
+		({(alive _x) && {(_x distance (getMarkerPos "mEnd2")) <= 15}} count allPlayers == {alive _x} count allPlayers)
+	};	
+	
+	["tRetreat2", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	sleep 5;
 	["STAF_Win"] call BIS_fnc_endMissionServer;
 };
-
-/*
-[] spawn {
-	waitUntil {triggerActivated trgLocate};	
-	["tLocate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	"mCrash_Real" setMarkerAlpha 1;
-	[west, "tDefend", ["Defend the <marker name=""mCrash_Real"">Crash Site in Zargabad</marker> until the pioneers arrive!", "Defend the Crash Site", "Crash Site"], "mCrash_Real", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	
-	if !(IP_TESTMODE) then {
-		sleep 120;
-	} else {
-		sleep 5;
-	};
-	
-	["wave1"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep 60;
-	} else {
-		sleep 5;
-	};
-	
-	["wave2"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep 60;
-	} else {
-		sleep 5;
-	};
-	
-	_wave = ["wave3"] spawn IP_fnc_m_wave;
-	
-	[] spawn {
-		while {(alive (gunner IP_Wave3Mortar)) && !(isNull(gunner IP_Wave3Mortar))} do {
-			_pos = "mMCC_Zone3" call STAF_fnc_SHKPos;
-			(gunner IP_Wave3Mortar) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Wave3Mortar]) select 0), 1];
-			sleep 20;
-			IP_Wave3Mortar setVehicleAmmo 1;
-		};
-	};
-	
-	waitUntil {scriptDone _wave};
-	
-	if !(IP_TESTMODE) then {
-		sleep 120;
-	} else {
-		sleep 5;
-	};
-	
-	["wave4"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep 180;
-	} else {
-		sleep 5;
-	};
-	
-	_wave = ["wave5", 0.1] spawn IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep (10 * 60);
-	} else {
-		sleep 5;
-	};
-	
-	[(IP_HiddenUnits getVariable ["end", []]), false] call STAF_fnc_enable;	
-	waitUntil {scriptDone _wave};
-	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	sleep 5;
-	["STAF_Win"] call BIS_fnc_endMissionServer;
-};*/

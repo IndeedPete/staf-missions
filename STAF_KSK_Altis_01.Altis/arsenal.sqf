@@ -147,7 +147,7 @@ _weapons = [
 	"rhsusf_weap_MP7A2",
 	"rhsusf_weap_MP7A2_desert",
 	"arifle_MX_Black_F",
-	"launch_B_Titan_short_F",
+	//"launch_B_Titan_short_F",
 	"arifle_MX_GL_Black_F",
 	"arifle_MX_SW_Black_F",
 	"arifle_MXC_Black_F",

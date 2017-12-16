@@ -9,13 +9,12 @@ IP_fnc_m_paraJumpWrapper = {
 		publicVariable "IP_LeaderJumped";
 	};
 	
-	// ToDo: Switch markers based on mission state.
-	_pos = IP_DropMarker call STAF_fnc_SHKPos;	
-	
+	_pos = IP_DropMarker call STAF_fnc_SHKPos;		
 	["IP_Blackscreen"] call STAF_fnc_blackOut;
 	sleep 2;
 	(format ["%1 parajumped into the AO.", (name player)]) remoteExec ["systemChat", 0, false];
 	_dude setPos _pos;
+	_dude setDir 180;
 	[_dude, _dude] call STAF_fnc_paradrop;	
 	["IP_Blackscreen"] call STAF_fnc_blackIn;
 };
