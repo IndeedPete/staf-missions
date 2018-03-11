@@ -10,9 +10,8 @@ publicVariable "IP_TimeLeft";
 // Funtions
 
 // Hide zhe Markerz
-"mCrash_Real" setMarkerAlpha 0;
 {
-	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0} OR {_x find "mArty" >= 0}) then {
+	if ((_x find "mMCC_Zone" >= 0) OR {_x find "mTAOR" >= 0}) then {
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
@@ -21,7 +20,9 @@ publicVariable "IP_TimeLeft";
 [east, "mStart", (markerText "mStart")] call BIS_fnc_addRespawnPosition;
 
 // Tasks
-//[west, "tLocate", ["Locate the <marker name=""mCrash"">Crash Site in Zargabad</marker>!", "Locate the Crash Site", "Possible Crash Site"], "mCrash", true, 6, false, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[true, "tArty", ["Locate and neutralize the enemy mobile artillery somewhere in the <marker name=""mAO"">AO</marker>!", "Neutralize the Artillery", ""], objNull, true, 6, false, "target"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[true, "tRetreat", ["Retreat back <marker name=""mStart"">south of the red line</marker>!", "Retreat", ""], "mStart", false, 6, false, "run"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[true, "timeLimit", [(format ["Complete all tasks within %1 minutes!", round(IP_TimeLeft / 60)]), "Time Limit", ""], objNull, false, 1, false, "wait"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -57,84 +58,34 @@ publicVariable "IP_TimeLeft";
 	};
 	publicVariable "IP_TimeEnd";
 	
-	while {IP_TimeLeft > 0} do {
+	while {(isNil "IP_AllDone") && {IP_TimeLeft > 0}} do {
 		IP_TimeLeft = if (isMultiplayer) then {
 			(IP_TimeEnd - serverTime)
 		} else {
 			(IP_TimeEnd - time)
 		};
+		
 		publicVariable "IP_TimeLeft";
 		sleep 1;
 	};
+	
+	if (("tArty" call BIS_fnc_taskState) != "SUCCEEDED") then {
+		["tArty", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
+	
+	if (("tRetreat" call BIS_fnc_taskState) != "SUCCEEDED") then {
+		["tRetreat", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
 };
 
-/*/ Le Mission Flow
+// Win Conditions
 [] spawn {
-	waitUntil {triggerActivated trgLocate};	
-	["tLocate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	"mCrash_Real" setMarkerAlpha 1;
-	[west, "tDefend", ["Defend the <marker name=""mCrash_Real"">Crash Site in Zargabad</marker> until the pioneers arrive!", "Defend the Crash Site", "Crash Site"], "mCrash_Real", true, 6, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	
-	if !(IP_TESTMODE) then {
-		sleep 120;
-	} else {
-		sleep 5;
-	};
-	
-	["wave1"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep 60;
-	} else {
-		sleep 5;
-	};
-	
-	["wave2"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep 60;
-	} else {
-		sleep 5;
-	};
-	
-	_wave = ["wave3"] spawn IP_fnc_m_wave;
-	
-	[] spawn {
-		while {(alive (gunner IP_Wave3Mortar)) && !(isNull(gunner IP_Wave3Mortar))} do {
-			_pos = "mMCC_Zone3" call STAF_fnc_SHKPos;
-			(gunner IP_Wave3Mortar) doArtilleryFire [_pos, ((getArtilleryAmmo [IP_Wave3Mortar]) select 0), 1];
-			sleep 20;
-			IP_Wave3Mortar setVehicleAmmo 1;
-		};
-	};
-	
-	waitUntil {scriptDone _wave};
-	
-	if !(IP_TESTMODE) then {
-		sleep 120;
-	} else {
-		sleep 5;
-	};
-	
-	["wave4"] call IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep 180;
-	} else {
-		sleep 5;
-	};
-	
-	_wave = ["wave5", 0.1] spawn IP_fnc_m_wave;
-	
-	if !(IP_TESTMODE) then {
-		sleep (10 * 60);
-	} else {
-		sleep 5;
-	};
-	
-	[(IP_HiddenUnits getVariable ["end", []]), false] call STAF_fnc_enable;	
-	waitUntil {scriptDone _wave};
-	["tDefend", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	waitUntil {(IP_TimeLeft > 0) && {!(alive IP_Target) OR !(canMove IP_Target) OR !(canFire IP_Target)}};
+	["tArty", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	waitUntil {(IP_TimeLeft > 0) && {triggerActivated trgEvac};
+	IP_AllDone = true;
+	publicVariable "IP_AllDone";	
+	["tRetreat", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	sleep 5;
-	["STAF_Win"] call BIS_fnc_endMissionServer;
-};*/
+	["timeLimit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
