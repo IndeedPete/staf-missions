@@ -17,12 +17,13 @@ publicVariable "IP_TimeLeft";
 } forEach allMapMarkers;
 
 // Respawn
-[east, "mStart", (markerText "mStart")] call BIS_fnc_addRespawnPosition;
+[missionNamespace, "mStart", (markerText "mStart")] call BIS_fnc_addRespawnPosition;
 
 // Tasks
 [true, "tArty", ["Locate and neutralize the enemy mobile artillery somewhere in the <marker name=""mAO"">AO</marker>!", "Neutralize the Artillery", ""], objNull, true, 6, false, "target"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [true, "tRetreat", ["Retreat back <marker name=""mStart"">south of the red line</marker>!", "Retreat", ""], "mStart", false, 6, false, "run"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[true, "timeLimit", [(format ["Complete all tasks within %1 minutes!", round(IP_TimeLeft / 60)]), "Time Limit", ""], objNull, false, 1, false, "wait"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[true, "timeLimit", [(format ["Complete all tasks within %1 minutes!", round(IP_TimeLeft / 60)]), "Time Limit", ""], objNull, false, 3, false, "wait"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[true, "tRules", ["Mind the rules! Do not open fire at USMC staff wearing signal vests!", "Mind the Rules", ""], objNull, false, 1, false, "whiteboard"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -46,10 +47,13 @@ publicVariable "IP_TimeLeft";
 
 // Timer
 [] spawn {
-	waitUntil {triggerActivated trgTimerStart};
+	waitUntil {(triggerActivated trgTimerStart) OR {!(isNil "IP_StartTimer")}};
 	if (count(list trgTimerStart) > 0) then {
 		systemChat (format ["%1 activated the time limit!", (name((list trgTimerStart) select 0))]);	
 	};
+	
+	// Add Respawn Positions
+	{[missionNamespace, _x, (markerText _x)] call BIS_fnc_addRespawnPosition} forEach ["mWest", "mNorth", "mEast"];
 	
 	IP_TimeEnd = if (isMultiplayer) then {
 		(serverTime + IP_TimeLeft)
@@ -76,13 +80,17 @@ publicVariable "IP_TimeLeft";
 	if (("tRetreat" call BIS_fnc_taskState) != "SUCCEEDED") then {
 		["tRetreat", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	};
+	
+	if (IP_TimeLeft <= 0) then {
+		["timeLimit", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
 };
 
 // Win Conditions
 [] spawn {
 	waitUntil {(IP_TimeLeft > 0) && {!(alive IP_Target) OR !(canMove IP_Target) OR !(canFire IP_Target)}};
 	["tArty", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	waitUntil {(IP_TimeLeft > 0) && {triggerActivated trgEvac};
+	waitUntil {(IP_TimeLeft > 0) && {triggerActivated trgEvac}};
 	IP_AllDone = true;
 	publicVariable "IP_AllDone";	
 	["tRetreat", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];

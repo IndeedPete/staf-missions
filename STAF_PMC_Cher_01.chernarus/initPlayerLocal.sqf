@@ -3,21 +3,32 @@ if !(hasInterface) exitWith {};
 
 // Functions
 IP_fnc_m_formatTimeStr = {
-	params ["_tl", "_min", "_sec", "_minStr", "_secStr"];
+	params ["_tl", "_min", "_sec", "_minStr", "_secStr", "_res"];
 	_min = floor(_tl / 60);
 	_sec = floor(_tl - (_min * 60));
 	_minStr = if (_min < 10) then {("0" + str(_min))} else {str(_min)};
 	_secStr = if (_sec < 10) then {("0" + str(_sec))} else {str(_sec)};
-	(_minStr + ":" + _secStr)	
+	_res = "Time Left: " + _minStr + ":" + _secStr;
+	if ((_min > 10) && {_min <= 30}) then {
+		_res = format ["<t color='#00ff00'>%1</t>", _res];
+	} else {
+		if (_min <= 10) then {
+			_res = format ["<t color='#ff0000'>%1</t>", _res];
+		};
+	};
+	
+	(parseText _res);
 };
+["IP_fnc_m_formatTimeStr"] call STAF_fnc_compileFinal;
 
 IP_fnc_m_displayTimeLeft = {
 	waitUntil {!(isNil "IP_TimeLeft")};
 	while {IP_TimeLeft > 0} do {
-		hintSilent ("Time Left: " + ([IP_TimeLeft] call IP_fnc_m_formatTimeStr));
+		hintSilent([IP_TimeLeft] call IP_fnc_m_formatTimeStr);
 		sleep 1;
 	};
 };
+["IP_fnc_m_displayTimeLeft"] call STAF_fnc_compileFinal;
 
 // Debug
 [] spawn {
@@ -37,10 +48,13 @@ IP_fnc_m_displayTimeLeft = {
 			[(leader _x)] call STAF_fnc_track;
 		} forEach allGroups;
 	} else {
-		if (player != IP_Zeus) then {
-			// Restrict 3rd Person
-			[] spawn STAF_fnc_viewRestrictions;
-		};
+		[] spawn {
+			waitUntil {!(isNil "IP_Zeus") && {!(isNull IP_Zeus)}};
+			if (player != IP_Zeus) then {
+				// Restrict 3rd Person
+				[] spawn STAF_fnc_viewRestrictions;
+			};
+		};		
 	};
 };
 
@@ -66,14 +80,4 @@ IP_fnc_m_displayTimeLeft = {
 	}];
 	
 	[] call IP_fnc_m_displayTimeLeft;
-};
-
-// Snow Fall
-[] spawn {
-	waitUntil {!(player getVariable ["IP_ColdBreath", false])};
-	[player] remoteExecCall ["IP_fnc_coldBreathACE", -2, true]; // Cold breath.
-	[player] call STAF_fnc_coldBreathACE;
-
-	waitUntil {((isNil "IP_snowFallRunning") OR {!(isNil "IP_snowFallRunning") && {!IP_snowFallRunning}})};
-	[] call STAF_fnc_snowFall; // Actual snow fall.
 };
