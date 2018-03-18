@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 IP_TimeLeft = 90 * 60;
 
@@ -49,7 +49,7 @@ publicVariable "IP_TimeLeft";
 [] spawn {
 	waitUntil {(triggerActivated trgTimerStart) OR {!(isNil "IP_StartTimer")}};
 	if (count(list trgTimerStart) > 0) then {
-		systemChat (format ["%1 activated the time limit!", (name((list trgTimerStart) select 0))]);	
+		(format ["%1 activated the time limit!", (name((list trgTimerStart) select 0))]) remoteExec ["systemChat", 0, false];
 	};
 	
 	// Add Respawn Positions
@@ -97,3 +97,5 @@ publicVariable "IP_TimeLeft";
 	sleep 5;
 	["timeLimit", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
+
+// ["STAF_Win"] call BIS_fnc_endMissionServer;
