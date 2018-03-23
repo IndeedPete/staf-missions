@@ -1,9 +1,37 @@
 // Variables
 IP_TESTMODE = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
+IP_Convoy = [IP_Convoy1, IP_Convoy2, IP_Convoy3];
 
 // Communicate dem Vars
 {publicVariable _x} forEach ["IP_TESTMODE"];
+
+// Functions
+_trackVan = {
+	_unit = [_this, 0, player, [objNull]] call BIS_fnc_param;
+	_delay = [_this, 1, 5, [0]] call BIS_fnc_param;
+	_shape = [_this, 2, "ICON", [""]] call BIS_fnc_param;
+	_type = [_this, 3, "mil_dot", [""]] call BIS_fnc_param;
+	_color = [_this, 4, ([(side _unit), true] call BIS_fnc_sideColor), [""]] call BIS_fnc_param;
+	_text = [_this, 5, "", [""]] call BIS_fnc_param;
+	_cond = [_this, 7, {IP_TESTMODE}, [{}]] call BIS_fnc_param;
+
+	if (call _cond) then {
+		_marker = createMarker[str _unit, getPos _unit];
+		_marker setMarkerShape _shape;
+		_marker setMarkerType _type;
+		_marker setMarkerColor _color;
+		_marker setMarkerText _text;
+
+		while {alive _unit} do {
+			_marker setMarkerPos (getPos _unit);
+			sleep _delay;
+		};
+
+		_marker setMarkerColor "ColorBlack";
+		_marker setMarkerText (_text + " (DESTROYED)");
+	};
+};
 
 // Hide zhe Markerz
 {
@@ -11,6 +39,7 @@ IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 		_x setMarkerAlpha 0;
 	};
 } forEach allMapMarkers;
+[IP_Van, 5, "ICON", "hd_objective", ([west, true] call BIS_fnc_sideColor), "Van (MHQ)", {alive IP_Van}] spawn _trackVan;
 
 // Force Lights On
 {
@@ -64,6 +93,33 @@ IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 
 // Weather
 0 setFog [1, 0.02, 0];
+
+// Convoy
+[] spawn {
+	waitUntil {!(isNil "IP_StartConvoy") && {IP_StartConvoy}};
+	[IP_Convoy] call STAF_fnc_enable;
+	
+	[["mConvoy1","mConvoy2","mConvoy3","mConvoy4"], IP_Convoy, true] spawn STAF_fnc_convoyDefend;
+	
+	waitUntil {!(isNil "IP_OfficerAtHouse") && {IP_OfficerAtHouse}};
+	// Task
+	
+	sleep 5;
+	["IP_BlackScreen", true, 1] remoteExecCall ["STAF_fnc_blackOut", 0, false];
+	sleep 1;
+	{[_x] call STAF_fnc_ACEHeal} forEach (allPlayers - (entities "HeadlessClient_F"));
+	IP_Officer setDamage 1;
+	_date = date;
+	_date set [3, 16];
+	_date set [4, 48];
+	setDate _date;
+	sleep 3;
+	["IP_BlackScreen", true, 1] remoteExec ["STAF_fnc_blackIn", 0, false];
+	sleep 5;
+	[["Some Hours Later"]] remoteExec ["BIS_fnc_EXP_camp_SITREP", 0, false];
+	
+	// Task
+};
 
 /*/ Le Mission Flow
 [] spawn {
