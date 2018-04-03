@@ -4,6 +4,7 @@ IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 IP_DockMarkers = [];
 IP_LaterMarkers = ["mMeet", "mQuest1", "mQuest2", "mAO"];
 IP_FrontLine = "mStart";
+IP_Trucks = [IP_Truck1, IP_Truck2];
 
 // Communicate dem Vars
 publicVariable "IP_TESTMODE";
@@ -56,6 +57,14 @@ publicVariable "IP_FrontLine";
 	
 	[west, "tTrucks", ["Recover the two stolen trucks full of equipment!", "Recover Trucks", ""], objNull, false, 3, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[west, "tMeet", ["Meet with the <marker name=""mMeet"">ESF unit in Eponia</marker>!", "Meet ESF", "ESF Unit"], "mMeet", true, 6, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[] spawn {
+		waitUntil {
+			sleep 5;
+			({alive _x} count IP_Trucks == 0)
+		};
+		
+		["tTrucks", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
 	
 	waitUntil {!(isNil "IP_MeetDone") && {IP_MeetDone}};
 	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -69,7 +78,14 @@ publicVariable "IP_FrontLine";
 	["tValley", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
 	waitUntil {!(isNil "IP_TrucksDone") && {IP_TrucksDone}};
-	["tTrucks", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	if ({alive _x} count IP_Trucks > 0) then {
+		["tTrucks", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
 	
+	[west, "tAbandoned", ["A group of Russian stragglers has been sighted at the <marker name=""mAbandoned"">Abandoned ESF Military Base</marker>. Search the area and neutralise the enemy threat! Try to take prisoners for questioning if possible! (Bonus Objective)", "BONUS: Secure Abandoned Military Base", "Abandoned Military Base"], "mAbandoned", true, 6, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	
+	waitUntil {!(isNil "IP_BaseDone") && {IP_BaseDone}};
+	
+	["tAbandoned", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	// ["STAF_Win"] call BIS_fnc_endMissionServer;
 };
