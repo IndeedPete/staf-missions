@@ -83,6 +83,8 @@ publicVariable "IP_FrontLine";
 	};
 	
 	[west, "tAbandoned", ["A group of Russian stragglers has been sighted at the <marker name=""mAbandoned"">Abandoned ESF Military Base</marker>. Search the area and neutralise the enemy threat! Try to take prisoners for questioning if possible! (Bonus Objective)", "BONUS: Secure Abandoned Military Base", "Abandoned Military Base"], "mAbandoned", true, 6, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_HiddenUnits getVariable ["abandoned", []]), true] call STAF_fnc_enable;
+	IP_Captive allowDamage false;
 	
 	waitUntil {!(isNil "IP_BaseDone") && {IP_BaseDone}};
 	
