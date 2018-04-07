@@ -1,5 +1,5 @@
 // Variables
-IP_TESTMODE = true;
+IP_TESTMODE = false;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
 IP_DockMarkers = [];
 IP_LaterMarkers = ["mMeet", "mQuest1", "mQuest2", "mAO"];
@@ -55,7 +55,7 @@ publicVariable "IP_FrontLine";
 	IP_FrontLine = "mDock";
 	publicVariable "IP_FrontLine";
 	
-	[west, "tTrucks", ["Recover the two stolen trucks full of equipment!", "Recover Trucks", ""], objNull, false, 3, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, "tTrucks", ["Recover the two stolen trucks full of equipment! Return them back to the <marker name=""mStart"">ESF Military Base</marker>!", "Recover Trucks", ""], objNull, false, 3, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[west, "tMeet", ["Meet with the <marker name=""mMeet"">ESF unit in Eponia</marker>!", "Meet ESF", "ESF Unit"], "mMeet", true, 6, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[] spawn {
 		waitUntil {
@@ -74,6 +74,11 @@ publicVariable "IP_FrontLine";
 	
 	[west, "tValley", ["Together with the ESF, secure the <marker name=""mQuest2"">Valley east of the Pico de Revolucion</marker>!", "Secure Valley", "Valley"], "mQuest2", true, 6, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
+	/* Happens in trigger.
+	IP_FrontLine = "mQuest1";
+	publicVariable "IP_FrontLine";
+	*/
+	
 	waitUntil {!(isNil "IP_ValleyDone") && {IP_ValleyDone}};
 	["tValley", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
@@ -85,6 +90,9 @@ publicVariable "IP_FrontLine";
 	[west, "tAbandoned", ["A group of Russian stragglers has been sighted at the <marker name=""mAbandoned"">Abandoned ESF Military Base</marker>. Search the area and neutralise the enemy threat! Try to take prisoners for questioning if possible! (Bonus Objective)", "BONUS: Secure Abandoned Military Base", "Abandoned Military Base"], "mAbandoned", true, 6, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[(IP_HiddenUnits getVariable ["abandoned", []]), true] call STAF_fnc_enable;
 	IP_Captive allowDamage false;
+	
+	IP_FrontLine = "mLast";
+	publicVariable "IP_FrontLine";
 	
 	waitUntil {!(isNil "IP_BaseDone") && {IP_BaseDone}};
 	
