@@ -50,11 +50,11 @@ if !(hasInterface) exitWith {};
 	}];
 };
 
-// Arsenal
+/*/ Arsenal
 _fnc_arsenal = compile(preprocessFileLineNumbers "arsenal\fn_pmcarsenal.sqf");
 {
 	[_x] call _fnc_arsenal;
-} forEach [IP_Arsenal1, IP_Arsenal2];
+} forEach [IP_Arsenal1, IP_Arsenal2];*/
 
 /*/ Teleport
 IP_Arsenal addAction ["<img size='1' shadow='1' image='\a3\ui_f\data\IGUI\Cfg\Actions\eject_ca.paa'/> Teleport to the Front Line", {

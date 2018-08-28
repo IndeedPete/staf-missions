@@ -1,7 +1,7 @@
 // Variables
 IP_TESTMODE = true;
 IP_HiddenUnits = [] call STAF_fnc_createKeyValueMap;
-IP_LaterMarkers = [];
+IP_LaterMarkers = ["mMeet", "mLZ"];
 
 // Communicate dem Vars
 publicVariable "IP_TESTMODE";
