@@ -56,15 +56,6 @@ _fnc_arsenal = compile(preprocessFileLineNumbers "arsenal\fn_pmcarsenal.sqf");
 	[_x] call _fnc_arsenal;
 } forEach [IP_Arsenal1, IP_Arsenal2];*/
 
-/*/ Teleport
-IP_Arsenal addAction ["<img size='1' shadow='1' image='\a3\ui_f\data\IGUI\Cfg\Actions\eject_ca.paa'/> Teleport to the Front Line", {
-	["IP_BlackScreen", true, 1.5, true] call STAF_fnc_blackOut;
-	sleep 1.5;
-	player setPos (getMarkerPos IP_FrontLine);
-	sleep 1.5;
-	["IP_BlackScreen", true] call STAF_fnc_blackIn;
-}];*/
-
 // Toilet
 {
 	_x addAction ["<img size='2' shadow='2' image='\a3\ui_f\data\igui\cfg\Actions\ico_cpt_thtl_idl_ca.paa'/> Take a Piss", {

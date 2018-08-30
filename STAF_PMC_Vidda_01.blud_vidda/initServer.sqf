@@ -19,7 +19,11 @@ publicVariable "IP_FrontLine";
 // [missionNamespace, "mStart", (markerText "mStart")] call BIS_fnc_addRespawnPosition;
 
 // Tasks
-// [west, "tOversee", ["Oversee the unloading of US military equipment by the ESF.", "Oversee Logistics", ""], objNull, true, 1, false, "container"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tEvidence", ["Find evidence for or against the Norwegian government co-operating with CSAT!", "Find Evidence", ""], objNull, false, 1, false, "intel"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tAlpha", ["Search <marker name=""mEBase1"">Base Alpha</marker> for evidence!", "Investigate Base Alpha", "Base Alpha"], "mEBase1", false, 7, false, "a"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, ["tRadio", "tAlpha"], ["Download the radio protocols of the <marker name=""mOffice1"">Comm Centre</marker>!", "Download Protocols", "Comm Centre"], "mOffice1", true, 7, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tBravo", ["Search <marker name=""mEBase2"">Base Bravo</marker> for evidence!", "Investigate Base Bravo", "Base Bravo"], "mEBase2", false, 6, false, "b"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tZulu", ["Search <marker name=""mFacility"">Object Zulu</marker> for evidence!", "Investigate Object Zulu", "Object Zulu"], "mFacility", false, 5, false, "z"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Units
 {	
@@ -35,10 +39,44 @@ publicVariable "IP_FrontLine";
 // Weather
 // [1, 0.02, 0] call BIS_fnc_setFog;
 
-/*/ Mission Flow
+// Mission Flow
 [] spawn {
-	waitUntil {!(isNil "IP_StartDone") && {IP_StartDone}};
-	["tOversee", "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	// Radio Protocols
+	waitUntil {!(isNil "IP_RadioDone") && {IP_RadioDone}};
+	["tRadio", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	waitUntil {!(isNil "IP_AlphaDone") && {IP_AlphaDone}};
+	["tAlpha", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+[] spawn {
+	waitUntil {!(isNil "IP_BravoDone") && {IP_BravoDone}};
+	["tBravo", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+[] spawn {
+	waitUntil {!(isNil "IP_ZuluStarted") && {IP_ZuluStarted}};
+	[west, ["tFiles", "tZulu"], ["Download files from <marker name=""mFacility"">Object Zulu's</marker> main frame!", "Download Data", "Object Zulu"], "mFacility", true, 7, true, "download"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];	
+	
+	waitUntil {!(isNil "IP_ZuluDone") && {IP_ZuluDone}};
+	["tFiles", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	["tZulu", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	
+	sleep 10;
+	
+	waitUntil {!(isNil "IP_AlphaDone") && {IP_AlphaDone}};
+	[west, "tYankee", ["The files and protocols downloaded indicate that a meeting is taking place between a Norwegian government official and a high-ranking officer of a yet unknown party at <marker name=""mMeet"">Object Yankee</marker>. Secure <marker name=""mMeet"">Object Yankee</marker>, kill or capture the government official, and identify the other party!", "Investigate Object Yankee", "Object Yankee"], "mMeet", true, 1, true, "y"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tSecure", "tYankee"], ["Secure <marker name=""mMeet"">Object Yankee</marker>. Neutralise all enemy forces!", "Secure Object Yankee", "Object Yankee"], "mMeet", true, 10, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tHVI", "tYankee"], ["Kill or capture the Norwegian government official at <marker name=""mMeet"">Object Yankee</marker>!", "Download Data", "Object Yankee"], "mMeet", false, 9, true, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tSuitcase", "tYankee"], ["Secure all evidence the Norwegian government official at <marker name=""mMeet"">Object Yankee</marker> carries (suitcases, files, etc.)!", "Secure Evidence", "Object Yankee"], "mMeet", false, 8, true, "documents"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tIdentify", "tYankee"], ["Identify the other party at <marker name=""mMeet"">Object Yankee</marker>!", "Identify Other Party", "Object Yankee"], "mMeet", false, 7, true, "whiteboard"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	
+	waitUntil {!(isNil "IP_YankeeStarted") && {IP_YankeeStarted}};
+	[west, ["tTruck", "tYankee"], ["Secure the device truck at <marker name=""mMeet"">Object Yankee</marker>!", "Secure Truck", "Object Yankee"], "mMeet", false, 6, true, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+};
+
+/*	
+[] spawn {	
 	[west, "tInvestigate", ["Investigate what happened at the <marker name=""mDock"">Dock</marker>!", "Investigate Dock", "Dock"], "mDock", true, 6, true, "scout"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	waitUntil {!(isNil "IP_DockDone") && {IP_DockDone}};
