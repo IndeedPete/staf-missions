@@ -56,7 +56,7 @@ publicVariable "IP_FrontLine";
 
 [] spawn {
 	waitUntil {!(isNil "IP_ZuluStarted") && {IP_ZuluStarted}};
-	[west, ["tFiles", "tZulu"], ["Download files from <marker name=""mFacility"">Object Zulu's</marker> main frame!", "Download Data", "Object Zulu"], "mFacility", true, 7, true, "download"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];	
+	[west, ["tFiles", "tZulu"], ["Download files from <marker name=""mFacility"">Object Zulu's</marker> main frame!", "Download Data", "Object Zulu"], "mFacility", true, 7, true, "download"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	waitUntil {!(isNil "IP_ZuluDone") && {IP_ZuluDone}};
 	["tFiles", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
@@ -65,64 +65,57 @@ publicVariable "IP_FrontLine";
 	sleep 10;
 	
 	waitUntil {!(isNil "IP_AlphaDone") && {IP_AlphaDone}};
+	"mMeet" setMarkerAlpha 1;
+	[(IP_HiddenUnits getVariable ["end", []]), true] call STAF_fnc_enable;
 	[west, "tYankee", ["The files and protocols downloaded indicate that a meeting is taking place between a Norwegian government official and a high-ranking officer of a yet unknown party at <marker name=""mMeet"">Object Yankee</marker>. Secure <marker name=""mMeet"">Object Yankee</marker>, kill or capture the government official, and identify the other party!", "Investigate Object Yankee", "Object Yankee"], "mMeet", true, 1, true, "y"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[west, ["tSecure", "tYankee"], ["Secure <marker name=""mMeet"">Object Yankee</marker>. Neutralise all enemy forces!", "Secure Object Yankee", "Object Yankee"], "mMeet", true, 10, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[west, ["tHVI", "tYankee"], ["Kill or capture the Norwegian government official at <marker name=""mMeet"">Object Yankee</marker>!", "Download Data", "Object Yankee"], "mMeet", false, 9, true, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tHVI", "tYankee"], ["Capture the Norwegian government official at <marker name=""mMeet"">Object Yankee</marker>!", "Capture HVI", "Object Yankee"], "mMeet", false, 9, true, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[west, ["tSuitcase", "tYankee"], ["Secure all evidence the Norwegian government official at <marker name=""mMeet"">Object Yankee</marker> carries (suitcases, files, etc.)!", "Secure Evidence", "Object Yankee"], "mMeet", false, 8, true, "documents"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[west, ["tIdentify", "tYankee"], ["Identify the other party at <marker name=""mMeet"">Object Yankee</marker>!", "Identify Other Party", "Object Yankee"], "mMeet", false, 7, true, "whiteboard"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
 	waitUntil {!(isNil "IP_YankeeStarted") && {IP_YankeeStarted}};
 	[west, ["tTruck", "tYankee"], ["Secure the device truck at <marker name=""mMeet"">Object Yankee</marker>!", "Secure Truck", "Object Yankee"], "mMeet", false, 6, true, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-};
-
-/*	
-[] spawn {	
-	[west, "tInvestigate", ["Investigate what happened at the <marker name=""mDock"">Dock</marker>!", "Investigate Dock", "Dock"], "mDock", true, 6, true, "scout"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	
-	waitUntil {!(isNil "IP_DockDone") && {IP_DockDone}};
-	["tInvestigate", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[(IP_HiddenUnits getVariable ["ambush", []]), true] call STAF_fnc_enable;
-	[(IP_HiddenUnits getVariable ["meet", []]), true] call STAF_fnc_enable;
-	{_x setMarkerAlpha 1} forEach IP_LaterMarkers;
-	IP_FrontLine = "mDock";
-	publicVariable "IP_FrontLine";
-	
-	[west, "tTrucks", ["Recover the two stolen trucks full of equipment! Return them back to the <marker name=""mStart"">ESF Military Base</marker>!", "Recover Trucks", ""], objNull, false, 3, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[west, "tMeet", ["Meet with the <marker name=""mMeet"">ESF unit in Eponia</marker>!", "Meet ESF", "ESF Unit"], "mMeet", true, 6, true, "meet"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[] spawn {
-		waitUntil {
-			sleep 5;
-			({alive _x} count IP_Trucks == 0)
+		waitUntil {!(isNil "IP_SecureDone") && {IP_SecureDone}};
+		["tSecure", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
+	
+	[] spawn {
+		waitUntil {!(isNil "IP_HVIDone") && {IP_HVIDone}};
+		if (alive IP_HVI) then {
+			["tHVI", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+		} else {
+			["tHVI", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 		};
-		
-		["tTrucks", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	};
 	
-	waitUntil {!(isNil "IP_MeetDone") && {IP_MeetDone}};
-	["tMeet", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	[(IP_HiddenUnits getVariable ["pass", []]), true] call STAF_fnc_enable;
-	IP_FrontLine = "mMeet";
-	publicVariable "IP_FrontLine";
-	
-	[west, "tValley", ["Together with the ESF, secure the <marker name=""mQuest2"">Valley east of the Pico de Revolucion</marker>!", "Secure Valley", "Valley"], "mQuest2", true, 6, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-		
-	waitUntil {!(isNil "IP_ValleyDone") && {IP_ValleyDone}};
-	["tValley", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	
-	waitUntil {!(isNil "IP_TrucksDone") && {IP_TrucksDone}};
-	if ({alive _x} count IP_Trucks > 0) then {
-		["tTrucks", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	[] spawn {
+		waitUntil {!(isNil "IP_SuitcaseDone") && {IP_SuitcaseDone}};
+		["tSuitcase", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	};
 	
-	[west, "tAbandoned", ["A group of Russian stragglers has been sighted at the <marker name=""mAbandoned"">Abandoned ESF Military Base</marker>. Search the area and neutralise the enemy threat! Try to take prisoners for questioning if possible! (Bonus Objective)", "BONUS: Secure Abandoned Military Base", "Abandoned Military Base"], "mAbandoned", true, 6, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-	[(IP_HiddenUnits getVariable ["abandoned", []]), true] call STAF_fnc_enable;
-	IP_Captive allowDamage false;
+	[] spawn {
+		waitUntil {!(isNil "IP_IdentifyDone") && {IP_IdentifyDone}};
+		["tIdentify", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
 	
-	IP_FrontLine = "mLast";
-	publicVariable "IP_FrontLine";
+	[] spawn {
+		waitUntil {!(isNil "IP_TruckStarted") && {IP_TruckStarted}};
+		"mLZ" setMarkerAlpha 1;
+		[(IP_HiddenUnits getVariable ["lz", []]), true] call STAF_fnc_enable;
+		["tTruck", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+		[west, ["tLZ", "tYankee"], ["A NATO team has secured an <marker name=""mLZ"">LZ called X-Ray</marker>. Deliver the device truck to them!", "Deliver Truck", "LZ X-Ray"], "mLZ", false, 5, true, "takeoff"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+		waitUntil {!(isNil "IP_TruckDone") && {IP_TruckDone}};
+		["tLZ", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
 	
-	waitUntil {!(isNil "IP_BaseDone") && {IP_BaseDone}};
+	waitUntil {!(isNil "IP_SecureDone") && {IP_SecureDone} && !(isNil "IP_HVIDone") && {IP_HVIDone} && !(isNil "IP_SuitcaseDone") && {IP_SuitcaseDone} && !(isNil "IP_IdentifyDone") && {IP_IdentifyDone} && !(isNil "IP_TruckDone") && {IP_TruckDone}};
+	sleep 5;
+	["tYankee", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	
-	["tAbandoned", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
-	// ["STAF_Win"] call BIS_fnc_endMissionServer;
+	waitUntil {!(isNil "IP_EvidenceDone") && {IP_EvidenceDone}};
+	["tEvidence", "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	sleep 10;
+	["STAF_Win"] call BIS_fnc_endMissionServer;
 };

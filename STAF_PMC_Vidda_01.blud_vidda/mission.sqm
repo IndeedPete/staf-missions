@@ -5,10 +5,10 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=129;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1364;
+		nextID=1365;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=15;
+		nextID=16;
 	};
 	class Camera
 	{
-		pos[]={3952.8806,233.40291,7150.3228};
-		dir[]={-0.97042394,-0.21665005,-0.10681145};
-		up[]={-0.2153547,0.97624499,-0.023704702};
-		aside[]={-0.10941271,1.2250166e-006,0.99403876};
+		pos[]={4341.3892,332.65201,9767.917};
+		dir[]={0.586339,-0.18767631,-0.78812677};
+		up[]={0.11203451,0.98222107,-0.15059073};
+		aside[]={-0.80238116,2.5285408e-007,-0.59694469};
 	};
 };
 binarizationWanted=0;
@@ -165,13 +165,14 @@ addons[]=
 	"ace_nouniformrestrictions",
 	"STAF_pmc_headgear",
 	"STAF_pmc_vests",
-	"A3_Soft_F_Quadbike_01"
+	"A3_Soft_F_Quadbike_01",
+	"A3_Structures_F_EPC_Items_Electronics"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=105;
+		items=106;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -858,6 +859,13 @@ class AddonsMetaData
 		{
 			className="A3_Soft_F";
 			name="Arma 3 Alpha - Unarmored Land Vehicles";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item105
+		{
+			className="A3_Structures_F_EPC";
+			name="Arma 3 Win Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -20349,9 +20357,10 @@ class Mission
 		wavesForced=1;
 		windForced=1;
 		year=2018;
-		month=3;
-		day=30;
+		month=4;
+		day=20;
 		hour=0;
+		minute=0;
 		startFogDecay=0.014;
 		forecastFogDecay=0.014;
 		class CustomAttributes
@@ -20381,7 +20390,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=401;
+		items=402;
 		class Item0
 		{
 			dataType="Marker";
@@ -35668,8 +35677,8 @@ class Mission
 			{
 				class Attribute0
 				{
-					property="Enh_doStop";
-					expression="if (!is3DEN && _value) then {doStop _this}";
+					property="Enh_enableHeadlights";
+					expression="_this setPilotLight _value";
 					class Value
 					{
 						class data
@@ -35706,8 +35715,8 @@ class Mission
 				};
 				class Attribute2
 				{
-					property="Enh_enableHeadlights";
-					expression="_this setPilotLight _value";
+					property="Enh_doStop";
+					expression="if (!is3DEN && _value) then {doStop _this}";
 					class Value
 					{
 						class data
@@ -57724,8 +57733,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2898.3044,185.85274,9463.4307};
-				angles[]={0,1.7461572,0};
+				position[]={2898.304,185.85274,9463.4307};
+				angles[]={0,1.7461495,0};
 			};
 			side="Empty";
 			flags=4;
@@ -57734,6 +57743,48 @@ class Mission
 			};
 			id=1245;
 			type="CDF_WarfareBUAVterminal";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="Enh_featureType";
+					expression="_this setFeatureType parseNumber (_value)";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="0";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
 		};
 		class Item383
 		{
@@ -58121,7 +58172,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={2900.3779,183.94154,9461.5068};
-				angles[]={0,3.2676973,0};
+				angles[]={0,3.2676928,0};
 			};
 			side="Empty";
 			flags=4;
@@ -58130,13 +58181,55 @@ class Mission
 			};
 			id=1261;
 			type="Land_CampingTable_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="Enh_featureType";
+					expression="_this setFeatureType parseNumber (_value)";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="0";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
 		};
 		class Item386
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2899.7869,184.53514,9461.5967};
+				position[]={2899.7871,184.53554,9461.5967};
 			};
 			side="Empty";
 			flags=4;
@@ -58145,22 +58238,109 @@ class Mission
 			};
 			id=1262;
 			type="Land_SatellitePhone_F";
+			atlOffset=0.00039672852;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="Enh_featureType";
+					expression="_this setFeatureType parseNumber (_value)";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="0";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
 		};
 		class Item387
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2900.6907,184.50166,9461.4473};
-				angles[]={0,3.9261889,0};
+				position[]={2900.6909,184.50206,9461.4473};
+				angles[]={0,3.9261878,0};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
+				name="IP_Radio";
 			};
 			id=1263;
 			type="Land_Laptop_unfolded_F";
+			atlOffset=0.00039672852;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="Enh_featureType";
+					expression="_this setFeatureType parseNumber (_value)";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="0";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
 		};
 		class Item388
 		{
@@ -62562,8 +62742,8 @@ class Mission
 				};
 				class Attribute2
 				{
-					property="Enh_doStop";
-					expression="if (!is3DEN && _value) then {doStop _this}";
+					property="Enh_enableHeadlights";
+					expression="_this setPilotLight _value";
 					class Value
 					{
 						class data
@@ -62600,8 +62780,8 @@ class Mission
 				};
 				class Attribute4
 				{
-					property="Enh_enableHeadlights";
-					expression="_this setPilotLight _value";
+					property="Enh_doStop";
+					expression="if (!is3DEN && _value) then {doStop _this}";
 					class Value
 					{
 						class data
@@ -64274,7 +64454,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={3943.5955,233.37628,7151.0591};
-				angles[]={-0,2.4532707,0};
+				angles[]={0,2.4532707,0};
 			};
 			side="Empty";
 			flags=4;
@@ -64283,6 +64463,65 @@ class Mission
 			};
 			id=1361;
 			type="B_G_Quadbike_01_F";
+		};
+		class Item401
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={4084.7151,204.97406,10545.696};
+				angles[]={0,1.9001225,0};
+			};
+			side="Empty";
+			class Attributes
+			{
+				name="IP_MainFrame";
+			};
+			id=1364;
+			type="Land_Laptop_device_F";
+			atlOffset=0.81929016;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="Enh_featureType";
+					expression="_this setFeatureType parseNumber (_value)";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="0";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
 		};
 	};
 	class Connections
