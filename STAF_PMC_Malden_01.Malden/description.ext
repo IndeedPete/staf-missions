@@ -1,13 +1,38 @@
 author = "IndeedPete";
-onLoadName = "Operation Farting Freely";
+OnLoadName = "Small Arms";
 // briefingName = "Delivery Dogs";
-onLoadMission = "April 2035, Near Hansen's Shithole of a House...";
+onLoadMission = "September 2035, Malden...";
 overviewText = "";
+disabledAI = 1;
+
+respawn = "INSTANT";
+respawnTemplates[] = {"Tickets", "MenuPosition", "Wave", "ace_spectator"};
+respawnDelay = 30;
+respawnDialog = 0;
 respawnOnStart = 0;
 
-loadScreen = "img\overview.paa";
-overviewPicture = "img\overview.paa";
+loadScreen = "img\Overview.paa";
+overviewPicture = "img\Overview.paa";
 enableDebugConsole = 1;
+joinUnassigned = 0;
+enableItemsDropping = 0;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 64;
+};
+
+corpseManagerMode = 1;
+corpseLimit = 30;
+corpseRemovalMinTime = 360;
+corpseRemovalMaxTime = 1200;
+
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 360;
+wreckRemovalMaxTime = 1200;
 
 class CfgDebriefing
 {  
@@ -28,4 +53,17 @@ class CfgDebriefing
 		title = "Mission Failed!";
 		subtitle = "";
 	};
+};
+
+class CfgIdentities
+{
+	class Strawberry
+	{
+		face = "Kerry";
+		glasses = "none";
+		name = "Strawberry";
+		nameSound = "Adams";
+		pitch = 1.0;
+		speaker = "Male01ENG";
+	}; 
 };
