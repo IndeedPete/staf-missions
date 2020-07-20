@@ -21,12 +21,12 @@
 
 	waitUntil {!(isNil "IP_Met")};
 	"tMeet" call _completeTask;
-	[west, ["tBorderGuardHQ", "tSchematics"], ["Free Seemöwe's contact in the <marker name=""mBorderGuardHQ"">Border Guard HQ in Walbeck</marker> in order to learn the location of the schematics!", "Raid Border Guard HQ", "Border Guard HQ"], "mBorderGuardHQ", true, 5, true, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tBorderGuardHQ", "tSchematics"], ["Free Seemöwe's contact in the <marker name=""mBorderGuardHQ"">Border Guard HQ in Walbeck</marker> in order to learn the location of the schematics of Objekt 188!", "Raid Border Guard HQ", "Border Guard HQ"], "mBorderGuardHQ", true, 5, true, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 	waitUntil {!(isNil "IP_Raided")};
 	"tBorderGuardHQ" call _completeTask;
 	"mSchematics" setMarkerAlpha 1;
-	[west, ["tIntel", "tSchematics"], [" Find the schematics hidden at the <marker name=""mSchematics"">ruins in east Walbeck</marker>!", "Find Schematics", "Ruins"], "mSchematics", true, 4, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[west, ["tIntel", "tSchematics"], [" Find the schematics of Objekt 188 hidden at the <marker name=""mSchematics"">ruins in east Walbeck</marker>!", "Find Schematics", "Ruins"], "mSchematics", true, 4, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 	waitUntil {!(isNil "IP_IntelTaken")};
 	"tIntel" call _completeTask;
