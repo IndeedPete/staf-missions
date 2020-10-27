@@ -1,0 +1,56 @@
+author = "IndeedPete";
+onLoadName = "A Happy Mission";
+// briefingName = "Delivery Dogs";
+onLoadMission = "Near Absolutely Nowhere...";
+loadScreen = "picture_small.paa";
+overviewPicture = "picture_small.paa";
+overviewText = "";
+disabledAI = 1;
+enableDebugConsole = 1;
+
+respawnOnStart = -1;
+allowFunctionsRecompile = 1;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 32;
+};
+
+class CfgRemoteExec
+{
+	// List of script functions allowed to be sent from client via remoteExec
+	class Functions
+	{
+		mode = 2;
+		jip = 1;		
+		
+		class vcm_serverask { allowedTargets = 0;jip = 1; };
+		class VCM_PublicScript { allowedTargets = 0;jip = 1; };
+		class SpawnScript { allowedTargets = 0;jip = 1; };
+		class enableSimulationGlobal { allowedTargets = 0;jip = 1; };
+		class VCM_fnc_KnowAbout { allowedTargets = 0;jip = 1; };	
+	};	
+};
+
+class CfgDebriefing
+{  
+	class STAF_Win
+	{
+		picture = "b_recon";
+		pictureBackground = "picture_small.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_BLUFOR_R',0])","(profilenamespace getvariable ['Map_BLUFOR_G',1])","(profilenamespace getvariable ['Map_BLUFOR_B',1])","(profilenamespace getvariable ['Map_BLUFOR_A',0.8])"};
+		title = "Mission Accomplished!";
+		subtitle = "";
+	};
+	
+	class STAF_Fail
+	{
+		picture = "b_recon";
+		pictureBackground = "picture_small.paa";
+		pictureColor[] = {"(profilenamespace getvariable ['Map_OPFOR_R',0])","(profilenamespace getvariable ['Map_OPFOR_G',1])","(profilenamespace getvariable ['Map_OPFOR_B',1])","(profilenamespace getvariable ['Map_OPFOR_A',0.8])"};
+		title = "Mission Failed!";
+		subtitle = "";
+	};
+};
