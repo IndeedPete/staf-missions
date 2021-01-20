@@ -20,9 +20,20 @@
 [west, ["tNight3", "tPatrol"], ["Patrol to <marker name=""mNight3"">Point Hoosegow</marker> and camp the night there!", "Camp at Hoosegow", "Point Hoosegow"], "mNight3", false, 11, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tEnd", "tPatrol"], ["Patrol to <marker name=""mEnd"">Point Swashbuckler</marker> and regroup with friendly units!", "Patrol to Swashbuckler", "Point Swashbuckler"], "mEnd", false, 10, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tArty", ["Opportunity target: locate and destroy the enemy artillery assumed to be somewhere in the <marker name=""mAO"">AO</marker>!", "Destroy Artillery", ""], nil, false, 9, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tContact", ["Commander's intent: avoid contact while patrolling in the <marker name=""mAO"">AO</marker>!", "Avoid Contact", ""], nil, false, 8, false, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tCar", ["Commander's intent: avoid using motorised transport while patrolling in the <marker name=""mAO"">AO</marker>!", "Avoid Motorised Transport", ""], nil, false, 7, false, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tRadio", ["Commander's intent: maintain radio silence to command while patrolling in the <marker name=""mAO"">AO</marker>!", "Radio Silence", ""], nil, false, 6, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tContact", ["Commander's intent: avoid contact while patrolling in the <marker name=""mAO"">AO</marker>! Exception: engaging the artillery opportunity target.", "Avoid Contact", ""], nil, false, 8, false, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, ["tCar", "tContact"], ["Commander's intent: avoid using motorised transport while patrolling in the <marker name=""mAO"">AO</marker>!", "Avoid Motorised Transport", ""], nil, false, 7, false, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, ["tRadio", "tContact"], ["Commander's intent: maintain radio silence to command while patrolling in the <marker name=""mAO"">AO</marker>! Only report on very important situations.", "Radio Silence", ""], nil, false, 6, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+
+// Objects
+{
+	private _scene = _x getVariable ["IP_Scene", ""];
+	if (_scene != "") then {
+		private _objs = (IP_ObjectMap getVariable [_scene, []]);
+		_objs pushBack _x;
+		IP_ObjectMap setVariable [_scene, _objs];
+		[_x] call STAF_fnc_disable;
+	};
+} forEach (allMissionObjects "All");
 
 /* Mission Flow
 Drive to Start
@@ -66,6 +77,7 @@ End
 	[[1997, 9, 19, 12, 0], true, true] call BIS_fnc_setDate;
 	[0, 0, 0] call BIS_fnc_setFog;
 	[0.8] call BIS_fnc_setOvercast;
+	[(IP_ObjectMap getVariable ["checkpoint", []])] call STAF_fnc_enable;
 	"tNight1" call _completeTask;
 
 	// Patrol to Checkpoint
