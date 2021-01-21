@@ -25,9 +25,10 @@
 [west, ["tRadio", "tContact"], ["Commander's intent: maintain radio silence to command while patrolling in the <marker name=""mAO"">AO</marker>! Only report on very important situations.", "Radio Silence", ""], nil, false, 6, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Objects
+private _exScenes = ["tulga"]; // "checkpoint", "op1", "tulga"
 {
 	private _scene = _x getVariable ["IP_Scene", ""];
-	if (_scene != "") then {
+	if ((_scene != "") && {!(_scene in _exScenes)}) then {
 		private _objs = (IP_ObjectMap getVariable [_scene, []]);
 		_objs pushBack _x;
 		IP_ObjectMap setVariable [_scene, _objs];
@@ -59,6 +60,10 @@ End
 [] spawn {
 	private _completeTask = {
 		[_this, "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+	};
+
+	private _cancelTask = {
+		[_this, "CANCELED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 	};
 
 	waitUntil {!(isNil "IP_Briefing")};
@@ -106,7 +111,39 @@ End
 	waitUntil {!(isNil "IP_OP2")};
 	"tOP2" call _completeTask;
 
+	if !("tRadio" call BIS_fnc_taskCompleted) then {
+		"tRadio" call _cancelTask;
+	};
+
+	if !("tCar" call BIS_fnc_taskCompleted) then {
+		"tCar" call _cancelTask;
+	};
+
+	if !("tContact" call BIS_fnc_taskCompleted) then {
+		"tContact" call _cancelTask;
+	};
+
+	waitUntil {!(isNil "IP_Tulga")};
+	"tTulga" call _completeTask;
+	"tNight3" call _cancelTask;
+	// New Task
+
 	/*
 	sleep 10;
 	["STAF_Win"] call BIS_fnc_endMissionServer;*/
+};
+
+[] spawn {
+	waitUntil {!(isNil "IP_Contact")};
+	["tContact", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+[] spawn {
+	waitUntil {!(isNil "IP_CarTaken")};
+	["tCar", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
+};
+
+[] spawn {
+	waitUntil {!(isNil "IP_RadioSilenceBroken")};
+	["tRadio", "FAILED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 };
