@@ -10,8 +10,8 @@
 [west, "tPatrol", ["Conduct a recon patrol in the <marker name=""mAO"">AO</marker> between <marker name=""mPusta"">Pusta</marker> and <marker name=""mTulga"">Tulga</marker>!", "Patrol", ""], nil, false, 0, false, "scout"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tStart", "tPatrol"], ["Take the transport to <marker name=""mStart"">Point Cattywampus</marker>!", "Transport to Cattywampus", "Point Cattywampus"], "mStart", false, 19, false, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tPusta", "tPatrol"], ["Patrol through <marker name=""mPusta"">Pusta</marker> and scout the area!", "Patrol to Pusta", "Pusta"], "mPusta", false, 18, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, ["tNight1", "tPatrol"], ["Patrol to <marker name=""mNight1"">Point Doohickey</marker> and camp the night there!", "Camp at Doohickey", "Doohickey"], "mNight1", false, 17, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, ["tCheckpoint", "tPatrol"], ["Patrol to <marker name=""mCDFCheckpoint"">CDF Checkpoint Babushka</marker> and check in with the guard there!", "Patrol to Checkpoint Babushka", "CDF Checkpoint Babushka"], "mCDFCheckpoint", false, 16, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, ["tNight1", "tPatrol"], ["Patrol to <marker name=""mNight1"">Point Doohickey</marker> and camp the night there!", "Camp at Doohickey", "Point Doohickey"], "mNight1", false, 17, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, ["tCheckpoint", "tPatrol"], ["Patrol to <marker name=""mCDFCheckpoint"">CDF Checkpoint Babushka</marker> and check in with the guard there!", "Patrol to Babushka", "CDF Checkpoint Babushka"], "mCDFCheckpoint", false, 16, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 // Defend
 [west, ["tNight2", "tPatrol"], ["Patrol to <marker name=""mNight2"">Point Flabbergast</marker> and camp until night there!", "Camp at Flabbergast", "Point Flabbergast"], "mNight2", false, 15, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tOP1", "tPatrol"], ["Patrol to <marker name=""mOP1"">Point Flibbertigibbet</marker> and scout the area!", "Patrol to Flibbertigibbet", "Point Flibbertigibbet"], "mOP1", false, 14, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
@@ -25,7 +25,7 @@
 [west, ["tRadio", "tContact"], ["Commander's intent: maintain radio silence to command while patrolling in the <marker name=""mAO"">AO</marker>! Only report on very important situations.", "Radio Silence", ""], nil, false, 6, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Objects
-private _exScenes = ["tulga"]; // "checkpoint", "op1", "tulga"
+private _exScenes = []; // "checkpoint", "op1", "tulga", "end"
 {
 	private _scene = _x getVariable ["IP_Scene", ""];
 	if ((_scene != "") && {!(_scene in _exScenes)}) then {
@@ -36,26 +36,25 @@ private _exScenes = ["tulga"]; // "checkpoint", "op1", "tulga"
 	};
 } forEach (allMissionObjects "All");
 
-/* Mission Flow
-Drive to Start
-Patrol to Pusta
-Find Dead Civies
-Patrol to Camp1
-Next Noon --> Rain
-Enemies depending on Radio Message
-Patrol to Checkpoint
-Attack on Checkpoint
-Patrol to Camp2
-Stragglers in the Woods
-Disarm / Explode Mines --> Attack based on explosion
-Middle of Night --> Clear
-Patrol to OP1 --> Something to See
-Patrol to OP2 --> Arty to See
-Clear Tulga, Destroy Arty --> Helicopter Attack --> Dig In
-Next Morning --> Foggy / Sunrise?
-Ambush Enemies / Defend
-Escape / Exfil
-End
+/*
+IP_Briefing = true;
+IP_Go = true;
+IP_Start = true;
+IP_Pusta = true;
+IP_Night1 = true;
+IP_Checkpoint = true;
+IP_DefendCheckpoint = true;
+IP_Night2 = true;
+IP_OP1 = true;
+IP_OP2 = true;
+IP_Tulga = true;
+IP_Night3 = true;
+IP_DefendTulga = true;
+IP_End = true;
+/////////////////////////////
+IP_Contact = true;
+IP_CarTaken = true;
+IP_RadioSilenceBroken = true;
 */
 [] spawn {
 	private _completeTask = {
@@ -70,7 +69,7 @@ End
 	"tBriefing" call _completeTask;
 
 	// Drive to Start
-	waitUntil {!(isNil "IP_Start")};
+	waitUntil {!(isNil "IP_Go") && !(isNil "IP_Start")};
 	"tStart" call _completeTask;
 
 	// Patrol to Pusta
@@ -101,6 +100,8 @@ End
 	[0] call BIS_fnc_setOvercast;
 	0 setRain 0;
 	forceWeatherChange;
+	[(IP_ObjectMap getVariable ["op1", []])] call STAF_fnc_enable;
+	[(IP_ObjectMap getVariable ["tulga", []])] call STAF_fnc_enable;
 	"tNight2" call _completeTask;
 
 	// Patrol to OP1
@@ -125,12 +126,24 @@ End
 
 	waitUntil {!(isNil "IP_Tulga")};
 	"tTulga" call _completeTask;
+	"tArty" call _completeTask;
 	"tNight3" call _cancelTask;
-	// New Task
+	[west, "tDefendTulga", ["Dig in at <marker name=""mTulga"">Tulga</marker> and hold out until morning!", "Defend Tulga", "Tulga"], "mTulga", true, 30, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
-	/*
+	waitUntil {!(isNil "IP_Night3")};
+	[[1997, 9, 20, 7, 0], true, true] call BIS_fnc_setDate;
+	[0.5, 0.01, 0] call BIS_fnc_setFog;
+
+	waitUntil {!(isNil "IP_DefendTulga")};
+	[(IP_ObjectMap getVariable ["end", []])] call STAF_fnc_enable;
+	"tDefendTulga" call _completeTask;
+	300 setFog [0, 0, 0];
+
+	waitUntil {!(isNil "IP_End")};
+	"tEnd" call _completeTask;
+	"tPatrol" call _completeTask;
 	sleep 10;
-	["STAF_Win"] call BIS_fnc_endMissionServer;*/
+	["STAF_Win"] call BIS_fnc_endMissionServer;
 };
 
 [] spawn {
