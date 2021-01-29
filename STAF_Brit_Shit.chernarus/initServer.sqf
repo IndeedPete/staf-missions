@@ -12,14 +12,13 @@
 [west, ["tPusta", "tPatrol"], ["Patrol through <marker name=""mPusta"">Pusta</marker> and scout the area!", "Patrol to Pusta", "Pusta"], "mPusta", false, 18, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tNight1", "tPatrol"], ["Patrol to <marker name=""mNight1"">Point Doohickey</marker> and camp the night there!", "Camp at Doohickey", "Point Doohickey"], "mNight1", false, 17, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tCheckpoint", "tPatrol"], ["Patrol to <marker name=""mCDFCheckpoint"">CDF Checkpoint Babushka</marker> and check in with the guard there!", "Patrol to Babushka", "CDF Checkpoint Babushka"], "mCDFCheckpoint", false, 16, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-// Defend
 [west, ["tNight2", "tPatrol"], ["Patrol to <marker name=""mNight2"">Point Flabbergast</marker> and camp until night there!", "Camp at Flabbergast", "Point Flabbergast"], "mNight2", false, 15, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tOP1", "tPatrol"], ["Patrol to <marker name=""mOP1"">Point Flibbertigibbet</marker> and scout the area!", "Patrol to Flibbertigibbet", "Point Flibbertigibbet"], "mOP1", false, 14, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tOP2", "tPatrol"], ["Patrol to <marker name=""mOP2"">Point Gobbledygook</marker> and scout the area!", "Patrol to Gobbledygook", "Point Gobbledygook"], "mOP2", false, 13, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tTulga", "tPatrol"], ["Patrol through <marker name=""mTulga"">Tulga</marker> and scout the area!", "Patrol to Tulga", "Tulga"], "mTulga", false, 12, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tNight3", "tPatrol"], ["Patrol to <marker name=""mNight3"">Point Hoosegow</marker> and camp the night there!", "Camp at Hoosegow", "Point Hoosegow"], "mNight3", false, 11, false, "backpack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tEnd", "tPatrol"], ["Patrol to <marker name=""mEnd"">Point Swashbuckler</marker> and regroup with friendly units!", "Patrol to Swashbuckler", "Point Swashbuckler"], "mEnd", false, 10, false, "walk"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-[west, "tArty", ["Opportunity target: locate and destroy the enemy artillery assumed to be somewhere in the <marker name=""mAO"">AO</marker>!", "Destroy Artillery", ""], nil, false, 9, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+[west, "tArty", ["Opportunity target: locate and destroy the enemy artillery assumed to be somewhere in the <marker name=""mAO"">AO</marker>!", "Destroy Artillery", ""], nil, false, 13, false, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, "tContact", ["Commander's intent: avoid contact while patrolling in the <marker name=""mAO"">AO</marker>! Exception: engaging the artillery opportunity target.", "Avoid Contact", ""], nil, false, 8, false, "kill"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tCar", "tContact"], ["Commander's intent: avoid using motorised transport while patrolling in the <marker name=""mAO"">AO</marker>!", "Avoid Motorised Transport", ""], nil, false, 7, false, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 [west, ["tRadio", "tContact"], ["Commander's intent: maintain radio silence to command while patrolling in the <marker name=""mAO"">AO</marker>! Only report on very important situations.", "Radio Silence", ""], nil, false, 6, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
@@ -40,6 +39,7 @@ private _exScenes = []; // "checkpoint", "op1", "tulga", "end"
 IP_Briefing = true;
 IP_Go = true;
 IP_Start = true;
+IP_Investigate = true;
 IP_Pusta = true;
 IP_Night1 = true;
 IP_Checkpoint = true;
@@ -72,8 +72,12 @@ IP_RadioSilenceBroken = true;
 	waitUntil {!(isNil "IP_Go") && !(isNil "IP_Start")};
 	"tStart" call _completeTask;
 
+	waitUntil {!(isNil "IP_Investigate")};
+	[west, "tInvestigate", ["Find out what happened at <marker name=""mPusta"">Pusta</marker>!", "Investigate Pusta", "Pusta"], "mPusta", true, 19, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+
 	// Patrol to Pusta
 	waitUntil {!(isNil "IP_Pusta")};
+	"tInvestigate" call _completeTask;
 	"tPusta" call _completeTask;
 
 	// Patrol to Camp1
