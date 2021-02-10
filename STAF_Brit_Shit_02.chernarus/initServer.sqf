@@ -26,7 +26,7 @@
 [west, ["tRadio", "tContact"], ["Commander's intent: maintain radio silence to command while patrolling in the <marker name=""mAO"">AO</marker>! Only report on very important situations.", "Radio Silence", ""], nil, "CANCELED", 6, false, "radio"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Objects
-private _exScenes = ["tulga", "valley"]; // "tulga", "valley", "end"
+private _exScenes = ["tulga", "end", "valley", "msta"]; // "tulga", "end", "valley", "msta"
 {
 	private _scene = _x getVariable ["IP_Scene", ""];
 	if ((_scene != "") && {!(_scene in _exScenes)}) then {
