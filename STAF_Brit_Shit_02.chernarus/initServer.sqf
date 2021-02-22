@@ -1,6 +1,25 @@
+// Functions
+IP_fnc_m_launchFlare = {
+		params [
+		["_where", [], [[], ""]],
+		["_colours", ["F_40mm_Red", "F_40mm_Green", "F_40mm_White", "F_40mm_Yellow"], [[], ""]],
+		["_height", 150, [0]], 
+		"_pos", 
+		"_class", 
+		"_flare"
+	];
+
+	_pos = if (typeName _where == "STRING") then {(getMarkerPos _where)} else {_where};
+	_class = if (typeName _colours == "STRING") then {_colours} else {(_colours call BIS_fnc_selectRandom)};
+	_flare = _class createVehicle [(_pos select 0), (_pos select 1), _height];
+	_flare setVelocity [0, 0, -10];
+
+	_flare
+};
+
 // Markers
-//"mCrater" setMarkerAlpha 0;
-//"mFarm" setMarkerAlpha 0;
+"mAmbush" setMarkerAlpha 0;
+"mAmbushArea" setMarkerAlpha 0;
 
 // Weather
 [0.5, 0.01, 0] call BIS_fnc_setFog;
@@ -43,6 +62,10 @@ IP_OP3 = true;
 IP_Air = true;
 IP_OP4 = true;
 IP_Msta = true;
+IP_Night = true;
+IP_Ambush = true;
+IP_Flares = true;
+IP_End = true;
 */
 [] spawn {
 	private _completeTask = {
@@ -77,70 +100,37 @@ IP_Msta = true;
 	// Patrol to OP4
 	waitUntil {!(isNil "IP_OP4")};
 	"tOP4" call _completeTask;
+	"tValley" call _completeTask;
 	[(IP_ObjectMap getVariable ["msta", []])] call STAF_fnc_enable;
 
 	// Clear Msta
 	waitUntil {!(isNil "IP_Msta")};
 	"tMsta" call _completeTask;
+	[west, "tDefendMsta", ["Dig in for the night and defend <marker name=""mMsta"">Msta</marker> against any counter attack!", "Defend Msta", "Msta"], "mMsta", true, 20, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
-	/*/ Patrol to Checkpoint
-	waitUntil {!(isNil "IP_Checkpoint")};
-	"tCheckpoint" call _completeTask;	
-	[west, "tDefendCheckpoint", ["Help the CDF defending the <marker name=""mCDFCheckpoint"">CDF Checkpoint Babushka</marker>!", "Defend Checkpoint Babushka", "CDF Checkpoint Babushka"], "mCDFCheckpoint", true, 30, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-
-	// Attack on Checkpoint
-	waitUntil {!(isNil "IP_DefendCheckpoint")};
-	"tDefendCheckpoint" call _completeTask;
-
-	// Patrol to Camp2
-	waitUntil {!(isNil "IP_Night2")};
-	[[1997, 9, 20, 0, 0], true, true] call BIS_fnc_setDate;
-	[0, 0, 0] call BIS_fnc_setFog;
+	waitUntil {!(isNil "IP_Night")};
+	[[1997, 9, 21, 2, 24], true, true] call BIS_fnc_setDate;
 	[0] call BIS_fnc_setOvercast;
-	0 setRain 0;
-	forceWeatherChange;
-	[(IP_ObjectMap getVariable ["op1", []])] call STAF_fnc_enable;
-	[(IP_ObjectMap getVariable ["tulga", []])] call STAF_fnc_enable;
-	"tNight2" call _completeTask;
+	sleep 10;
+	"mAmbush" setMarkerAlpha 1;
+	"mAmbushArea" setMarkerAlpha 1;
+	[west, ["tAmbush", "tDefendMsta"], ["Ambush the enemy convoy coming in from the <marker name=""mAmbushArea"">north-western road to Msta</marker>!", "Ambush Enemy Convoy", "Road"], "mAmbushArea", true, 22, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
-	// Patrol to OP1
-	waitUntil {!(isNil "IP_OP1")};
-	"tOP1" call _completeTask;
+	waitUntil {!(isNil "IP_Ambush")};
+	"tAmbush" call _completeTask;
 
-	// Patrol to OP2
-	waitUntil {!(isNil "IP_OP2")};
-	"tOP2" call _completeTask;
-
-	if !("tRadio" call BIS_fnc_taskCompleted) then {
-		"tRadio" call _cancelTask;
+	waitUntil {!(isNil "IP_Flares")};
+	[] spawn {
+		while {IP_Flares} do {
+			private _pos = [["mMstaArea"]] call BIS_fnc_randomPos;
+			[_pos, ["ACE_40mm_Flare_white", "ACE_40mm_Flare_red", "ACE_40mm_Flare_green"]] call IP_fnc_m_launchFlare; 
+			sleep (5 + (random 5));
+		};
 	};
-
-	if !("tCar" call BIS_fnc_taskCompleted) then {
-		"tCar" call _cancelTask;
-	};
-
-	if !("tContact" call BIS_fnc_taskCompleted) then {
-		"tContact" call _cancelTask;
-	};
-
-	waitUntil {!(isNil "IP_Tulga")};
-	"tTulga" call _completeTask;
-	"tArty" call _completeTask;
-	"tNight3" call _cancelTask;
-	[west, "tDefendTulga", ["Dig in at <marker name=""mTulga"">Tulga</marker> and hold out until morning!", "Defend Tulga", "Tulga"], "mTulga", true, 30, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
-
-	waitUntil {!(isNil "IP_Night3")};
-	[[1997, 9, 20, 7, 0], true, true] call BIS_fnc_setDate;
-	[0.5, 0.01, 0] call BIS_fnc_setFog;
-
-	waitUntil {!(isNil "IP_DefendTulga")};
-	[(IP_ObjectMap getVariable ["end", []])] call STAF_fnc_enable;
-	"tDefendTulga" call _completeTask;
-	300 setFog [0, 0, 0];
 
 	waitUntil {!(isNil "IP_End")};
-	"tEnd" call _completeTask;
-	"tPatrol" call _completeTask;
+	"tDefendMsta" call _completeTask;
+	"tTanks" call _completeTask;
 	sleep 10;
-	["STAF_Win"] call BIS_fnc_endMissionServer;*/
+	["STAF_Win"] call BIS_fnc_endMissionServer;
 };
