@@ -1,0 +1,47 @@
+author = "IndeedPete";
+onLoadName = "Taskforce Dry Sand";
+// briefingName = "Delivery Dogs";
+onLoadMission = "At FARP Dry Sand...";
+loadScreen = "picture_small.paa";
+overviewPicture = "picture_small.paa";
+overviewText = "";
+disabledAI = 1;
+enableDebugConsole = 1;
+
+respawnOnStart = -1;
+allowFunctionsRecompile = 1;
+
+class Header 
+{
+	gameType = COOP;
+	minPlayers = 2;
+	maxPlayers = 32;
+};
+
+class CfgRemoteExec
+{
+	// List of script functions allowed to be sent from client via remoteExec
+	class Functions
+	{
+		mode = 2;
+		jip = 1;		
+		
+		class vcm_serverask { allowedTargets = 0;jip = 1; };
+		class VCM_PublicScript { allowedTargets = 0;jip = 1; };
+		class SpawnScript { allowedTargets = 0;jip = 1; };
+		class enableSimulationGlobal { allowedTargets = 0;jip = 1; };
+		class VCM_fnc_KnowAbout { allowedTargets = 0;jip = 1; };	
+	};	
+};
+
+class CfgDebriefing
+{  
+	class STAF_Win
+	{
+		picture = "i_recon";
+		pictureBackground = "picture_small.paa";
+		pictureColor[] = {0,1,0,0.8};
+		title = "Mission Accomplished!";
+		subtitle = "Home in time for some toad in the hole!";
+	};
+};
