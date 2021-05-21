@@ -26,7 +26,7 @@ IP_fnc_m_completeTask = {
 };
 
 // Markers
-{_x setMarkerAlpha 0} forEach ["mPolice", "mInjured", "mMines"];
+{_x setMarkerAlpha 0} forEach ["mPolice", "mInjured", "mMines", "mAACaches", "mAACachesArr", "mWreck", "mAmbush1", "mAmbush2"];
 
 // Weather
 // [0.5, 0.01, 0] call BIS_fnc_setFog;
@@ -35,7 +35,7 @@ IP_fnc_m_completeTask = {
 [independent, "tPatrol", ["Conduct an air patrol in the <marker name=""mAO"">AO</marker> and stand-by for additional tasks!", "Patrol", ""], nil, true, 0, false, "heli"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Objects
-private _exScenes = ["end"]; // "end", "arrest", "mine", "supply"
+private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "wreck"
 {
 	private _scene = _x getVariable ["IP_Scene", ""];
 	if ((_scene != "") && {!(_scene in _exScenes)}) then {
@@ -70,6 +70,7 @@ private _exScenes = ["end"]; // "end", "arrest", "mine", "supply"
 };
 
 // Injured
+// [_this, true] call ace_medical_fnc_setUnconscious;
 [] spawn {
 	waitUntil {!(isNil "IP_InjuredStart")};
 	[independent, ["tInjured", "tPatrol"], ["Evacuate the injured civilian to the <marker name=""mHospital"">Kavala Hospital</marker>!", "Evacuate Civilian", "Kavala Hospital"], "mHospital", true, 88, true, "heal"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
@@ -91,7 +92,7 @@ private _exScenes = ["end"]; // "end", "arrest", "mine", "supply"
 // Mortar
 [] spawn {
 	waitUntil {!(isNil "IP_MortarStart")};
-	[independent, ["tMortar", "tPatrol"], ["Locate and destroy the enemy mortar attacking <marker name=""mOutpostBig"">Outpost Greatview</marker>!", "Locate & Destroy Mortar", "Outpost Greatview"], nil, true, 78, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[independent, ["tMortar", "tPatrol"], ["Locate and destroy the enemy mortar attacking <marker name=""mOutpostBig"">Outpost Greatview</marker>!", "Locate and Destroy Mortar", "Outpost Greatview"], nil, true, 78, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 	waitUntil {!(isNil "IP_MortarEnd")};
 	"tMortar" call IP_fnc_m_completeTask;
@@ -107,12 +108,24 @@ private _exScenes = ["end"]; // "end", "arrest", "mine", "supply"
 };
 
 // CASEVAC
+// [_this, true] call ace_medical_fnc_setUnconscious;
 [] spawn {
 	waitUntil {!(isNil "IP_CasevacStart")};
-	[independent, ["tCasevac", "tPatrol"], ["Provide CASEVAC for <marker name=""mOutpostSmall"">Outpost Smallview</marker> and transport casualties back to <marker name=""respawn_guerrila"">FARP Dry Sand</marker>!", "CASEVAC Outpost Smallview", "Outpost Smallview"], "mOutpostSmall", true, 74, true, "heal"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[independent, ["tCasevac", "tPatrol"], ["Provide CASEVAC for <marker name=""mOutpostSmall"">Outpost Smallview</marker> and transport casualties to the <marker name=""mAAFHQ"">AAF HQ</marker>!", "CASEVAC Outpost Smallview", "Outpost Smallview"], "mOutpostSmall", true, 74, true, "heal"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 	waitUntil {!(isNil "IP_CasevacEnd")};
 	"tCasevac" call IP_fnc_m_completeTask;
+};
+
+// AA Cache
+[] spawn {
+	waitUntil {!(isNil "IP_AACachesStart")};
+	[independent, ["tAACaches", "tPatrol"], ["Locate and destroy all FIA AA launcher caches <marker name=""mAACaches"">in the North</marker>!", "Destroy AA Caches", "AA Caches"], "mAACaches", true, 72, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_ObjectMap getVariable ["aaCache", []])] call STAF_fnc_enable;
+	{_x setMarkerAlpha 1} forEach ["mAACaches", "mAACachesArr"];
+
+	waitUntil {!(isNil "IP_AACachesEnd")};
+	"tAACaches" call IP_fnc_m_completeTask;
 };
 
 // End
