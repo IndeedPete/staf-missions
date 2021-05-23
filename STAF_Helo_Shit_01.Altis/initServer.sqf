@@ -26,7 +26,7 @@ IP_fnc_m_completeTask = {
 };
 
 // Markers
-{_x setMarkerAlpha 0} forEach ["mPolice", "mInjured", "mMines", "mAACaches", "mAACachesArr", "mWreck", "mAmbush1", "mAmbush2"];
+{_x setMarkerAlpha 0} forEach ["mPolice", "mInjured", "mMines", "mAACaches", "mAACachesArr", "mWreck", "mWreckArr", "mDeal", "mDealArr", "mAmbush1", "mAmbush2"];
 
 // Weather
 // [0.5, 0.01, 0] call BIS_fnc_setFog;
@@ -35,7 +35,7 @@ IP_fnc_m_completeTask = {
 [independent, "tPatrol", ["Conduct an air patrol in the <marker name=""mAO"">AO</marker> and stand-by for additional tasks!", "Patrol", ""], nil, true, 0, false, "heli"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Objects
-private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "wreck"
+private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "wreck", "follow", "deal"
 {
 	private _scene = _x getVariable ["IP_Scene", ""];
 	if ((_scene != "") && {!(_scene in _exScenes)}) then {
@@ -120,12 +120,44 @@ private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "
 // AA Cache
 [] spawn {
 	waitUntil {!(isNil "IP_AACachesStart")};
-	[independent, ["tAACaches", "tPatrol"], ["Locate and destroy all FIA AA launcher caches <marker name=""mAACaches"">in the North</marker>!", "Destroy AA Caches", "AA Caches"], "mAACaches", true, 72, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[independent, ["tAACaches", "tPatrol"], ["Locate and destroy all FIA AA launcher caches <marker name=""mAACaches"">in the North</marker>!", "Locate and Destroy AA Caches", "AA Caches"], "mAACaches", true, 72, true, "destroy"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 	[(IP_ObjectMap getVariable ["aaCache", []])] call STAF_fnc_enable;
 	{_x setMarkerAlpha 1} forEach ["mAACaches", "mAACachesArr"];
 
 	waitUntil {!(isNil "IP_AACachesEnd")};
 	"tAACaches" call IP_fnc_m_completeTask;
+};
+
+// Wreck
+[] spawn {
+	waitUntil {!(isNil "IP_WreckStart")};
+	[independent, ["tWreck", "tPatrol"], ["An AH-1Z went down somewhere <marker name=""mWreck"">in the Limni Swamp</marker>. Locate and destroy the wreck! Evacuate the crew if possible!", "Locate and Destroy AH-1Z Wreck", "Limni Swamp"], "mWreck", true, 70, true, "search"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_ObjectMap getVariable ["wreck", []])] call STAF_fnc_enable;
+	{_x setMarkerAlpha 1} forEach ["mWreck", "mWreckArr"];
+	{_x setDamage 1} forEach [IP_Pilot1, IP_Pilot2];
+
+	waitUntil {!(isNil "IP_WreckEnd")};
+	"tWreck" call IP_fnc_m_completeTask;
+};
+
+// Follow & Deal
+[] spawn {
+	waitUntil {!(isNil "IP_FollowStart")};
+	[independent, ["tFollow", "tPatrol"], ["Locate the smuggler in a white truck <marker name=""mBorder"">near the Border</marker> and follow him without being spotted!", "Locate and Follow Smuggler", "Border"], "mBorder", true, 68, true, "car"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_ObjectMap getVariable ["follow", []])] call STAF_fnc_enable;
+	
+	waitUntil {!(isNil "IP_FollowEnd")};
+	"tFollow" call IP_fnc_m_completeTask;
+
+	//waitUntil {!(isNil "IP_DealStart")};
+	[independent, ["tDealHotel", "tPatrol"], ["Secure the <marker name=""mDeal"">Ghost Hotel</marker>!", "Secure Ghost Hotel", "Ghost Hotel"], "mDeal", true, 66, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[independent, ["tDealCars", "tPatrol"], ["Stop all vehicles leaving the <marker name=""mDeal"">Ghost Hotel</marker>!", "Stop Vehicles", "Ghost Hotel"], "mDeal", true, 64, true, "attack"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_ObjectMap getVariable ["deal", []])] call STAF_fnc_enable;
+	{_x setMarkerAlpha 1} forEach ["mDeal", "mDealArr"];
+
+	waitUntil {!(isNil "IP_DealEnd")};
+	"tDealHotel" call IP_fnc_m_completeTask;
+	"tDealCars" call IP_fnc_m_completeTask;
 };
 
 // End
