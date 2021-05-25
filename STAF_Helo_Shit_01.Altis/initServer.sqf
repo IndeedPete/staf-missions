@@ -26,7 +26,7 @@ IP_fnc_m_completeTask = {
 };
 
 // Markers
-{_x setMarkerAlpha 0} forEach ["mPolice", "mInjured", "mMines", "mAACaches", "mAACachesArr", "mWreck", "mWreckArr", "mDeal", "mDealArr", "mAmbush1", "mAmbush2"];
+{_x setMarkerAlpha 0} forEach ["mPolice", "mInjured", "mMines", "mAACaches", "mAACachesArr", "mWreck", "mWreckArr", "mDeal", "mDealArr", "mDepot", "mPrivateAirfield", "mAmbush1", "mAmbush2"];
 
 // Weather
 // [0.5, 0.01, 0] call BIS_fnc_setFog;
@@ -35,7 +35,7 @@ IP_fnc_m_completeTask = {
 [independent, "tPatrol", ["Conduct an air patrol in the <marker name=""mAO"">AO</marker> and stand-by for additional tasks!", "Patrol", ""], nil, true, 0, false, "heli"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
 
 // Objects
-private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "wreck", "follow", "deal"
+private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "wreck", "follow", "deal", "depot"
 {
 	private _scene = _x getVariable ["IP_Scene", ""];
 	if ((_scene != "") && {!(_scene in _exScenes)}) then {
@@ -158,6 +158,20 @@ private _exScenes = ["end"]; // "end", "arrest", "mine", "supply", "aaCaches", "
 	waitUntil {!(isNil "IP_DealEnd")};
 	"tDealHotel" call IP_fnc_m_completeTask;
 	"tDealCars" call IP_fnc_m_completeTask;
+};
+
+// Depot
+[] spawn {
+	waitUntil {!(isNil "IP_DepotStart")};
+	[independent, ["tDepot", "tPatrol"], ["Secure and establish a perimeter around the <marker name=""mDepot"">Abandoned Depot</marker>!", "Secure and Hold Abandoned Depot", "Abandoned Depot"], "mDepot", true, 62, true, "defend"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[independent, ["tVIP", "tPatrol"], ["Pick-up the VIP at the <marker name=""mPrivateAirfield"">Private Airfield</marker> and transport him to the <marker name=""mDepot"">Abandoned Depot</marker>!", "Transport VIP to Depot", "Private Airfield"], "mPrivateAirfield", true, 60, true, "heli"] remoteExecCall ["BIS_fnc_taskCreate", 0, true];
+	[(IP_ObjectMap getVariable ["depot", []])] call STAF_fnc_enable;
+	{_x setMarkerAlpha 1} forEach ["mDepot", "mPrivateAirfield"];
+	IP_VIP allowDamage false;
+
+	waitUntil {!(isNil "IP_DepotEnd")};
+	"tDepot" call IP_fnc_m_completeTask;
+	"tVIP" call IP_fnc_m_completeTask;
 };
 
 // End
